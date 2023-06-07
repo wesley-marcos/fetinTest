@@ -145,28 +145,27 @@ class _HomeState extends State<Home> {
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      primary: Colors.blue,
-                      //splashFactory: NoSplash.splashFactory,
-                      elevation: 10,
-                      fixedSize: Size(100, 50),
-                      side: BorderSide(color: Colors.black12),
-                      shape: BeveledRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)
-                        //RoundedRectangleBorder
-                      )),
-                  onPressed: (){
+                    primary: Colors.blue,
+                    elevation: 10,
+                    fixedSize: Size(230, 50),
+                    side: BorderSide(color: Colors.black12),
+                    shape: BeveledRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  onPressed: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Output()));
+                      context,
+                      MaterialPageRoute(builder: (context) => Output()),
+                    );
                   },
-
                   child: const Text(
                     "Próximo",
                     style: TextStyle(
-                        fontSize: 22,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
+                      fontSize: 22,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ],
