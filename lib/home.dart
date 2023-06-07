@@ -219,31 +219,6 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       const Padding(padding: EdgeInsets.all(5)),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Text("${listCriteria.alternativeNames[0]}"),
-                      TextFormField(
-                        keyboardType: TextInputType.name,
-                        controller: nomeInput,
-                        decoration: const InputDecoration(
-                          labelText: 'Nota',
-                        ),
-                      ),
-                      const Padding(padding: EdgeInsets.all(5)),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Text("${listCriteria.alternativeNames[1]}"),
-                      TextFormField(
-                        keyboardType: TextInputType.name,
-                        controller: nomeInput,
-                        decoration: const InputDecoration(
-                          labelText: 'Nome',
-                        ),
-                      ),
-                      const Padding(padding: EdgeInsets.all(5)),
-                      const Padding(padding: EdgeInsets.all(5)),
                     ],
                   ),
                 ),
