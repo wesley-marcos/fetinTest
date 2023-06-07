@@ -47,8 +47,8 @@ class _HomeState extends State<Home> {
             decoration: BoxDecoration(
                 gradient: LinearGradient(
               colors: [
-                AppColors.DeepSkyBlue,
-                AppColors.LightSkyBlue,
+                AppColors.deepSkyBlue,
+                AppColors.lightSkyBlue,
                 AppColors.lightBlue,
               ],
               begin: Alignment.bottomCenter,
@@ -138,11 +138,10 @@ class _HomeState extends State<Home> {
                 //   },
                 // ),
                 Text("Tamanho do array: ${list.criteria.length}"),
-                Text(
-                    "Nome: ${list.alternativeNames.length}, \n"
-                        "Peso: ${list.alternativeNames.toString()} \n"
-                        //"Nome: ${list.criteria.take(1)}"
-                ),
+                Text("Nome: ${list.alternativeNames.length}, \n"
+                    "Peso: ${list.alternativeNames.toString()} \n"
+                    //"Nome: ${list.criteria.take(1)}"
+                    ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     primary: Colors.blue,
@@ -212,7 +211,6 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       const Padding(padding: EdgeInsets.all(5)),
-
                       TextFormField(
                         keyboardType: TextInputType.number,
                         controller: pesoInput,
@@ -221,7 +219,9 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       const Padding(padding: EdgeInsets.all(5)),
-                      SizedBox(height: 30,),
+                      SizedBox(
+                        height: 30,
+                      ),
                       Text("${listCriteria.alternativeNames[0]}"),
                       TextFormField(
                         keyboardType: TextInputType.name,
@@ -231,7 +231,9 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       const Padding(padding: EdgeInsets.all(5)),
-                      SizedBox(height: 30,),
+                      SizedBox(
+                        height: 30,
+                      ),
                       Text("${listCriteria.alternativeNames[1]}"),
                       TextFormField(
                         keyboardType: TextInputType.name,
@@ -241,7 +243,6 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       const Padding(padding: EdgeInsets.all(5)),
-
                       const Padding(padding: EdgeInsets.all(5)),
                     ],
                   ),
