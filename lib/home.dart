@@ -221,26 +221,15 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       const Padding(padding: EdgeInsets.all(5)),
+
                       SizedBox(height: 30,),
-                      Text("${listCriteria.alternativeNames[0]}"),
-                      TextFormField(
-                        keyboardType: TextInputType.name,
-                        controller: nomeInput,
-                        decoration: const InputDecoration(
-                          labelText: 'Nota',
-                        ),
+
+                      OutlinedButton(
+                          onPressed: (){
+                            createCardAlternatives(context);
+                          },
+                          child: Text('Inserir Notas'),
                       ),
-                      const Padding(padding: EdgeInsets.all(5)),
-                      SizedBox(height: 30,),
-                      Text("${listCriteria.alternativeNames[1]}"),
-                      TextFormField(
-                        keyboardType: TextInputType.name,
-                        controller: nomeInput,
-                        decoration: const InputDecoration(
-                          labelText: 'Nome',
-                        ),
-                      ),
-                      const Padding(padding: EdgeInsets.all(5)),
 
                       const Padding(padding: EdgeInsets.all(5)),
                     ],
@@ -270,5 +259,41 @@ class _HomeState extends State<Home> {
             ),
           );
         });
+  }
+
+  void createCardAlternatives(context){
+
+    TextEditingController nomeInput = TextEditingController();
+    TextEditingController pesoInput = TextEditingController();
+    int index = 0;
+    Criteria listCriteria = Provider.of<Criteria>(context, listen: false);
+
+    for(index = 0; index < listCriteria.alternativeNames.length; index++)
+      Form(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+
+            SizedBox(height: 30,),
+
+            Text("${listCriteria.alternativeNames[index]}"),
+
+            TextFormField(
+              keyboardType: TextInputType.name,
+              controller: nomeInput,
+              decoration: const InputDecoration(
+                labelText: 'Nota',
+              ),
+            ),
+            const Padding(padding: EdgeInsets.all(5)),
+
+            SizedBox(height: 30,),
+
+            const Padding(padding: EdgeInsets.all(5)),
+
+          ],
+        ),
+      );
+    //}
   }
 }
