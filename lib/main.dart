@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hash_test/alternatives_input.dart';
 import 'package:hash_test/components/alternatives.dart';
 import 'package:hash_test/components/criteria.dart';
 import 'package:hash_test/components/criterion.dart';
@@ -11,7 +12,7 @@ void main() {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => Alternatives(alternatives: [])),
-      ChangeNotifierProvider(create: (context) => Criteria(criteria: []))
+      ChangeNotifierProvider(create: (context) => Criteria(criteria: [], alternativeNames: []))
     ],
     child: const MyApp(),
   ));
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       //color: AppColors.purple,
-      home: Home(),
+      home: InputAlternatives(),
     );
   }
 }

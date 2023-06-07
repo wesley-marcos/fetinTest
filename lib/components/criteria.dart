@@ -6,8 +6,9 @@ import 'package:hash_test/components/criterion.dart';
 
 class Criteria extends ChangeNotifier {
   List<Criterion> criteria;
+  List<String> alternativeNames;
 
-  Criteria({required this.criteria});
+  Criteria({required this.criteria, required this.alternativeNames});
 
   void add(String nome, double peso, List<Alternative> alternativas) {
     criteria.add(Criterion(
@@ -20,6 +21,11 @@ class Criteria extends ChangeNotifier {
 
   void remove(int index) {
     criteria.remove(index);
+    notifyListeners();
+  }
+
+  void addName(String nome){
+    alternativeNames.add(nome);
     notifyListeners();
   }
 }

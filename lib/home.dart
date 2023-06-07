@@ -139,8 +139,8 @@ class _HomeState extends State<Home> {
                 // ),
                 Text("Tamanho do array: ${list.criteria.length}"),
                 Text(
-                    "Nome: ${list.criteria.first.criterionName}, \n"
-                        "Peso: ${list.criteria.first.weight} \n"
+                    "Nome: ${list.alternativeNames.length}, \n"
+                        "Peso: ${list.alternativeNames.toString()} \n"
                         //"Nome: ${list.criteria.take(1)}"
                 ),
                 ElevatedButton(
@@ -188,7 +188,7 @@ class _HomeState extends State<Home> {
   void createCriteria(context) {
     TextEditingController nomeInput = TextEditingController();
     TextEditingController pesoInput = TextEditingController();
-
+    int index = 0;
     Criteria listCriteria = Provider.of<Criteria>(context, listen: false);
 
     showDialog(
@@ -220,6 +220,28 @@ class _HomeState extends State<Home> {
                           labelText: 'Peso',
                         ),
                       ),
+                      const Padding(padding: EdgeInsets.all(5)),
+                      SizedBox(height: 30,),
+                      //Text("${list.}"),
+                      TextFormField(
+                        keyboardType: TextInputType.name,
+                        controller: nomeInput,
+                        decoration: const InputDecoration(
+                          labelText: 'Nota',
+                        ),
+                      ),
+                      const Padding(padding: EdgeInsets.all(5)),
+                      SizedBox(height: 30,),
+                      Text("Alternativa 2"),
+                      TextFormField(
+                        keyboardType: TextInputType.name,
+                        controller: nomeInput,
+                        decoration: const InputDecoration(
+                          labelText: 'Nome',
+                        ),
+                      ),
+                      const Padding(padding: EdgeInsets.all(5)),
+
                       const Padding(padding: EdgeInsets.all(5)),
                     ],
                   ),
