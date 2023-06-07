@@ -35,7 +35,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Alternativas",
+          "Critérios",
           style: TextStyle(fontSize: 25),
         ),
         centerTitle: true,

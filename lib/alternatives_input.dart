@@ -125,6 +125,15 @@ class _InputAlternativesState extends State<InputAlternatives> {
                             decoration: BoxDecoration(
                               color: color,
                               borderRadius: BorderRadius.circular(20),
+                              border: Border.all(color: Colors.black12),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.15),
+                                  blurRadius: 5.0,
+                                  spreadRadius: 2.0,
+                                  offset: Offset(0, 3), // ajuste a posição vertical da sombra conforme necessário
+                                ),
+                              ],
                             ),
                             child: ListTile(
                               title: Text(
@@ -162,9 +171,8 @@ class _InputAlternativesState extends State<InputAlternatives> {
                       onPressed: () {
                         // Validar se há pelo menos 2 alternativas
                         if (Provider.of<Criteria>(context, listen: false)
-                                .alternativeNames
-                                .length <
-                            2) {
+                                .alternativeNames.length < 2)
+                        {
                           showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
