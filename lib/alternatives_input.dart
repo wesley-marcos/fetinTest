@@ -47,9 +47,16 @@ class _InputAlternativesState extends State<InputAlternatives> {
                     actions: [
                       OutlinedButton(
                         style: ButtonStyle(
-                            side: MaterialStateProperty.all<BorderSide>(
-                                const BorderSide(color: Colors.blue))),
-                        child: const Text('Ok'),
+                          side: MaterialStateProperty.all<BorderSide>(
+                            const BorderSide(color: Colors.blue),
+                          ),
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.blue),
+                        ),
+                        child: const Text(
+                          'Ok',
+                          style: TextStyle(color: Colors.white),
+                        ),
                         onPressed: () {
                           Navigator.pop(context);
                         },
@@ -141,7 +148,7 @@ class _InputAlternativesState extends State<InputAlternatives> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
-                        bottom: 20.0, left: 20, right: 35),
+                        bottom: 20.0, left: 20, right: 50),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue,
@@ -153,10 +160,44 @@ class _InputAlternativesState extends State<InputAlternatives> {
                                 Radius.circular(20))),
                       ),
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const Home()),
-                        );
+                        // Validar se há pelo menos 2 alternativas
+                        if (Provider.of<Criteria>(context, listen: false)
+                                .alternativeNames
+                                .length <
+                            2) {
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: const Text("Aviso"),
+                              content: const Text(
+                                  "Adicione pelo menos 2 alternativas antes de prosseguir."),
+                              actions: [
+                                OutlinedButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  style: ButtonStyle(
+                                    side: MaterialStateProperty.all<BorderSide>(
+                                      const BorderSide(color: Colors.blue),
+                                    ),
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.blue),
+                                  ),
+                                  child: const Text(
+                                    "OK",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        } else {
+                          // Navegar para a próxima tela
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Home()),
+                          );
+                        }
                       },
                       child: const Padding(
                         padding: EdgeInsets.only(left: 15.0),
@@ -245,18 +286,15 @@ class _InputAlternativesState extends State<InputAlternatives> {
                 builder: (BuildContext context, Criteria list, Widget? widget) {
                   return OutlinedButton(
                     style: ButtonStyle(
-                      side: MaterialStateProperty.all<BorderSide>(
-                        const BorderSide(
-                            color: Colors.blue), // Define a cor da borda
-                      ),
-                      foregroundColor:
-                          MaterialStateProperty.all<Color>(Colors.blue),
-                      overlayColor: MaterialStateProperty.all<Color>(
-                        Colors.blue.withOpacity(0.2),
-                      ),
-                    ),
+                        side: MaterialStateProperty.all<BorderSide>(
+                          const BorderSide(
+                              color: Colors.blue), // Define a cor da borda
+                        ),
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.blue)),
                     child: const Text(
                       "Salvar",
+                      style: TextStyle(color: Colors.white),
                     ),
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
