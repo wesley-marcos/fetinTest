@@ -9,7 +9,7 @@ class AppColors {
   static const Color border = Color(0xFFE1E1E6);
   static const Color darkBlue = Color(0xff2193b0);
   static const Color white = Color(0xFFFFFFFF);
-  static const Color black = Color(0xFF514766);
+  static const Color naosei = Color(0xFF514766);
   static const Color grey = Color(0xFF6E6680);
   static const Color ciano = Color(0xFF00FFFF);
   static const Color turquesa = Color(0xFF40E0D0);

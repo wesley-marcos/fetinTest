@@ -2,33 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'appColors.dart';
 
-class AppTextStyles{
-
+class AppTextStyles {
   // Style para a frase da tela de login
   static final TextStyle text1 = GoogleFonts.notoSans(
-    color: Colors.black,
-    fontSize: 20,
-    fontWeight: FontWeight.w400
-  );
+      color: Colors.black, fontSize: 20, fontWeight: FontWeight.w400);
 
   // Style para o botão de "Sign Up"
   static final TextStyle signup_text = GoogleFonts.notoSans(
-      color: Colors.black,
-      fontSize: 21,
-      fontWeight: FontWeight.bold
-  );
+      color: Colors.black, fontSize: 21, fontWeight: FontWeight.bold);
 
   // Style para os títulos
   static final TextStyle title = GoogleFonts.notoSans(
-      color: Colors.black,
-      fontSize: 40,
-      fontWeight: FontWeight.bold
-  );
+      color: Colors.black, fontSize: 40, fontWeight: FontWeight.bold);
 
   static final TextStyle title2 = GoogleFonts.notoSans(
-      color: Colors.black,
-      fontSize: 35,
-      fontWeight: FontWeight.bold
+      color: Colors.black, fontSize: 35, fontWeight: FontWeight.bold);
+
+  static final TextStyle title3 = GoogleFonts.notoSans(
+    color: Colors.black,
+    fontSize: 25,
+    fontWeight: FontWeight.bold,
+    shadows: [
+      Shadow(
+        color: Colors.grey.withOpacity(0.5),
+        offset: const Offset(1, 2),
+        blurRadius: 3,
+      )
+    ],
   );
 
   static final TextStyle heading15 = GoogleFonts.notoSans(
@@ -37,10 +37,21 @@ class AppTextStyles{
     fontWeight: FontWeight.w600,
   );
 
+  static final TextStyle heading15Nbold = GoogleFonts.notoSans(
+    color: Colors.black,
+    fontSize: 15,
+    fontWeight: FontWeight.w500,
+  );
+
   static final TextStyle heading16 = GoogleFonts.notoSans(
     color: Colors.black,
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: FontWeight.w600,
+  );
+
+  static final TextStyle heading16_nBold = GoogleFonts.notoSans(
+    color: Colors.black,
+    fontSize: 16,
   );
 
   static final TextStyle bodyWhite = GoogleFonts.notoSans(
@@ -52,12 +63,6 @@ class AppTextStyles{
   static final TextStyle bodybold18 = GoogleFonts.notoSans(
     color: AppColors.white,
     fontSize: 18,
-    fontWeight: FontWeight.bold,
-  );
-
-  static final TextStyle bodybold18Black = GoogleFonts.notoSans(
-    color: AppColors.black,
-    fontSize: 20,
     fontWeight: FontWeight.bold,
   );
 
@@ -74,11 +79,8 @@ class AppTextStyles{
   );
 
   static final TextStyle body20 = GoogleFonts.notoSans(
-    color: AppColors.grey,
-    fontSize: 20,
-    fontWeight: FontWeight.normal,
+    color: Colors.black,
+    fontSize: 22,
+    fontWeight: FontWeight.bold,
   );
-
-
 }
-

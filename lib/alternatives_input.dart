@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:hash_test/basic_templates/app_text_styles.dart';
 import 'package:hash_test/home.dart';
 import 'package:provider/provider.dart';
 
@@ -35,14 +36,22 @@ class _InputAlternativesState extends State<InputAlternatives> {
               showDialog(
                 context: context,
                 builder: (context) => AlertDialog(
-                  title: const Text("Alternativas"),
-                  content:
-                      const Text("Alternativa é toda opção de compra que você "
-                          "tem.\n"
-                          "Exemplo: ao comprar um computador, você tem "
-                          "3 opções, um da marca Acer, um da marca "
-                          "Dell e outro da marca Apple. Essas são as "
-                          "alterntivas de compra."),
+                  title: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text("Alternativas", style: AppTextStyles.title3),
+                  ),
+                  content: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                        "Alternativa é toda opção de escolha que você "
+                        "tem.\n\n"
+                        "Exemplo\nAo comprar um computador, você tem "
+                        "as três alternativas seguintes: um da marca Acer, "
+                        "um da marca "
+                        "Dell e outro da marca Apple.",
+                        textAlign: TextAlign.justify,
+                        style: AppTextStyles.heading16_nBold),
+                  ),
                   actions: [
                     OutlinedButton(
                       style: ButtonStyle(
@@ -179,9 +188,19 @@ class _InputAlternativesState extends State<InputAlternatives> {
                           showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
-                              title: const Text("Aviso"),
-                              content: const Text(
-                                  "Adicione pelo menos 2 alternativas antes de prosseguir."),
+                              title: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Text("Aviso", style: AppTextStyles.title3),
+                              ),
+                              content: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Text(
+                                    "Adicione pelo menos 2 alternativas antes "
+                                        "de "
+                                        "prosseguir.",
+                                    textAlign: TextAlign.justify,
+                                    style: AppTextStyles.heading16_nBold),
+                              ),
                               actions: [
                                 OutlinedButton(
                                   onPressed: () => Navigator.pop(context),
@@ -236,7 +255,7 @@ class _InputAlternativesState extends State<InputAlternatives> {
           createInputAlt(context);
           increment();
         },
-        tooltip: 'Add Criterion',
+        tooltip: 'Add Alternative',
         shape: RoundedRectangleBorder(
           // Define a forma do botão
           borderRadius:

@@ -25,19 +25,6 @@ class _HomeState extends State<Home> {
   final _keyNota2 = GlobalKey<FormFieldState>();
   final _keyNota3 = GlobalKey<FormFieldState>();
 
-  // void Salvar() {
-  //   String name = _name_controller.text;
-  //   int note = int.parse(_note_controller.text);
-  //
-  //   // Consumer<Criteria>(
-  //   //     builder: (BuildContext context, Criteria list, Widget? widget) {
-  //   //       return 0;
-  //   //     });
-  //
-  //   List<int> lista = [];
-  //   lista.add(note);
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,10 +37,19 @@ class _HomeState extends State<Home> {
               showDialog(
                 context: context,
                 builder: (context) => AlertDialog(
-                  title: const Text("Critérios"),
-                  content: const Text("Aqui você entra com o número de "
-                      "critérios que você leva em consideração na hora "
-                      "de tomar sua decisão."),
+                  title: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text("Critérios", style: AppTextStyles.title3),
+                  ),
+                  content: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                        "Aqui você entra com os "
+                        "critérios importantes na hora "
+                        "de tomar sua decisão.",
+                        textAlign: TextAlign.justify,
+                        style: AppTextStyles.heading16_nBold),
+                  ),
                   actions: [
                     OutlinedButton(
                       style: ButtonStyle(
@@ -117,7 +113,7 @@ class _HomeState extends State<Home> {
               begin: Alignment.bottomCenter,
               end: Alignment.topCenter,
             )),
-            padding: const EdgeInsets.only(top: 30, left: 30, right: 30),
+            padding: const EdgeInsets.only(top: 10, left: 30, right: 30),
             alignment: Alignment.center,
             child: Column(
               children: [
@@ -128,69 +124,123 @@ class _HomeState extends State<Home> {
                       final color = index % 2 == 0
                           ? AppColors.deepSkyBlue.withOpacity(0.5)
                           : Colors.white.withOpacity(0.8);
-                      return Dismissible(
-                        key: UniqueKey(),
-                        background: Container(color: Colors.red),
-                        child: Container(
-                          margin: const EdgeInsets.all(10.0),
-                          decoration: BoxDecoration(
-                            color: color,
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(color: Colors.black12),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.15),
-                                blurRadius: 5.0,
-                                spreadRadius: 2.0,
-                                offset: const Offset(0,
-                                    3), // ajuste a posição vertical da sombra conforme necessário
-                              ),
-                            ],
-                          ),
-                          child: ListTile(
-                            title: Text(
-                              "Critério: ${list.criteria[index]}",
-                              style: const TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
-                            ),
+                      final criterion = list.criteria[index];
+                      //final alternative = list.alternatives[index];
+                      return ExpansionTile(
+                        expandedCrossAxisAlignment: CrossAxisAlignment.start,
+                        expandedAlignment: Alignment.center,
+                        title: Text(
+                          "Critério: ${criterion.criterionName}",
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
                           ),
                         ),
-                        onDismissed: (direction) {
-                          list.remove(index);
-                        },
+                        children: [
+                          Text(
+                            "Peso: ${criterion.weight}",
+                            style: AppTextStyles.heading15Nbold,
+                          ),
+                          Text(
+                            "Alternativa: ${criterion.alternatives[0].name}",
+                            style: AppTextStyles.heading15Nbold,
+                          ),
+                          Text(
+                            "Nota: ${criterion.alternatives[0].note}",
+                            style: AppTextStyles.heading15Nbold,
+                          ),
+                          Text(
+                            "Alternativa: ${criterion.alternatives[1].name}",
+                            style: AppTextStyles.heading15Nbold,
+                          ),
+                          Text(
+                            "Nota: ${criterion.alternatives[1].note}",
+                            style: AppTextStyles.heading15Nbold,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                        ],
                       );
                     },
                   ),
                 ),
-                Text("Tamanho do array: ${list.criteria.length}"),
-                Text("Nome: ${list.alternativeNames.length}, \n"
-                    "Peso: ${list.alternativeNames.toString()} \n"
-                    //"Nome: ${list.criteria.take(1)}"
+                SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(bottom: 20.0, left: 20, right: 50),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      elevation: 10,
+                      fixedSize: const Size(230, 50),
+                      side: const BorderSide(color: Colors.black12),
+                      shape: const RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadiusDirectional.all(Radius.circular(20))),
                     ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    elevation: 10,
-                    fixedSize: const Size(230, 50),
-                    side: const BorderSide(color: Colors.black12),
-                    shape: BeveledRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const Output()),
-                    );
-                  },
-                  child: const Text(
-                    "Próximo",
-                    style: TextStyle(
-                      fontSize: 22,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+                    onPressed: () {
+                      // Validar se há pelo menos 2 alternativas
+                      if (Provider.of<Criteria>(context, listen: false)
+                              .criteria
+                              .length <
+                          2) {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Text("Aviso", style: AppTextStyles.title3),
+                            ),
+                            content: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Text(
+                                  "Adicione pelo menos 2 critérios antes de "
+                                  "prosseguir.",
+                                  textAlign: TextAlign.justify,
+                                  style: AppTextStyles.heading16_nBold),
+                            ),
+                            actions: [
+                              OutlinedButton(
+                                onPressed: () => Navigator.pop(context),
+                                style: ButtonStyle(
+                                  side: MaterialStateProperty.all<BorderSide>(
+                                    const BorderSide(color: Colors.blue),
+                                  ),
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          Colors.blue),
+                                ),
+                                child: const Text(
+                                  "OK",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      } else {
+                        // Navegar para a próxima tela
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Output()),
+                        );
+                      }
+                    },
+                    child: const Padding(
+                      padding: EdgeInsets.only(left: 15.0),
+                      child: Text(
+                        "Próximo",
+                        style: TextStyle(
+                          fontSize: 22,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -200,11 +250,18 @@ class _HomeState extends State<Home> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.indigo,
+        elevation: 10,
+        backgroundColor: Colors.blue,
         onPressed: () {
           createCriteria(context);
         },
         tooltip: 'Add Criterion',
+        shape: RoundedRectangleBorder(
+          // Define a forma do botão
+          borderRadius:
+              BorderRadius.circular(35.0), // Define o raio do canto do botão
+          side: const BorderSide(color: Colors.black12), // Define o contorno
+        ),
         child: const Icon(Icons.add),
       ),
     );
@@ -230,7 +287,7 @@ class _HomeState extends State<Home> {
               scrollable: true,
               title: Text(
                 'Cadastrar um novo Critério',
-                style: AppTextStyles.bodybold18Black,
+                style: AppTextStyles.body20,
                 textAlign: TextAlign.center,
               ),
               content: Padding(
@@ -291,34 +348,58 @@ class _HomeState extends State<Home> {
                       const SizedBox(
                         height: 25,
                       ),
-                      for (final alternativeName
-                          in listCriteria.alternativeNames)
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Alternativa: $alternativeName"),
-                            TextFormField(
-                              validator: (String? valor) {
-                                if (valor!.isEmpty) {
-                                  return "Nota Vazia. Favor, preencher!";
-                                } else {
-                                  return null;
-                                }
-                              },
-                              keyboardType: TextInputType.number,
-                              controller: TextEditingController(),
-                              decoration: const InputDecoration(
-                                labelText: 'Nota',
-                              ),
-                              onChanged: (value) {
-                                listCriteria.updateAlternativeNote(
-                                  alternativeName,
-                                  int.parse(value),
-                                );
-                              },
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Alternativa: ${listCriteria.alternativeNames[0]}",
+                            style: AppTextStyles.heading16_nBold,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            validator: (String? valor) {
+                              if (valor!.isEmpty) {
+                                return "Nota Vazia. Favor, preencher!";
+                              } else {
+                                return null;
+                              }
+                            },
+                            key: _keyNota1,
+                            keyboardType: TextInputType.number,
+                            controller: note1Input,
+                            decoration: const InputDecoration(
+                              labelText: 'Nota',
                             ),
-                          ],
-                        ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Text(
+                            "Alternativa: ${listCriteria.alternativeNames[1]}",
+                            style: AppTextStyles.heading16_nBold,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            validator: (String? valor) {
+                              if (valor!.isEmpty) {
+                                return "Nota Vazia. Favor, preencher!";
+                              } else {
+                                return null;
+                              }
+                            },
+                            key: _keyNota2,
+                            keyboardType: TextInputType.number,
+                            controller: note2Input,
+                            decoration: const InputDecoration(
+                              labelText: 'Nota',
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
@@ -330,22 +411,23 @@ class _HomeState extends State<Home> {
                     return TextButton(
                         child: const Text("Salvar"),
                         onPressed: () async {
-                          list.add(
-                              nomeInput.text, double.parse(pesoInput.text), [
-                            Alternative(
-                                name: list.alternativeNames[0],
-                                note: int.parse(note1Input.text)),
-                            Alternative(
-                                name: list.alternativeNames[1],
-                                note: int.parse(note2Input.text))
-                          ]);
-                          for (int i = 0; i < list.criteria.length; i++) {
-                            print(listCriteria.criteria[i]);
+                          if (_keyPeso.currentState!.validate() &
+                              _keyNome.currentState!.validate() &
+                              _keyNota1.currentState!.validate() &
+                              _keyNota2.currentState!.validate()) {
+                            list.add(
+                                nomeInput.text, double.parse(pesoInput.text), [
+                              Alternative(
+                                  name: list.alternativeNames[0],
+                                  note: int.parse(note1Input.text)),
+                              Alternative(
+                                  name: list.alternativeNames[1],
+                                  note: int.parse(note2Input.text))
+                              //listCriteria.alternatives,
+                            ]);
+
+                            Navigator.pop(context);
                           }
-                          Navigator.pop(context);
-                          // if (true) {
-                          //
-                          // }
                         });
                   },
                 ),
