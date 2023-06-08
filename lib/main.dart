@@ -4,6 +4,8 @@ import 'package:hash_test/components/alternatives.dart';
 import 'package:hash_test/components/criteria.dart';
 import 'package:provider/provider.dart';
 
+import 'basic_templates/initial_screen.dart';
+
 void main() {
   runApp(MultiProvider(
     providers: [
@@ -29,7 +31,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       //color: AppColors.purple,
-      home: InputAlternatives(),
+      home: InitialScreen(),
     );
   }
 }

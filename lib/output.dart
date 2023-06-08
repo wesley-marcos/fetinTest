@@ -3,8 +3,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:hash_test/basic_templates/app_text_styles.dart';
+import 'package:hash_test/basic_templates/initial_screen.dart';
 import 'package:hash_test/components/criteria.dart';
 import 'package:provider/provider.dart';
+import 'alternatives_input.dart';
 import 'basic_templates/appColors.dart';
 
 class Output extends StatefulWidget {
@@ -18,7 +20,7 @@ class Output extends StatefulWidget {
 
 class _OutputState extends State<Output> {
   @override
-  //Criteria listCriteria = Provider.of<Criteria>(context, listen: false);
+
   final _name_controller = TextEditingController();
   final _note_controller = TextEditingController();
 
@@ -202,11 +204,97 @@ class _OutputState extends State<Output> {
                     ],
                   ),
                 ),
+
+                const SizedBox(
+                  height: 20,
+                ),
+
+                Container(
+                  alignment: Alignment.center,
+                  height: 150,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        AppColors.peru,
+                        AppColors.chocolate,
+                        AppColors.say,
+                      ],
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
+                    ),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        height: 100,
+                        width: 100,
+                        child: Image.asset("Images/3rd.png"),
+                      ),
+                      SizedBox(
+                        width: 30,
+                      ),
+                      const Text(
+                        "Alternativa: --\nNota: --",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(
+                  height: 100,
+                ),
+
+                Padding(
+                  padding:
+                  const EdgeInsets.only(bottom: 20.0, left: 20, right: 20),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      elevation: 10,
+                      fixedSize: const Size(230, 50),
+                      side: const BorderSide(color: Colors.black12),
+                      shape: const RoundedRectangleBorder(
+                          borderRadius:
+                          BorderRadiusDirectional.all(Radius.circular(20))),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const InitialScreen()),
+                      );
+                    },
+                    child: const Padding(
+                      padding: EdgeInsets.only(left: 15.0, right: 15),
+                      child: Text(
+                        "Home",
+                        style: TextStyle(
+                          fontSize: 22,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           );
         },
       ),
     );
+  }
+
+  void goToPreviousPageAndClear(BuildContext context) {
+    Navigator.popUntil(context, (route) => route.isFirst);
   }
 }

@@ -35,4 +35,16 @@ class Criteria extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  void reset() {
+    for(var i in criteria){
+      if(criteria.isNotEmpty)
+        criteria.remove(i);
+    }
+
+    for(var i in alternativeNames){
+      if(alternativeNames.isNotEmpty)
+        alternativeNames.remove(i);
+    }
+  }
 }

@@ -22,4 +22,8 @@ class AppColors {
   static const Color silver = Color(0xFFC0C0C0);
   static const Color lighsilver = Color(0xFFD3D3D3);
   static const Color gainsboro = Color(0xFFDCDCDC);
+  static const Color peru = Color(0xFFCD853F);
+  static const Color chocolate = Color(0xFFD2691E);
+  static const Color sienna = Color(0xFFA0522D);
+  static const Color say = Color(0xFFF4A460);
 }
