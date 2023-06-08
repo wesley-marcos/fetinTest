@@ -136,8 +136,8 @@ class _InputAlternativesState extends State<InputAlternatives> {
                               ],
                             ),
                             child: ListTile(
-                              title: Text(
-                                list.alternativeNames[index],
+                              title: Text("Alternativa: ${list
+                                  .alternativeNames[index]}",
                                 style: const TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,

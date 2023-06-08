@@ -1,6 +1,6 @@
 class Alternative {
   String name;
-  List<int> note;
+  int note;
 
   Alternative({
     required this.name,
@@ -9,11 +9,11 @@ class Alternative {
 
   factory Alternative.fromMap(Map<String, dynamic> json) => Alternative(
     name: json["name"],
-    note: List<int>.from(json["note"].map((x) => x)),
+    note: json["note"],
   );
 
   Map<String, dynamic> toMap() => {
     "name": name,
-    "note": List<dynamic>.from(note.map((x) => x)),
+    "note": note,
   };
 }
