@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
+import 'package:hash_test/basic_templates/app_text_styles.dart';
 import 'package:hash_test/components/criteria.dart';
 import 'package:provider/provider.dart';
 import 'basic_templates/appColors.dart';
@@ -15,20 +18,88 @@ class Output extends StatefulWidget {
 
 class _OutputState extends State<Output> {
   @override
+  //Criteria listCriteria = Provider.of<Criteria>(context, listen: false);
   final _name_controller = TextEditingController();
   final _note_controller = TextEditingController();
+
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: const Text(
-          "Saída",
-          style: TextStyle(fontSize: 25),
+        actions: [
+          IconButton(
+            color: Colors.white,
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text("Ranking", style: AppTextStyles.title3),
+                  ),
+                  content: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                        "O ranking é definido a partir de um método "
+                            "matemático de decisão multicritério chamado "
+                            "VIKOR. Segundo esse método, a"
+                            " menor nota é a melhor alternativa.",
+                        textAlign: TextAlign.justify,
+                        style: AppTextStyles.heading16_nBold),
+                  ),
+                  actions: [
+                    OutlinedButton(
+                      style: ButtonStyle(
+                        side: MaterialStateProperty.all<BorderSide>(
+                          const BorderSide(color: Colors.blue),
+                        ),
+                        backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.blue),
+                      ),
+                      child: const Text(
+                        'Ok',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                ),
+              );
+            },
+            icon: const Icon(Icons.info_outline_rounded),
+          ),
+        ],
+        backgroundColor: Colors.transparent,
+        iconTheme: const IconThemeData(color: Colors.white),
+        elevation: 0,
+        title: Text(
+          'Ranking',
+          style: TextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.w600,
+            color: Colors.white,
+            shadows: [
+              Shadow(
+                color: Colors.black.withOpacity(0.5),
+                offset: const Offset(1, 2),
+                blurRadius: 3,
+              )
+            ],
+          ),
         ),
         centerTitle: true,
-        backgroundColor: AppColors.dodgerBlue,
+        flexibleSpace: ClipRect(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+            child: Container(color: Colors.transparent),
+          ),
+        ),
       ),
       body: Consumer<Criteria>(
         builder: (BuildContext context, Criteria list, Widget? widget) {
+          final criterion = list.criteria;
           return Container(
             decoration: const BoxDecoration(
                 gradient: LinearGradient(
@@ -45,97 +116,92 @@ class _OutputState extends State<Output> {
             child: ListView(
               children: [
                 const SizedBox(
-                  height: 100,
+                  height: 20,
                 ),
-                TextFormField(
-                  onEditingComplete: () {
-                    String name = _name_controller.text;
-                    list.add(name, 0.2, []);
-                    for (int i = 0; i < list.criteria.length; i++) {
-                      print(list.criteria[i].criterionName);
-                    }
-                  },
-                  controller: _name_controller,
-                  keyboardType: TextInputType.text,
-                  decoration: const InputDecoration(
-                    labelText: "Nome da Alternativa",
-                    labelStyle: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 20),
+
+                Container(
+                  alignment: Alignment.center,
+                  height: 150,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        AppColors.khaki,
+                        AppColors.yellow,
+                        AppColors.gold,
+                      ],
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
+                    ),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        height: 100,
+                        width: 100,
+                        child: Image.asset("Images/1st.png"),
+                      ),
+                      SizedBox(
+                        width: 30,
+                      ),
+                      const Text(
+                        "Alternativa: Asus\nNota: 2.0",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(
-                  width: 20,
-                  height: 100,
-                ),
-                const SizedBox(
-                  width: 20,
-                  height: 100,
-                ),
-                // ElevatedButton(
-                //   onPressed: () {
-                //     Navigator.push(
-                //       context,
-                //       MaterialPageRoute(
-                //         builder: (context) => Output(),
-                //       ),
-                //     );
-                //   },
-                //   //onPressed: Salvar,
-                //   child: const Text(
-                //     "Próximo",
-                //     style: TextStyle(
-                //         fontSize: 22,
-                //         color: Colors.white,
-                //         fontWeight: FontWeight.bold),
-                //   ),
-                // ),
-                // ListView.builder(
-                //   itemCount: list.criteria.length,
-                //   itemBuilder: (context, index) {
-                //     return Dismissible(
-                //       key: UniqueKey(),
-                //       background: Container(color: Colors.red),
-                //       child: ListTile(
-                //         leading: Icon(Icons.email),
-                //         title: Text(list.criteria[index].criterionName +
-                //             ' (' +
-                //             list.criteria[index].weight.toString() +
-                //             ')'),
-                //         iconColor: Colors.indigo,
-                //       ),
-                //       onDismissed: (direction) {
-                //         list.remove(index);
-                //       },
-                //     );
-                //   },
-                // ),
-                Text("Tamanho do array: ${list.criteria.length}"),
-                Text("Nome: ${list.criteria.first.criterionName}, \n"
-                    "Peso: ${list.criteria.first.weight} \n"
-                    "Nome: ${list.criteria.take(1)}"),
 
-                // ElevatedButton(
-                //   style: ElevatedButton.styleFrom(
-                //       primary: Colors.blue,
-                //       //splashFactory: NoSplash.splashFactory,
-                //       elevation: 10,
-                //       fixedSize: Size(100, 50),
-                //       side: BorderSide(color: Colors.black12),
-                //       shape: BeveledRectangleBorder(
-                //           borderRadius: BorderRadius.circular(10)
-                //         //RoundedRectangleBorder
-                //       )),
-                //   onPressed: Salvar,
-                //   child: const Text(
-                //     "Próximo",
-                //     style: TextStyle(
-                //         fontSize: 22,
-                //         color: Colors.white,
-                //         fontWeight: FontWeight.bold),
-                //   ),
-                // ),
+                const SizedBox(
+                  height: 20,
+                ),
+
+                Container(
+                  alignment: Alignment.center,
+                  height: 150,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        AppColors.gainsboro,
+                        AppColors.lighsilver,
+                        AppColors.silver,
+                      ],
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
+                    ),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        height: 100,
+                        width: 100,
+                        child: Image.asset("Images/2nd.png"),
+                      ),
+                      SizedBox(
+                        width: 30,
+                      ),
+                      const Text(
+                        "Alternativa: Acer\nNota: 2.4",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           );

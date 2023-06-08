@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:hash_test/components/alternative.dart';
 import 'package:hash_test/components/criterion.dart';
