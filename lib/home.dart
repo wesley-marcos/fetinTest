@@ -40,7 +40,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Critérios",
           style: TextStyle(fontSize: 25),
         ),
@@ -50,7 +50,7 @@ class _HomeState extends State<Home> {
       body: Consumer<Criteria>(
         builder: (BuildContext context, Criteria list, Widget? widget) {
           return Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 gradient: LinearGradient(
               colors: [
                 AppColors.deepSkyBlue,
@@ -60,13 +60,10 @@ class _HomeState extends State<Home> {
               begin: Alignment.bottomCenter,
               end: Alignment.topCenter,
             )),
-            padding: EdgeInsets.only(top: 30, left: 30, right: 30),
+            padding: const EdgeInsets.only(top: 30, left: 30, right: 30),
             alignment: Alignment.center,
-            child: ListView(
+            child: Column(
               children: [
-                const SizedBox(
-                  height: 100,
-                ),
                 Expanded(
                   child: ListView.builder(
                     itemCount: list.criteria.length,
@@ -88,7 +85,7 @@ class _HomeState extends State<Home> {
                                 color: Colors.black.withOpacity(0.15),
                                 blurRadius: 5.0,
                                 spreadRadius: 2.0,
-                                offset: Offset(0,
+                                offset: const Offset(0,
                                     3), // ajuste a posição vertical da sombra conforme necessário
                               ),
                             ],
@@ -117,10 +114,10 @@ class _HomeState extends State<Home> {
                     ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.blue,
+                    backgroundColor: Colors.blue,
                     elevation: 10,
-                    fixedSize: Size(230, 50),
-                    side: BorderSide(color: Colors.black12),
+                    fixedSize: const Size(230, 50),
+                    side: const BorderSide(color: Colors.black12),
                     shape: BeveledRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -128,7 +125,7 @@ class _HomeState extends State<Home> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Output()),
+                      MaterialPageRoute(builder: (context) => const Output()),
                     );
                   },
                   child: const Text(
@@ -185,14 +182,14 @@ class _HomeState extends State<Home> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Text(
                         "Insira os dados do critério",
                         style: AppTextStyles.heading16,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       TextFormField(
@@ -227,14 +224,14 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       const Padding(padding: EdgeInsets.all(5)),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Text(
                         "Insira as notas",
                         style: AppTextStyles.heading16,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 25,
                       ),
                       Text("Alternativa: ${listCriteria.alternativeNames[0]}"),
@@ -253,7 +250,7 @@ class _HomeState extends State<Home> {
                           labelText: 'Nota',
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Text("Alternativa: ${listCriteria.alternativeNames[1]}"),
