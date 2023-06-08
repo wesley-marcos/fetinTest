@@ -79,7 +79,7 @@ class _HomeState extends State<Home> {
           ),
         ],
         backgroundColor: Colors.transparent,
-        iconTheme: const IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.white),
         elevation: 0,
         title: Text(
           'Criterios',
@@ -291,41 +291,34 @@ class _HomeState extends State<Home> {
                       const SizedBox(
                         height: 25,
                       ),
-                      Text("Alternativa: ${listCriteria.alternativeNames[0]}"),
-                      TextFormField(
-                        validator: (String? valor) {
-                          if (valor!.isEmpty) {
-                            return "Nota Vazia. Favor, preencher!";
-                          } else {
-                            return null;
-                          }
-                        },
-                        key: _keyNota1,
-                        keyboardType: TextInputType.number,
-                        controller: note1Input,
-                        decoration: const InputDecoration(
-                          labelText: 'Nota',
+                      for (final alternativeName
+                          in listCriteria.alternativeNames)
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Alternativa: $alternativeName"),
+                            TextFormField(
+                              validator: (String? valor) {
+                                if (valor!.isEmpty) {
+                                  return "Nota Vazia. Favor, preencher!";
+                                } else {
+                                  return null;
+                                }
+                              },
+                              keyboardType: TextInputType.number,
+                              controller: TextEditingController(),
+                              decoration: const InputDecoration(
+                                labelText: 'Nota',
+                              ),
+                              onChanged: (value) {
+                                listCriteria.updateAlternativeNote(
+                                  alternativeName,
+                                  int.parse(value),
+                                );
+                              },
+                            ),
+                          ],
                         ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Text("Alternativa: ${listCriteria.alternativeNames[1]}"),
-                      TextFormField(
-                        validator: (String? valor) {
-                          if (valor!.isEmpty) {
-                            return "Nota Vazia. Favor, preencher!";
-                          } else {
-                            return null;
-                          }
-                        },
-                        key: _keyNota2,
-                        keyboardType: TextInputType.number,
-                        controller: note2Input,
-                        decoration: const InputDecoration(
-                          labelText: 'Nota',
-                        ),
-                      ),
                     ],
                   ),
                 ),

@@ -8,12 +8,12 @@ class Alternative {
   });
 
   factory Alternative.fromMap(Map<String, dynamic> json) => Alternative(
-    name: json["name"],
-    note: json["note"],
-  );
+        name: json["name"],
+        note: json["note"],
+      );
 
   Map<String, dynamic> toMap() => {
-    "name": name,
-    "note": note,
-  };
+        "name": name,
+        "note": note,
+      };
 }
