@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:hash_test/basic_templates/app_text_styles.dart';
 import 'package:hash_test/components/alternative.dart';
@@ -39,13 +41,68 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: const Text(
-          "Critérios",
-          style: TextStyle(fontSize: 25),
+        actions: [
+          IconButton(
+            color: Colors.white,
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text("Critérios"),
+                  content: const Text("Aqui você entra com o número de "
+                      "critérios que você leva em consideração na hora "
+                      "de tomar sua decisão."),
+                  actions: [
+                    OutlinedButton(
+                      style: ButtonStyle(
+                        side: MaterialStateProperty.all<BorderSide>(
+                          const BorderSide(color: Colors.blue),
+                        ),
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.blue),
+                      ),
+                      child: const Text(
+                        'Ok',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                ),
+              );
+            },
+            icon: const Icon(Icons.info_outline_rounded),
+          ),
+        ],
+        backgroundColor: Colors.transparent,
+        iconTheme: const IconThemeData(color: Colors.black),
+        elevation: 0,
+        title: Text(
+          'Criterios',
+          style: TextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.w600,
+            color: Colors.white,
+            shadows: [
+              Shadow(
+                color: Colors.black.withOpacity(0.5),
+                offset: const Offset(1, 2),
+                blurRadius: 3,
+              )
+            ],
+          ),
         ),
         centerTitle: true,
-        backgroundColor: AppColors.dodgerBlue,
+        flexibleSpace: ClipRect(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+            child: Container(color: Colors.transparent),
+          ),
+        ),
       ),
       body: Consumer<Criteria>(
         builder: (BuildContext context, Criteria list, Widget? widget) {

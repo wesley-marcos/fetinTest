@@ -117,6 +117,7 @@ class _InputAlternativesState extends State<InputAlternatives> {
                         final color = index % 2 == 0
                             ? AppColors.deepSkyBlue.withOpacity(0.5)
                             : Colors.white.withOpacity(0.8);
+                        final alternativeName = list.alternativeNames[index];
                         return Dismissible(
                           key: UniqueKey(),
                           background: Container(color: Colors.red),
@@ -137,8 +138,8 @@ class _InputAlternativesState extends State<InputAlternatives> {
                               ],
                             ),
                             child: ListTile(
-                              title: Text("Alternativa: ${list
-                                  .alternativeNames[index]}",
+                              title: Text(
+                                "Alternativa ${index + 1}: $alternativeName",
                                 style: const TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
