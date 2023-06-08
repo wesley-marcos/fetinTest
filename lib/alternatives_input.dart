@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:hash_test/basic_templates/app_text_styles.dart';
 import 'package:hash_test/home.dart';
 import 'package:provider/provider.dart';
 
@@ -31,41 +30,42 @@ class _InputAlternativesState extends State<InputAlternatives> {
       appBar: AppBar(
         actions: [
           IconButton(
-              color: Colors.white,
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    title: const Text("Alternativas"),
-                    content: const Text(
-                        "Alternativa é toda opção de compra que você "
-                        "tem.\n"
-                        "Exemplo: ao comprar um computador, você tem "
-                        "3 opções, um da marca Acer, um da marca "
-                        "Dell e outro da marca Apple. Essas são as "
-                        "alterntivas de compra."),
-                    actions: [
-                      OutlinedButton(
-                        style: ButtonStyle(
-                          side: MaterialStateProperty.all<BorderSide>(
-                            const BorderSide(color: Colors.blue),
-                          ),
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.blue),
+            color: Colors.white,
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text("Alternativas"),
+                  content:
+                      const Text("Alternativa é toda opção de compra que você "
+                          "tem.\n"
+                          "Exemplo: ao comprar um computador, você tem "
+                          "3 opções, um da marca Acer, um da marca "
+                          "Dell e outro da marca Apple. Essas são as "
+                          "alterntivas de compra."),
+                  actions: [
+                    OutlinedButton(
+                      style: ButtonStyle(
+                        side: MaterialStateProperty.all<BorderSide>(
+                          const BorderSide(color: Colors.blue),
                         ),
-                        child: const Text(
-                          'Ok',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.blue),
                       ),
-                    ],
-                  ),
-                );
-              },
-              icon: const Icon(Icons.info_outline_rounded))
+                      child: const Text(
+                        'Ok',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                ),
+              );
+            },
+            icon: const Icon(Icons.info_outline_rounded),
+          ),
         ],
         backgroundColor: Colors.transparent,
         iconTheme: const IconThemeData(color: Colors.black),
@@ -131,7 +131,8 @@ class _InputAlternativesState extends State<InputAlternatives> {
                                   color: Colors.black.withOpacity(0.15),
                                   blurRadius: 5.0,
                                   spreadRadius: 2.0,
-                                  offset: Offset(0, 3), // ajuste a posição vertical da sombra conforme necessário
+                                  offset: const Offset(0,
+                                      3), // ajuste a posição vertical da sombra conforme necessário
                                 ),
                               ],
                             ),
@@ -171,8 +172,9 @@ class _InputAlternativesState extends State<InputAlternatives> {
                       onPressed: () {
                         // Validar se há pelo menos 2 alternativas
                         if (Provider.of<Criteria>(context, listen: false)
-                                .alternativeNames.length < 2)
-                        {
+                                .alternativeNames
+                                .length <
+                            2) {
                           showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
