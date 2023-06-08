@@ -37,6 +37,12 @@ class AppTextStyles{
     fontWeight: FontWeight.w600,
   );
 
+  static final TextStyle heading16 = GoogleFonts.notoSans(
+    color: Colors.black,
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+  );
+
   static final TextStyle bodyWhite = GoogleFonts.notoSans(
     color: Colors.white,
     fontSize: 12,
@@ -46,6 +52,12 @@ class AppTextStyles{
   static final TextStyle bodybold18 = GoogleFonts.notoSans(
     color: AppColors.white,
     fontSize: 18,
+    fontWeight: FontWeight.bold,
+  );
+
+  static final TextStyle bodybold18Black = GoogleFonts.notoSans(
+    color: AppColors.black,
+    fontSize: 20,
     fontWeight: FontWeight.bold,
   );
 

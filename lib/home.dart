@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hash_test/basic_templates/app_text_styles.dart';
+import 'package:hash_test/components/alternative.dart';
 import 'package:hash_test/components/criteria.dart';
 import 'package:hash_test/components/criterion.dart';
 import 'package:provider/provider.dart';
@@ -14,21 +16,25 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final _name_controller = TextEditingController();
-  final _note_controller = TextEditingController();
+  // Definindo as 'Keys' utilizadas
+  final _keyNome = GlobalKey<FormFieldState>();
+  final _keyPeso = GlobalKey<FormFieldState>();
+  final _keyNota1 = GlobalKey<FormFieldState>();
+  final _keyNota2 = GlobalKey<FormFieldState>();
+  final _keyNota3 = GlobalKey<FormFieldState>();
 
-  void Salvar() {
-    String name = _name_controller.text;
-    int note = int.parse(_note_controller.text);
-
-    // Consumer<Criteria>(
-    //     builder: (BuildContext context, Criteria list, Widget? widget) {
-    //       return 0;
-    //     });
-
-    List<int> lista = [];
-    lista.add(note);
-  }
+  // void Salvar() {
+  //   String name = _name_controller.text;
+  //   int note = int.parse(_note_controller.text);
+  //
+  //   // Consumer<Criteria>(
+  //   //     builder: (BuildContext context, Criteria list, Widget? widget) {
+  //   //       return 0;
+  //   //     });
+  //
+  //   List<int> lista = [];
+  //   lista.add(note);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -61,82 +67,49 @@ class _HomeState extends State<Home> {
                 const SizedBox(
                   height: 100,
                 ),
-                TextFormField(
-                  onEditingComplete: () {
-                    String name = _name_controller.text;
-                    list.add(name, 0.2, []);
-                    for (int i = 0; i < list.criteria.length; i++) {
-                      print(list.criteria[i].criterionName);
-                    }
-                  },
-                  controller: _name_controller,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    labelText: "Nome da Alternativa",
-                    labelStyle: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 20),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: list.criteria.length,
+                    itemBuilder: (context, index) {
+                      final color = index % 2 == 0
+                          ? AppColors.deepSkyBlue.withOpacity(0.5)
+                          : Colors.white.withOpacity(0.8);
+                      return Dismissible(
+                        key: UniqueKey(),
+                        background: Container(color: Colors.red),
+                        child: Container(
+                          margin: const EdgeInsets.all(10.0),
+                          decoration: BoxDecoration(
+                            color: color,
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(color: Colors.black12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.15),
+                                blurRadius: 5.0,
+                                spreadRadius: 2.0,
+                                offset: Offset(0,
+                                    3), // ajuste a posição vertical da sombra conforme necessário
+                              ),
+                            ],
+                          ),
+                          child: ListTile(
+                            title: Text(
+                              "Critério: ${list.criteria[index]}",
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20),
+                            ),
+                          ),
+                        ),
+                        onDismissed: (direction) {
+                          list.remove(index);
+                        },
+                      );
+                    },
                   ),
                 ),
-                const SizedBox(
-                  width: 20,
-                  height: 100,
-                ),
-                TextFormField(
-                  onEditingComplete: Salvar,
-                  controller: _note_controller,
-                  keyboardType: TextInputType.phone,
-                  decoration: InputDecoration(
-                    labelText: "Nota",
-                    labelStyle: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 20),
-                  ),
-                ),
-                const SizedBox(
-                  width: 20,
-                  height: 100,
-                ),
-                // ElevatedButton(
-                //   onPressed: () {
-                //     Navigator.push(
-                //       context,
-                //       MaterialPageRoute(
-                //         builder: (context) => Output(),
-                //       ),
-                //     );
-                //   },
-                //   //onPressed: Salvar,
-                //   child: const Text(
-                //     "Próximo",
-                //     style: TextStyle(
-                //         fontSize: 22,
-                //         color: Colors.white,
-                //         fontWeight: FontWeight.bold),
-                //   ),
-                // ),
-                // ListView.builder(
-                //   itemCount: list.criteria.length,
-                //   itemBuilder: (context, index) {
-                //     return Dismissible(
-                //       key: UniqueKey(),
-                //       background: Container(color: Colors.red),
-                //       child: ListTile(
-                //         leading: Icon(Icons.email),
-                //         title: Text(list.criteria[index].criterionName +
-                //             ' (' +
-                //             list.criteria[index].weight.toString() +
-                //             ')'),
-                //         iconColor: Colors.indigo,
-                //       ),
-                //       onDismissed: (direction) {
-                //         list.remove(index);
-                //       },
-                //     );
-                //   },
-                // ),
                 Text("Tamanho do array: ${list.criteria.length}"),
                 Text("Nome: ${list.alternativeNames.length}, \n"
                     "Peso: ${list.alternativeNames.toString()} \n"
@@ -184,8 +157,13 @@ class _HomeState extends State<Home> {
   }
 
   void createCriteria(context) {
-    TextEditingController nomeInput = TextEditingController();
-    TextEditingController pesoInput = TextEditingController();
+    // Definindo os controladores dos TextFormFields
+    final nomeInput = TextEditingController();
+    final pesoInput = TextEditingController();
+    final note1Input = TextEditingController();
+    final note2Input = TextEditingController();
+    final note3Input = TextEditingController();
+
     int index = 0;
     Criteria listCriteria = Provider.of<Criteria>(context, listen: false);
 
@@ -196,14 +174,36 @@ class _HomeState extends State<Home> {
             //width: double.infinity,
             child: AlertDialog(
               scrollable: true,
-              title: const Text('Cadastrar um novo Critério'),
+              title: Text(
+                'Cadastrar um novo Critério',
+                style: AppTextStyles.bodybold18Black,
+                textAlign: TextAlign.center,
+              ),
               content: Padding(
                 padding: const EdgeInsets.all(2.0),
                 child: Form(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        "Insira os dados do critério",
+                        style: AppTextStyles.heading16,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
                       TextFormField(
+                        validator: (String? valor) {
+                          if (valor!.isEmpty) {
+                            return "Nome Vazio. Favor, preencher!";
+                          } else {
+                            return null;
+                          }
+                        },
+                        key: _keyNome,
                         keyboardType: TextInputType.name,
                         controller: nomeInput,
                         decoration: const InputDecoration(
@@ -212,6 +212,14 @@ class _HomeState extends State<Home> {
                       ),
                       const Padding(padding: EdgeInsets.all(5)),
                       TextFormField(
+                        validator: (String? valor) {
+                          if (valor!.isEmpty) {
+                            return "Peso Vazio. Favor, preencher!";
+                          } else {
+                            return null;
+                          }
+                        },
+                        key: _keyPeso,
                         keyboardType: TextInputType.number,
                         controller: pesoInput,
                         decoration: const InputDecoration(
@@ -219,6 +227,51 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       const Padding(padding: EdgeInsets.all(5)),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "Insira as notas",
+                        style: AppTextStyles.heading16,
+                      ),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      Text("Alternativa: ${listCriteria.alternativeNames[0]}"),
+                      TextFormField(
+                        validator: (String? valor) {
+                          if (valor!.isEmpty) {
+                            return "Nota Vazia. Favor, preencher!";
+                          } else {
+                            return null;
+                          }
+                        },
+                        key: _keyNota1,
+                        keyboardType: TextInputType.number,
+                        controller: note1Input,
+                        decoration: const InputDecoration(
+                          labelText: 'Nota',
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text("Alternativa: ${listCriteria.alternativeNames[1]}"),
+                      TextFormField(
+                        validator: (String? valor) {
+                          if (valor!.isEmpty) {
+                            return "Nota Vazia. Favor, preencher!";
+                          } else {
+                            return null;
+                          }
+                        },
+                        key: _keyNota2,
+                        keyboardType: TextInputType.number,
+                        controller: note2Input,
+                        decoration: const InputDecoration(
+                          labelText: 'Nota',
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -231,9 +284,21 @@ class _HomeState extends State<Home> {
                         child: const Text("Salvar"),
                         onPressed: () async {
                           list.add(
-                              nomeInput.text, double.parse(pesoInput.text), []);
-                          for (int i = 0; i < list.criteria.length; i++)
-                            print(list.criteria[i]);
+                              nomeInput.text, double.parse(pesoInput.text), [
+                            Alternative(
+                                name: list.alternativeNames[0],
+                                note: int.parse(note1Input.text)),
+                            Alternative(
+                                name: list.alternativeNames[1],
+                                note: int.parse(note2Input.text))
+                          ]);
+                          for (int i = 0; i < list.criteria.length; i++) {
+                            print(listCriteria.criteria[i]);
+                          }
+                          Navigator.pop(context);
+                          // if (true) {
+                          //
+                          // }
                         });
                   },
                 ),
