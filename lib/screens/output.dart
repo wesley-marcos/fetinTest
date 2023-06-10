@@ -3,11 +3,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:hash_test/basic_templates/app_text_styles.dart';
-import 'package:hash_test/basic_templates/initial_screen.dart';
+import 'package:hash_test/screens/initial_screen.dart';
 import 'package:hash_test/components/criteria.dart';
 import 'package:provider/provider.dart';
-import 'alternatives_input.dart';
-import 'basic_templates/appColors.dart';
+import '../basic_templates/appColors.dart';
 
 class Output extends StatefulWidget {
   const Output({Key? key}) : super(key: key);
@@ -20,7 +19,6 @@ class Output extends StatefulWidget {
 
 class _OutputState extends State<Output> {
   @override
-
   final _name_controller = TextEditingController();
   final _note_controller = TextEditingController();
 
@@ -43,11 +41,11 @@ class _OutputState extends State<Output> {
                     padding: const EdgeInsets.all(16.0),
                     child: Text(
                         "O ranking é definido a partir de um método "
-                            "matemático de decisão multicritério chamado "
-                            "VIKOR. Segundo esse método, a"
-                            " menor nota é a melhor alternativa.",
+                        "matemático de decisão multicritério chamado "
+                        "VIKOR. Segundo esse método, a"
+                        " menor nota é a melhor alternativa.",
                         textAlign: TextAlign.justify,
-                        style: AppTextStyles.heading16_nBold),
+                        style: AppTextStyles.heading16NBold),
                   ),
                   actions: [
                     OutlinedButton(
@@ -56,7 +54,7 @@ class _OutputState extends State<Output> {
                           const BorderSide(color: Colors.blue),
                         ),
                         backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.blue),
+                            MaterialStateProperty.all<Color>(Colors.blue),
                       ),
                       child: const Text(
                         'Ok',
@@ -120,12 +118,11 @@ class _OutputState extends State<Output> {
                 const SizedBox(
                   height: 20,
                 ),
-
                 Container(
                   alignment: Alignment.center,
                   height: 150,
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
+                    gradient: const LinearGradient(
                       colors: [
                         AppColors.khaki,
                         AppColors.yellow,
@@ -146,7 +143,7 @@ class _OutputState extends State<Output> {
                         width: 100,
                         child: Image.asset("Images/1st.png"),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 30,
                       ),
                       const Text(
@@ -160,16 +157,14 @@ class _OutputState extends State<Output> {
                     ],
                   ),
                 ),
-
                 const SizedBox(
                   height: 20,
                 ),
-
                 Container(
                   alignment: Alignment.center,
                   height: 150,
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
+                    gradient: const LinearGradient(
                       colors: [
                         AppColors.gainsboro,
                         AppColors.lighsilver,
@@ -190,7 +185,7 @@ class _OutputState extends State<Output> {
                         width: 100,
                         child: Image.asset("Images/2nd.png"),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 30,
                       ),
                       const Text(
@@ -204,16 +199,14 @@ class _OutputState extends State<Output> {
                     ],
                   ),
                 ),
-
                 const SizedBox(
                   height: 20,
                 ),
-
                 Container(
                   alignment: Alignment.center,
                   height: 150,
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
+                    gradient: const LinearGradient(
                       colors: [
                         AppColors.peru,
                         AppColors.chocolate,
@@ -234,7 +227,7 @@ class _OutputState extends State<Output> {
                         width: 100,
                         child: Image.asset("Images/3rd.png"),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 30,
                       ),
                       const Text(
@@ -248,14 +241,12 @@ class _OutputState extends State<Output> {
                     ],
                   ),
                 ),
-
                 const SizedBox(
                   height: 100,
                 ),
-
                 Padding(
                   padding:
-                  const EdgeInsets.only(bottom: 20.0, left: 20, right: 20),
+                      const EdgeInsets.only(bottom: 20.0, left: 20, right: 20),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
@@ -264,13 +255,14 @@ class _OutputState extends State<Output> {
                       side: const BorderSide(color: Colors.black12),
                       shape: const RoundedRectangleBorder(
                           borderRadius:
-                          BorderRadiusDirectional.all(Radius.circular(20))),
+                              BorderRadiusDirectional.all(Radius.circular(20))),
                     ),
                     onPressed: () {
-                      Navigator.push(
+                      Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
                             builder: (context) => const InitialScreen()),
+                        (route) => false,
                       );
                     },
                     child: const Padding(

@@ -6,8 +6,7 @@ import 'package:hash_test/components/alternative.dart';
 import 'package:hash_test/components/criteria.dart';
 import 'package:hash_test/components/criterion.dart';
 import 'package:provider/provider.dart';
-import 'basic_templates/appColors.dart';
-import 'data/criterion_inherited.dart';
+import '../basic_templates/appColors.dart';
 import 'output.dart';
 
 class Home extends StatefulWidget {
@@ -48,7 +47,7 @@ class _HomeState extends State<Home> {
                         "critérios importantes na hora "
                         "de tomar sua decisão.",
                         textAlign: TextAlign.justify,
-                        style: AppTextStyles.heading16_nBold),
+                        style: AppTextStyles.heading16NBold),
                   ),
                   actions: [
                     OutlinedButton(
@@ -201,7 +200,7 @@ class _HomeState extends State<Home> {
                                   "Adicione pelo menos 2 critérios antes de "
                                   "prosseguir.",
                                   textAlign: TextAlign.justify,
-                                  style: AppTextStyles.heading16_nBold),
+                                  style: AppTextStyles.heading16NBold),
                             ),
                             actions: [
                               OutlinedButton(
@@ -353,7 +352,7 @@ class _HomeState extends State<Home> {
                         children: [
                           Text(
                             "Alternativa: ${listCriteria.alternativeNames[0]}",
-                            style: AppTextStyles.heading16_nBold,
+                            style: AppTextStyles.heading16NBold,
                           ),
                           const SizedBox(
                             height: 10,
@@ -378,7 +377,7 @@ class _HomeState extends State<Home> {
                           ),
                           Text(
                             "Alternativa: ${listCriteria.alternativeNames[1]}",
-                            style: AppTextStyles.heading16_nBold,
+                            style: AppTextStyles.heading16NBold,
                           ),
                           const SizedBox(
                             height: 10,

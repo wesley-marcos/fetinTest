@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../alternatives_input.dart';
-import 'appColors.dart';
-import 'app_text_styles.dart';
+import 'alternatives_input.dart';
+import '../basic_templates/appColors.dart';
+import '../basic_templates/app_text_styles.dart';
 
 class InitialScreen extends StatefulWidget {
   const InitialScreen({Key? key}) : super(key: key);
@@ -20,11 +20,11 @@ class _InitialScreenState extends State<InitialScreen> {
         key: _scaffoldKey,
         extendBodyBehindAppBar: true,
         appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               gradient: LinearGradient(
             colors: [
               AppColors.deepSkyBlue,
@@ -72,7 +72,7 @@ class _InitialScreenState extends State<InitialScreen> {
 
               Padding(
                 padding:
-                const EdgeInsets.only(bottom: 20.0, left: 20, right: 20),
+                    const EdgeInsets.only(bottom: 20.0, left: 20, right: 20),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
@@ -81,7 +81,7 @@ class _InitialScreenState extends State<InitialScreen> {
                     side: const BorderSide(color: Colors.black12),
                     shape: const RoundedRectangleBorder(
                         borderRadius:
-                        BorderRadiusDirectional.all(Radius.circular(20))),
+                            BorderRadiusDirectional.all(Radius.circular(20))),
                   ),
                   onPressed: () {
                     Navigator.push(

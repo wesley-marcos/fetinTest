@@ -8,7 +8,7 @@ class AppTextStyles {
       color: Colors.black, fontSize: 20, fontWeight: FontWeight.w400);
 
   // Style para o botão de "Sign Up"
-  static final TextStyle signup_text = GoogleFonts.notoSans(
+  static final TextStyle signupText = GoogleFonts.notoSans(
       color: Colors.black, fontSize: 21, fontWeight: FontWeight.bold);
 
   // Style para os títulos
@@ -49,7 +49,7 @@ class AppTextStyles {
     fontWeight: FontWeight.w600,
   );
 
-  static final TextStyle heading16_nBold = GoogleFonts.notoSans(
+  static final TextStyle heading16NBold = GoogleFonts.notoSans(
     color: Colors.black,
     fontSize: 16,
   );

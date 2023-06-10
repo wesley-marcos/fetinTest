@@ -2,11 +2,11 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:hash_test/basic_templates/app_text_styles.dart';
-import 'package:hash_test/home.dart';
+import 'package:hash_test/screens/home.dart';
 import 'package:provider/provider.dart';
 
-import 'basic_templates/appColors.dart';
-import 'components/criteria.dart';
+import '../basic_templates/appColors.dart';
+import '../components/criteria.dart';
 
 class InputAlternatives extends StatefulWidget {
   const InputAlternatives({Key? key}) : super(key: key);
@@ -50,7 +50,7 @@ class _InputAlternativesState extends State<InputAlternatives> {
                         "um da marca "
                         "Dell e outro da marca Apple.",
                         textAlign: TextAlign.justify,
-                        style: AppTextStyles.heading16_nBold),
+                        style: AppTextStyles.heading16NBold),
                   ),
                   actions: [
                     OutlinedButton(
@@ -190,16 +190,17 @@ class _InputAlternativesState extends State<InputAlternatives> {
                             builder: (context) => AlertDialog(
                               title: Padding(
                                 padding: const EdgeInsets.all(16.0),
-                                child: Text("Aviso", style: AppTextStyles.title3),
+                                child:
+                                    Text("Aviso", style: AppTextStyles.title3),
                               ),
                               content: Padding(
                                 padding: const EdgeInsets.all(16.0),
                                 child: Text(
                                     "Adicione pelo menos 2 alternativas antes "
-                                        "de "
-                                        "prosseguir.",
+                                    "de "
+                                    "prosseguir.",
                                     textAlign: TextAlign.justify,
-                                    style: AppTextStyles.heading16_nBold),
+                                    style: AppTextStyles.heading16NBold),
                               ),
                               actions: [
                                 OutlinedButton(
