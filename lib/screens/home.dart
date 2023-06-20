@@ -475,25 +475,7 @@ void _showLoadingDialog(BuildContext context) {
     context: context,
     barrierDismissible: false,
     builder: (BuildContext context) {
-      return Dialog(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: const [
-              CircularProgressIndicator(),
-              SizedBox(height: 16),
-              Text(
-                'Carregando...',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
+      return const Center(child: CircularProgressIndicator());
     },
   );
 }
