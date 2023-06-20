@@ -1,6 +1,4 @@
 import 'dart:ui';
-
-import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:hash_test/basic_templates/app_text_styles.dart';
 import 'package:hash_test/screens/initial_screen.dart';
@@ -147,11 +145,11 @@ class _OutputState extends State<Output> {
                         width: 30,
                       ),
                       const Text(
-                        "Alternativa: Asus\nNota: 2.0",
+                        "Alternativa: Asus\nNota: 0,45",
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
-                          fontSize: 25,
+                          fontSize: 20,
                         ),
                       ),
                     ],
@@ -189,61 +187,61 @@ class _OutputState extends State<Output> {
                         width: 30,
                       ),
                       const Text(
-                        "Alternativa: Acer\nNota: 2.4",
+                        "Alternativa: Acer\nNota: 0,55",
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
-                          fontSize: 25,
+                          fontSize: 20,
                         ),
                       ),
                     ],
                   ),
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 270,
                 ),
-                Container(
-                  alignment: Alignment.center,
-                  height: 150,
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [
-                        AppColors.peru,
-                        AppColors.chocolate,
-                        AppColors.say,
-                      ],
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.topCenter,
-                    ),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        alignment: Alignment.center,
-                        height: 100,
-                        width: 100,
-                        child: Image.asset("Images/3rd.png"),
-                      ),
-                      const SizedBox(
-                        width: 30,
-                      ),
-                      const Text(
-                        "Alternativa: --\nNota: --",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 100,
-                ),
+                // Container(
+                //   alignment: Alignment.center,
+                //   height: 150,
+                //   decoration: BoxDecoration(
+                //     gradient: const LinearGradient(
+                //       colors: [
+                //         AppColors.peru,
+                //         AppColors.chocolate,
+                //         AppColors.say,
+                //       ],
+                //       begin: Alignment.bottomCenter,
+                //       end: Alignment.topCenter,
+                //     ),
+                //     borderRadius: BorderRadius.circular(20),
+                //   ),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.start,
+                //     crossAxisAlignment: CrossAxisAlignment.center,
+                //     children: [
+                //       Container(
+                //         alignment: Alignment.center,
+                //         height: 100,
+                //         width: 100,
+                //         child: Image.asset("Images/3rd.png"),
+                //       ),
+                //       const SizedBox(
+                //         width: 30,
+                //       ),
+                //       const Text(
+                //         "Alternativa: --\nNota: --",
+                //         style: TextStyle(
+                //           color: Colors.black,
+                //           fontWeight: FontWeight.bold,
+                //           fontSize: 25,
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                // const SizedBox(
+                //   height: 100,
+                // ),
                 Padding(
                   padding:
                       const EdgeInsets.only(bottom: 20.0, left: 20, right: 20),
