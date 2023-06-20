@@ -419,37 +419,50 @@ class _HomeState extends State<Home> {
                 ),
               ),
               actions: [
+                TextButton(
+                  child: const Text("Cancelar"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
                 Consumer<Criteria>(
                   builder:
                       (BuildContext context, Criteria list, Widget? widget) {
-                    return TextButton(
-                        child: const Text("Salvar"),
-                        onPressed: () async {
-                          if (_keyPeso.currentState!.validate() &
-                              _keyNome.currentState!.validate() &
-                              _keyNota1.currentState!.validate() &
-                              _keyNota2.currentState!.validate()) {
-                            list.add(
-                                nomeInput.text, double.parse(pesoInput.text), [
-                              Alternative(
-                                  name: list.alternativeNames[0],
-                                  note: int.parse(note1Input.text)),
-                              Alternative(
-                                  name: list.alternativeNames[1],
-                                  note: int.parse(note2Input.text))
-                              //listCriteria.alternatives,
-                            ]);
+                    return OutlinedButton(
+                      style: ButtonStyle(
+                        side: MaterialStateProperty.all<BorderSide>(
+                          const BorderSide(
+                              color: Colors.blue), // Define a cor da borda
+                        ),
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.blue),
+                      ),
+                      child: const Text(
+                        "Salvar",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onPressed: () async {
+                        if (_keyPeso.currentState!.validate() &
+                            _keyNome.currentState!.validate() &
+                            _keyNota1.currentState!.validate() &
+                            _keyNota2.currentState!.validate()) {
+                          list.add(
+                              nomeInput.text, double.parse(pesoInput.text), [
+                            Alternative(
+                                name: list.alternativeNames[0],
+                                note: int.parse(note1Input.text)),
+                            Alternative(
+                                name: list.alternativeNames[1],
+                                note: int.parse(note2Input.text))
+                            //listCriteria.alternatives,
+                          ]);
 
-                            Navigator.pop(context);
-                          }
-                        });
+                          Navigator.pop(context);
+                        }
+                      },
+                    );
                   },
                 ),
-                TextButton(
-                    child: const Text("Cancelar"),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    }),
               ],
             ),
           );
