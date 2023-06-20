@@ -77,7 +77,7 @@ class _InputAlternativesState extends State<InputAlternatives> {
           ),
         ],
         backgroundColor: Colors.transparent,
-        iconTheme: const IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.white),
         elevation: 0,
         title: Text(
           'Alternativas',

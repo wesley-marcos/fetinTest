@@ -24,6 +24,8 @@ class _HomeState extends State<Home> {
   final _keyNota2 = GlobalKey<FormFieldState>();
   final _keyNota3 = GlobalKey<FormFieldState>();
 
+  bool _isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -157,7 +159,7 @@ class _HomeState extends State<Home> {
                             "Nota: ${criterion.alternatives[1].note}",
                             style: AppTextStyles.heading15Nbold,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                         ],
@@ -165,83 +167,96 @@ class _HomeState extends State<Home> {
                     },
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Padding(
                   padding:
                       const EdgeInsets.only(bottom: 20.0, left: 20, right: 50),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                      elevation: 10,
-                      fixedSize: const Size(230, 50),
-                      side: const BorderSide(color: Colors.black12),
-                      shape: const RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadiusDirectional.all(Radius.circular(20))),
-                    ),
-                    onPressed: () {
-                      // Validar se há pelo menos 2 alternativas
-                      if (Provider.of<Criteria>(context, listen: false)
-                              .criteria
-                              .length <
-                          2) {
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Text("Aviso", style: AppTextStyles.title3),
-                            ),
-                            content: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Text(
-                                  "Adicione pelo menos 2 critérios antes de "
-                                  "prosseguir.",
-                                  textAlign: TextAlign.justify,
-                                  style: AppTextStyles.heading16NBold),
-                            ),
-                            actions: [
-                              OutlinedButton(
-                                onPressed: () => Navigator.pop(context),
-                                style: ButtonStyle(
-                                  side: MaterialStateProperty.all<BorderSide>(
-                                    const BorderSide(color: Colors.blue),
-                                  ),
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Colors.blue),
-                                ),
-                                child: const Text(
-                                  "OK",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                            ],
+                  child: _isLoading // Verificar se o loading está ativo
+                      ? const CircularProgressIndicator() // Exibir o loading
+                      : ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blue,
+                            elevation: 10,
+                            fixedSize: const Size(230, 50),
+                            side: const BorderSide(color: Colors.black12),
+                            shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadiusDirectional.all(
+                                    Radius.circular(20))),
                           ),
-                        );
-                      } else {
-                        // Navegar para a próxima tela
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Output()),
-                        );
-                      }
-                    },
-                    child: const Padding(
-                      padding: EdgeInsets.only(left: 15.0),
-                      child: Text(
-                        "Próximo",
-                        style: TextStyle(
-                          fontSize: 22,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
+                          onPressed: () {
+                            // Validar se há pelo menos 2 alternativas
+                            if (Provider.of<Criteria>(context, listen: false)
+                                    .criteria
+                                    .length <
+                                2) {
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Text("Aviso",
+                                        style: AppTextStyles.title3),
+                                  ),
+                                  content: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Text(
+                                        "Adicione pelo menos 2 critérios antes de "
+                                        "prosseguir.",
+                                        textAlign: TextAlign.justify,
+                                        style: AppTextStyles.heading16NBold),
+                                  ),
+                                  actions: [
+                                    OutlinedButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      style: ButtonStyle(
+                                        side: MaterialStateProperty.all<
+                                            BorderSide>(
+                                          const BorderSide(color: Colors.blue),
+                                        ),
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                Colors.blue),
+                                      ),
+                                      child: const Text(
+                                        "OK",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            } else {
+                              _showLoadingDialog(
+                                  context); // Exibir o showDialog do loading
+
+                              // Atraso de 1 segundo
+                              Future.delayed(const Duration(seconds: 1), () {
+                                Navigator.pop(
+                                    context); // Fechar o showDialog do loading
+
+                                // Navegar para a próxima tela
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const Output()),
+                                );
+                              });
+                            }
+                          },
+                          child: const Padding(
+                            padding: EdgeInsets.only(left: 15.0),
+                            child: Text(
+                              "Próximo",
+                              style: TextStyle(
+                                fontSize: 22,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
                 ),
               ],
             ),
@@ -440,4 +455,32 @@ class _HomeState extends State<Home> {
           );
         });
   }
+}
+
+void _showLoadingDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return Dialog(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: const [
+              CircularProgressIndicator(),
+              SizedBox(height: 16),
+              Text(
+                'Carregando...',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    },
+  );
 }

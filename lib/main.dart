@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hash_test/screens/alternatives_input.dart';
 import 'package:hash_test/components/alternatives.dart';
 import 'package:hash_test/components/criteria.dart';
 import 'package:provider/provider.dart';
