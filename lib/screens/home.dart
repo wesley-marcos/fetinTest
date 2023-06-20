@@ -232,7 +232,7 @@ class _HomeState extends State<Home> {
                                   context); // Exibir o showDialog do loading
 
                               // Atraso de 1 segundo
-                              Future.delayed(const Duration(seconds: 1), () {
+                              Future.delayed(const Duration(seconds: 4), () {
                                 Navigator.pop(
                                     context); // Fechar o showDialog do loading
 
@@ -475,7 +475,24 @@ void _showLoadingDialog(BuildContext context) {
     context: context,
     barrierDismissible: false,
     builder: (BuildContext context) {
-      return const Center(child: CircularProgressIndicator());
+      return Center(
+        child: SizedBox(
+          width: 100,
+          height: 100,
+          child: TweenAnimationBuilder(
+            tween: Tween(begin: 0.0, end: 1.0),
+            duration: const Duration(seconds: 4),
+            builder: (context, value, _) => SizedBox(
+              width: 200,
+              height: 200,
+              child: CircularProgressIndicator(
+                value: value,
+                strokeWidth: 8,
+              ),
+            ),
+          ),
+        ),
+      );
     },
   );
 }
