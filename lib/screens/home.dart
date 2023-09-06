@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hash_test/basic_templates/app_text_styles.dart';
 import 'package:hash_test/components/alternative.dart';
 import 'package:hash_test/components/criteria.dart';
+import 'package:hash_test/utils/validations_mixin.dart';
 import 'package:provider/provider.dart';
 import '../basic_templates/appColors.dart';
 import 'output.dart';
@@ -16,13 +17,10 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with ValidationsMixin{
   // Definindo as 'Keys' utilizadas
   final _keyNome = GlobalKey<FormFieldState>();
   final _keyPeso = GlobalKey<FormFieldState>();
-  final _keyNota1 = GlobalKey<FormFieldState>();
-  final _keyNota2 = GlobalKey<FormFieldState>();
-  final _keyNota3 = GlobalKey<FormFieldState>();
 
   bool _isLoading = false;
 
@@ -320,6 +318,7 @@ class _HomeState extends State<Home> {
     // Definindo os controladores dos TextFormFields
     final nomeInput = TextEditingController();
     final pesoInput = TextEditingController();
+    final globalInput = GlobalKey();
 
     int index = 0;
     Criteria listCriteria = Provider.of<Criteria>(context, listen: false);
@@ -331,6 +330,11 @@ class _HomeState extends State<Home> {
     for (int i = 0; i < listCriteria.alternativeNames.length; i++) {
       noteControllers.add(TextEditingController());
     }
+
+    List<GlobalKey<FormState>> noteFormKeys = List.generate(
+      listCriteria.alternativeNames.length,
+          (index) => GlobalKey<FormState>(),
+    );
 
     showDialog(
         context: context,
@@ -360,14 +364,10 @@ class _HomeState extends State<Home> {
                       const SizedBox(
                         height: 20,
                       ),
+
+                      //TextFormField de 'Nome'
                       TextFormField(
-                        validator: (String? valor) {
-                          if (valor!.isEmpty) {
-                            return "Nome Vazio. Favor, preencher!";
-                          } else {
-                            return null;
-                          }
-                        },
+                        validator: EntradaVazia,
                         key: _keyNome,
                         keyboardType: TextInputType.name,
                         controller: nomeInput,
@@ -375,15 +375,15 @@ class _HomeState extends State<Home> {
                           labelText: 'Nome',
                         ),
                       ),
+
                       const Padding(padding: EdgeInsets.all(5)),
+
+                      //TextFormField de 'Peso'
                       TextFormField(
-                        validator: (String? valor) {
-                          if (valor!.isEmpty) {
-                            return "Peso Vazio. Favor, preencher!";
-                          } else {
-                            return null;
-                          }
-                        },
+                        validator: (val) => combine([
+                          () => EntradaVazia(val),
+                          () => EntradaForaDoRange(val),
+                        ]),
                         key: _keyPeso,
                         keyboardType: TextInputType.number,
                         controller: pesoInput,
@@ -391,75 +391,30 @@ class _HomeState extends State<Home> {
                           labelText: 'Peso',
                         ),
                       ),
+
                       const Padding(padding: EdgeInsets.all(5)),
+
                       const SizedBox(
                         height: 20,
                       ),
+
                       Text(
                         "Insira as notas",
                         style: AppTextStyles.heading16,
                       ),
+
                       const SizedBox(
                         height: 25,
                       ),
-                      // Column(
-                      //   crossAxisAlignment: CrossAxisAlignment.start,
-                      //   children: [
-                      //     Text(
-                      //       "Alternativa: ${listCriteria.alternativeNames[0]}",
-                      //       style: AppTextStyles.heading16NBold,
-                      //     ),
-                      //     const SizedBox(
-                      //       height: 10,
-                      //     ),
-                      //     TextFormField(
-                      //       validator: (String? valor) {
-                      //         if (valor!.isEmpty) {
-                      //           return "Nota Vazia. Favor, preencher!";
-                      //         } else {
-                      //           return null;
-                      //         }
-                      //       },
-                      //       key: _keyNota1,
-                      //       keyboardType: TextInputType.number,
-                      //       controller: note1Input,
-                      //       decoration: const InputDecoration(
-                      //         labelText: 'Nota',
-                      //       ),
-                      //     ),
-                      //     const SizedBox(
-                      //       height: 20,
-                      //     ),
-                      //     Text(
-                      //       "Alternativa: ${listCriteria.alternativeNames[1]}",
-                      //       style: AppTextStyles.heading16NBold,
-                      //     ),
-                      //     const SizedBox(
-                      //       height: 10,
-                      //     ),
-                      //     TextFormField(
-                      //       validator: (String? valor) {
-                      //         if (valor!.isEmpty) {
-                      //           return "Nota Vazia. Favor, preencher!";
-                      //         } else {
-                      //           return null;
-                      //         }
-                      //       },
-                      //       key: _keyNota2,
-                      //       keyboardType: TextInputType.number,
-                      //       controller: note2Input,
-                      //       decoration: const InputDecoration(
-                      //         labelText: 'Nota',
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
 
+                      //Coluna com a entrada das notas
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: List.generate(
                           listCriteria.alternativeNames.length,
-                          (index) {
+                              (index) {
+                            final noteController = noteControllers[index];
+
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -471,24 +426,18 @@ class _HomeState extends State<Home> {
                                   height: 10,
                                 ),
                                 TextFormField(
-                                  validator: (String? valor) {
-                                    if (valor!.isEmpty) {
-                                      return "Nota Vazia. Favor, preencher!";
-                                    } else {
-                                      return null;
-                                    }
-                                  },
-                                  key: GlobalKey<FormState>(),
-                                  // Use uma chave diferente para cada TextFormField
                                   keyboardType: TextInputType.number,
-                                  controller: noteControllers[index],
-                                  // Use o controlador correspondente
+                                  controller: noteController,
                                   decoration: const InputDecoration(
                                     labelText: 'Nota',
                                   ),
+                                  key: noteFormKeys[index],
+                                  validator: (val) => combine([
+                                        () => EntradaVazia(val),
+                                        () => EntradaForaDoRange(val),
+                                  ]),
                                 ),
-                                if (index <
-                                    listCriteria.alternativeNames.length - 1)
+                                if (index < listCriteria.alternativeNames.length - 1)
                                   const SizedBox(
                                     height: 20,
                                   ),
@@ -497,6 +446,7 @@ class _HomeState extends State<Home> {
                           },
                         ),
                       ),
+
                     ],
                   ),
                 ),
@@ -525,26 +475,11 @@ class _HomeState extends State<Home> {
                         style: TextStyle(color: Colors.white),
                       ),
                       onPressed: () async {
-                        // if (_keyPeso.currentState!.validate() &
-                        //     _keyNome.currentState!.validate() &
-                        //     _keyNota1.currentState!.validate() &
-                        //     _keyNota2.currentState!.validate()) {
-                        if (_keyPeso.currentState!.validate() &&
-                            _keyNome.currentState!.validate()) {
-                          late List<Alternative> alternatives = [];
 
-                          // list.add(
-                          //     nomeInput.text, double.parse(pesoInput.text), [
-                          //   Alternative(
-                          //       name: list.alternativeNames[0],
-                          //       note: int.parse(note1Input.text)),
-                          //   Alternative(
-                          //       name: list.alternativeNames[1],
-                          //       note: int.parse(note2Input.text))
-                          //   //listCriteria.alternatives,
-                          // ]);
-                          //
-                          // Navigator.pop(context);
+                        if (_keyNome.currentState!.validate() &&
+                            _keyPeso.currentState!.validate()) {
+
+                          late List<Alternative> alternatives = [];
 
                           for (int i = 0;
                               i < listCriteria.alternativeNames.length;
@@ -577,6 +512,216 @@ class _HomeState extends State<Home> {
           );
         });
   }
+
+  // void createCriteria(BuildContext context) {
+  //   // Definindo os controladores dos TextFormFields
+  //   final nomeInput = TextEditingController();
+  //   final pesoInput = TextEditingController();
+  //
+  //   int index = 0;
+  //   Criteria listCriteria = Provider.of<Criteria>(context, listen: false);
+  //   GlobalKey<FormState> _keyNome = GlobalKey<FormState>();
+  //
+  //
+  //   // Crie uma lista de controladores para as notas
+  //   List<TextEditingController> noteControllers = [];
+  //
+  //   // Inicialize os controladores com controladores vazios
+  //   for (int i = 0; i < listCriteria.alternativeNames.length; i++) {
+  //     noteControllers.add(TextEditingController());
+  //   }
+  //
+  //   // Crie uma lista de chaves globais para os campos de notas
+  //   List<GlobalKey<FormState>> noteFormKeys = List.generate(
+  //     listCriteria.alternativeNames.length,
+  //         (index) => GlobalKey<FormState>(),
+  //   );
+  //
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return SizedBox(
+  //         //width: double.infinity,
+  //         child: AlertDialog(
+  //           scrollable: true,
+  //           title: Text(
+  //             'Cadastrar um novo Critério',
+  //             style: AppTextStyles.body22,
+  //             textAlign: TextAlign.center,
+  //           ),
+  //           content: Padding(
+  //             padding: const EdgeInsets.all(2.0),
+  //             child: Form(
+  //               child: Column(
+  //                 crossAxisAlignment: CrossAxisAlignment.start,
+  //                 children: <Widget>[
+  //                   const SizedBox(
+  //                     height: 10,
+  //                   ),
+  //                   Text(
+  //                     "Insira os dados do critério",
+  //                     style: AppTextStyles.heading16,
+  //                   ),
+  //                   const SizedBox(
+  //                     height: 20,
+  //                   ),
+  //                   TextFormField(
+  //                     validator: (String? valor) {
+  //                       if (valor!.isEmpty) {
+  //                         return "Nome Vazio. Favor, preencher!";
+  //                       }
+  //                       return null;
+  //                     },
+  //                     key: _keyNome,
+  //                     keyboardType: TextInputType.name,
+  //                     controller: nomeInput,
+  //                     decoration: const InputDecoration(
+  //                       labelText: 'Nome',
+  //                     ),
+  //                   ),
+  //                   const Padding(padding: EdgeInsets.all(5)),
+  //                   TextFormField(
+  //                     validator: (String? valor) {
+  //                       if (valor!.isEmpty) {
+  //                         return "Peso Vazio. Favor, preencher!";
+  //                       } else {
+  //                         return null;
+  //                       }
+  //                     },
+  //                     key: _keyPeso,
+  //                     keyboardType: TextInputType.number,
+  //                     controller: pesoInput,
+  //                     decoration: const InputDecoration(
+  //                       labelText: 'Peso',
+  //                     ),
+  //                   ),
+  //                   const Padding(padding: EdgeInsets.all(5)),
+  //                   const SizedBox(
+  //                     height: 20,
+  //                   ),
+  //                   Text(
+  //                     "Insira as notas",
+  //                     style: AppTextStyles.heading16,
+  //                   ),
+  //                   const SizedBox(
+  //                     height: 25,
+  //                   ),
+  //                   Column(
+  //                     crossAxisAlignment: CrossAxisAlignment.start,
+  //                     children: List.generate(
+  //                       listCriteria.alternativeNames.length,
+  //                           (index) {
+  //                         return Column(
+  //                           crossAxisAlignment: CrossAxisAlignment.start,
+  //                           children: [
+  //                             Text(
+  //                               "Alternativa: ${listCriteria.alternativeNames[index]}",
+  //                               style: AppTextStyles.heading16NBold,
+  //                             ),
+  //                             const SizedBox(
+  //                               height: 10,
+  //                             ),
+  //                             TextFormField(
+  //                               key: noteFormKeys[index], // Use a chave global
+  //                               keyboardType: TextInputType.number,
+  //                               controller: noteControllers[index],
+  //                               decoration: const InputDecoration(
+  //                                 labelText: 'Nota',
+  //                               ),
+  //                               validator: (String? value) {
+  //                                 if (value == null || value.isEmpty) {
+  //                                   return "Nota vazia. Favor, preencher!";
+  //                                 }
+  //                                 int? intValue = int.tryParse(value);
+  //                                 if (intValue == null ||
+  //                                     intValue < 0 ||
+  //                                     intValue > 10) {
+  //                                   return "Nota inválida. Insira um valor entre 0 e 10.";
+  //                                 }
+  //                                 return null; // A nota é válida
+  //                               },
+  //                             ),
+  //                             if (index < listCriteria.alternativeNames.length - 1)
+  //                               const SizedBox(
+  //                                 height: 20,
+  //                               ),
+  //                           ],
+  //                         );
+  //                       },
+  //                     ),
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //           ),
+  //           actions: [
+  //             TextButton(
+  //               child: const Text("Cancelar"),
+  //               onPressed: () {
+  //                 Navigator.pop(context);
+  //               },
+  //             ),
+  //             Consumer<Criteria>(
+  //               builder: (BuildContext context, Criteria list, Widget? widget) {
+  //                 return OutlinedButton(
+  //                   style: ButtonStyle(
+  //                     side: MaterialStateProperty.all<BorderSide>(
+  //                       const BorderSide(
+  //                           color: Colors.blue), // Define a cor da borda
+  //                     ),
+  //                     backgroundColor:
+  //                     MaterialStateProperty.all<Color>(Colors.blue),
+  //                   ),
+  //                   child: const Text(
+  //                     "Salvar",
+  //                     style: TextStyle(color: Colors.white),
+  //                   ),
+  //                   onPressed: () async {
+  //                     bool allNotesAreValid = true;
+  //
+  //                     for (final formKey in noteFormKeys) {
+  //                       if (!formKey.currentState!.validate()) {
+  //                         allNotesAreValid = false;
+  //                       }
+  //                     }
+  //
+  //                     if (allNotesAreValid &&
+  //                         _keyPeso.currentState!.validate() &&
+  //                         _keyNome.currentState!.validate()) {
+  //                       late List<Alternative> alternatives = [];
+  //
+  //                       for (int i = 0; i < listCriteria.alternativeNames.length; i++) {
+  //                         if (noteControllers[i].text.isNotEmpty) {
+  //                           alternatives.add(
+  //                             Alternative(
+  //                               name: listCriteria.alternativeNames[i],
+  //                               note: int.parse(noteControllers[i].text),
+  //                             ),
+  //                           );
+  //                         }
+  //                       }
+  //
+  //                       list.add(
+  //                         nomeInput.text,
+  //                         double.parse(pesoInput.text),
+  //                         alternatives,
+  //                       );
+  //
+  //                       Navigator.pop(context);
+  //                       print("List: $listCriteria");
+  //                     }
+  //                   },
+  //                 );
+  //               },
+  //             ),
+  //
+  //           ],
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
+
 }
 
 void _showLoadingDialog(BuildContext context) {
@@ -605,29 +750,3 @@ void _showLoadingDialog(BuildContext context) {
     },
   );
 }
-
-// Widget buildCategoryColumn() {
-//
-//   return Consumer<Criteria>(
-//     builder: (BuildContext context, Criteria list, Widget? widget){
-//       final criterion = list.criteria[index];
-//       return Column(
-//         children: [
-//           Text(
-//               "Alternativa",
-//               style: AppTextStyles.text1
-//           ),
-//
-//           for (Alternative alternative in criterion.alternatives)
-//             Padding(
-//               padding: const EdgeInsets.symmetric(vertical: 5.0),
-//               child: Text(
-//                 "$alternative",
-//                 style: AppTextStyles.text1
-//               ),
-//             ),
-//         ],
-//       );
-//     },
-//   );
-// }
