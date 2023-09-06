@@ -142,27 +142,63 @@ class _HomeState extends State<Home> {
                             "Peso: ${criterion.weight}",
                             style: AppTextStyles.heading15Nbold,
                           ),
-                          Text(
-                            "Alternativa: ${criterion.alternatives[0].name}",
-                            style: AppTextStyles.heading15Nbold,
-                          ),
-                          Text(
-                            "Nota: ${criterion.alternatives[0].note}",
-                            style: AppTextStyles.heading15Nbold,
-                          ),
-                          Text(
-                            "Alternativa: ${criterion.alternatives[1].name}",
-                            style: AppTextStyles.heading15Nbold,
-                          ),
-                          Text(
-                            "Nota: ${criterion.alternatives[1].note}",
-                            style: AppTextStyles.heading15Nbold,
-                          ),
+                          for (Alternative alternative in criterion.alternatives)
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Alternativa: ${alternative.name}",
+                                  style: AppTextStyles.heading15Nbold,
+                                ),
+                                Text(
+                                  "Nota: ${alternative.note}",
+                                  style: AppTextStyles.heading15Nbold,
+                                ),
+                              ],
+                            ),
                           const SizedBox(
                             height: 10,
                           ),
                         ],
                       );
+
+                      //   ExpansionTile(
+                      //   expandedCrossAxisAlignment: CrossAxisAlignment.start,
+                      //   expandedAlignment: Alignment.center,
+                      //   title: Text(
+                      //     "Critério: ${criterion.criterionName}",
+                      //     style: const TextStyle(
+                      //       color: Colors.black,
+                      //       fontWeight: FontWeight.bold,
+                      //       fontSize: 20,
+                      //     ),
+                      //   ),
+                      //   children: [
+                      //     Text(
+                      //       "Peso: ${criterion.weight}",
+                      //       style: AppTextStyles.heading15Nbold,
+                      //     ),
+                      //     Text(
+                      //       "Alternativa: ${criterion.alternatives[0].name}",
+                      //       style: AppTextStyles.heading15Nbold,
+                      //     ),
+                      //     Text(
+                      //       "Nota: ${criterion.alternatives[0].note}",
+                      //       style: AppTextStyles.heading15Nbold,
+                      //     ),
+                      //     Text(
+                      //       "Alternativa: ${criterion.alternatives[1].name}",
+                      //       style: AppTextStyles.heading15Nbold,
+                      //     ),
+                      //     Text(
+                      //       "Nota: ${criterion.alternatives[1].note}",
+                      //       style: AppTextStyles.heading15Nbold,
+                      //     ),
+                      //     const SizedBox(
+                      //       height: 10,
+                      //     ),
+                      //   ],
+                      // );
                     },
                   ),
                 ),
@@ -291,6 +327,14 @@ class _HomeState extends State<Home> {
     int index = 0;
     Criteria listCriteria = Provider.of<Criteria>(context, listen: false);
 
+    // Crie uma lista de controladores para as notas
+    List<TextEditingController> noteControllers = [];
+
+    // Inicialize os controladores com controladores vazios
+    for (int i = 0; i < listCriteria.alternativeNames.length; i++) {
+      noteControllers.add(TextEditingController());
+    }
+
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -361,57 +405,97 @@ class _HomeState extends State<Home> {
                       const SizedBox(
                         height: 25,
                       ),
+                      // Column(
+                      //   crossAxisAlignment: CrossAxisAlignment.start,
+                      //   children: [
+                      //     Text(
+                      //       "Alternativa: ${listCriteria.alternativeNames[0]}",
+                      //       style: AppTextStyles.heading16NBold,
+                      //     ),
+                      //     const SizedBox(
+                      //       height: 10,
+                      //     ),
+                      //     TextFormField(
+                      //       validator: (String? valor) {
+                      //         if (valor!.isEmpty) {
+                      //           return "Nota Vazia. Favor, preencher!";
+                      //         } else {
+                      //           return null;
+                      //         }
+                      //       },
+                      //       key: _keyNota1,
+                      //       keyboardType: TextInputType.number,
+                      //       controller: note1Input,
+                      //       decoration: const InputDecoration(
+                      //         labelText: 'Nota',
+                      //       ),
+                      //     ),
+                      //     const SizedBox(
+                      //       height: 20,
+                      //     ),
+                      //     Text(
+                      //       "Alternativa: ${listCriteria.alternativeNames[1]}",
+                      //       style: AppTextStyles.heading16NBold,
+                      //     ),
+                      //     const SizedBox(
+                      //       height: 10,
+                      //     ),
+                      //     TextFormField(
+                      //       validator: (String? valor) {
+                      //         if (valor!.isEmpty) {
+                      //           return "Nota Vazia. Favor, preencher!";
+                      //         } else {
+                      //           return null;
+                      //         }
+                      //       },
+                      //       key: _keyNota2,
+                      //       keyboardType: TextInputType.number,
+                      //       controller: note2Input,
+                      //       decoration: const InputDecoration(
+                      //         labelText: 'Nota',
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
+
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Alternativa: ${listCriteria.alternativeNames[0]}",
-                            style: AppTextStyles.heading16NBold,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          TextFormField(
-                            validator: (String? valor) {
-                              if (valor!.isEmpty) {
-                                return "Nota Vazia. Favor, preencher!";
-                              } else {
-                                return null;
-                              }
-                            },
-                            key: _keyNota1,
-                            keyboardType: TextInputType.number,
-                            controller: note1Input,
-                            decoration: const InputDecoration(
-                              labelText: 'Nota',
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Text(
-                            "Alternativa: ${listCriteria.alternativeNames[1]}",
-                            style: AppTextStyles.heading16NBold,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          TextFormField(
-                            validator: (String? valor) {
-                              if (valor!.isEmpty) {
-                                return "Nota Vazia. Favor, preencher!";
-                              } else {
-                                return null;
-                              }
-                            },
-                            key: _keyNota2,
-                            keyboardType: TextInputType.number,
-                            controller: note2Input,
-                            decoration: const InputDecoration(
-                              labelText: 'Nota',
-                            ),
-                          ),
-                        ],
+                        children: List.generate(
+                          listCriteria.alternativeNames.length,
+                              (index) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Alternativa: ${listCriteria.alternativeNames[index]}",
+                                  style: AppTextStyles.heading16NBold,
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                TextFormField(
+                                  validator: (String? valor) {
+                                    if (valor!.isEmpty) {
+                                      return "Nota Vazia. Favor, preencher!";
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                  key: GlobalKey<FormState>(), // Use uma chave diferente para cada TextFormField
+                                  keyboardType: TextInputType.number,
+                                  controller: noteControllers[index], // Use o controlador correspondente
+                                  decoration: const InputDecoration(
+                                    labelText: 'Nota',
+                                  ),
+                                ),
+                                if (index < listCriteria.alternativeNames.length - 1)
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                              ],
+                            );
+                          },
+                        ),
                       ),
                     ],
                   ),
@@ -441,22 +525,47 @@ class _HomeState extends State<Home> {
                         style: TextStyle(color: Colors.white),
                       ),
                       onPressed: () async {
-                        if (_keyPeso.currentState!.validate() &
-                            _keyNome.currentState!.validate() &
-                            _keyNota1.currentState!.validate() &
-                            _keyNota2.currentState!.validate()) {
+                        // if (_keyPeso.currentState!.validate() &
+                        //     _keyNome.currentState!.validate() &
+                        //     _keyNota1.currentState!.validate() &
+                        //     _keyNota2.currentState!.validate()) {
+                        if (_keyPeso.currentState!.validate() &&
+                        _keyNome.currentState!.validate()) {
+
+                          late List<Alternative> alternatives = [];
+
+                          // list.add(
+                          //     nomeInput.text, double.parse(pesoInput.text), [
+                          //   Alternative(
+                          //       name: list.alternativeNames[0],
+                          //       note: int.parse(note1Input.text)),
+                          //   Alternative(
+                          //       name: list.alternativeNames[1],
+                          //       note: int.parse(note2Input.text))
+                          //   //listCriteria.alternatives,
+                          // ]);
+                          //
+                          // Navigator.pop(context);
+
+                          for (int i = 0; i < listCriteria.alternativeNames.length; i++) {
+                            if (noteControllers[i].text.isNotEmpty) {
+                              alternatives.add(
+                                Alternative(
+                                  name: listCriteria.alternativeNames[i],
+                                  note: int.parse(noteControllers[i].text),
+                                ),
+                              );
+                            }
+                          }
+
                           list.add(
-                              nomeInput.text, double.parse(pesoInput.text), [
-                            Alternative(
-                                name: list.alternativeNames[0],
-                                note: int.parse(note1Input.text)),
-                            Alternative(
-                                name: list.alternativeNames[1],
-                                note: int.parse(note2Input.text))
-                            //listCriteria.alternatives,
-                          ]);
+                            nomeInput.text,
+                            double.parse(pesoInput.text),
+                            alternatives,
+                          );
 
                           Navigator.pop(context);
+                          print("List: $listCriteria");
                         }
                       },
                     );
