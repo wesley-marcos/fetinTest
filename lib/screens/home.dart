@@ -127,78 +127,103 @@ class _HomeState extends State<Home> {
                       final criterion = list.criteria[index];
                       //final alternative = list.alternatives[index];
                       return ExpansionTile(
-                        expandedCrossAxisAlignment: CrossAxisAlignment.start,
+                        expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
                         expandedAlignment: Alignment.center,
                         title: Text(
                           "Critério: ${criterion.criterionName}",
                           style: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
-                            fontSize: 20,
+                            fontSize: 23,
                           ),
                         ),
                         children: [
-                          Text(
-                            "Peso: ${criterion.weight}",
-                            style: AppTextStyles.heading15Nbold,
+                          Row(
+                            children: [
+                              Text(
+                                "     Peso: ",
+                                style: AppTextStyles.body20,
+                              ),
+                              Text(
+                                "${criterion.weight}",
+                                style: AppTextStyles.text1,
+                              ),
+                            ],
                           ),
-                          for (Alternative alternative in criterion.alternatives)
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Alternativa: ${alternative.name}",
-                                  style: AppTextStyles.heading15Nbold,
-                                ),
-                                Text(
-                                  "Nota: ${alternative.note}",
-                                  style: AppTextStyles.heading15Nbold,
-                                ),
-                              ],
-                            ),
+
+                          const SizedBox(
+                            height: 20,
+                          ),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Column(
+                                children: [
+                                  Text("Alternativa",
+                                      style: AppTextStyles.body20),
+                                  for (Alternative alternative
+                                      in criterion.alternatives)
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 5.0),
+                                      child: Text("${alternative.name}",
+                                          style: AppTextStyles.text1),
+                                    ),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Text("Nota", style: AppTextStyles.body20),
+                                  for (Alternative alternative
+                                      in criterion.alternatives)
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 5.0),
+                                      child: Text("${alternative.note}",
+                                          style: AppTextStyles.text1),
+                                    ),
+                                ],
+                              ),
+                            ],
+                          ),
+
+                          // Text(
+                          //   "Peso: ${criterion.weight}",
+                          //   style: AppTextStyles.text1,
+                          // ),
+                          // for (Alternative alternative in criterion.alternatives)
+                          //   Column(
+                          //     crossAxisAlignment: CrossAxisAlignment.start,
+                          //     children: [
+                          //       // Text(
+                          //       //   "Alternativa: ${alternative.name}",
+                          //       //   style: AppTextStyles.heading15Nbold,
+                          //       // ),
+                          //       // Text(
+                          //       //   "Nota: ${alternative.note}",
+                          //       //   style: AppTextStyles.heading15Nbold,
+                          //       // ),
+                          //       Text(
+                          //           "Alternativa: ${alternative.name}",
+                          //           style: AppTextStyles.text1
+                          //       ),
+                          //
+                          //       for (Alternative alternative in criterion.alternatives)
+                          //         Padding(
+                          //           padding: const EdgeInsets.symmetric(vertical: 5.0),
+                          //           child: Text(
+                          //               "${alternative.note}",
+                          //               style: AppTextStyles.text1
+                          //           ),
+                          //         ),
+                          //     ],
+                          //   ),
                           const SizedBox(
                             height: 10,
                           ),
                         ],
                       );
-
-                      //   ExpansionTile(
-                      //   expandedCrossAxisAlignment: CrossAxisAlignment.start,
-                      //   expandedAlignment: Alignment.center,
-                      //   title: Text(
-                      //     "Critério: ${criterion.criterionName}",
-                      //     style: const TextStyle(
-                      //       color: Colors.black,
-                      //       fontWeight: FontWeight.bold,
-                      //       fontSize: 20,
-                      //     ),
-                      //   ),
-                      //   children: [
-                      //     Text(
-                      //       "Peso: ${criterion.weight}",
-                      //       style: AppTextStyles.heading15Nbold,
-                      //     ),
-                      //     Text(
-                      //       "Alternativa: ${criterion.alternatives[0].name}",
-                      //       style: AppTextStyles.heading15Nbold,
-                      //     ),
-                      //     Text(
-                      //       "Nota: ${criterion.alternatives[0].note}",
-                      //       style: AppTextStyles.heading15Nbold,
-                      //     ),
-                      //     Text(
-                      //       "Alternativa: ${criterion.alternatives[1].name}",
-                      //       style: AppTextStyles.heading15Nbold,
-                      //     ),
-                      //     Text(
-                      //       "Nota: ${criterion.alternatives[1].note}",
-                      //       style: AppTextStyles.heading15Nbold,
-                      //     ),
-                      //     const SizedBox(
-                      //       height: 10,
-                      //     ),
-                      //   ],
-                      // );
                     },
                   ),
                 ),
@@ -320,9 +345,6 @@ class _HomeState extends State<Home> {
     // Definindo os controladores dos TextFormFields
     final nomeInput = TextEditingController();
     final pesoInput = TextEditingController();
-    final note1Input = TextEditingController();
-    final note2Input = TextEditingController();
-    final note3Input = TextEditingController();
 
     int index = 0;
     Criteria listCriteria = Provider.of<Criteria>(context, listen: false);
@@ -344,7 +366,7 @@ class _HomeState extends State<Home> {
               scrollable: true,
               title: Text(
                 'Cadastrar um novo Critério',
-                style: AppTextStyles.body20,
+                style: AppTextStyles.body22,
                 textAlign: TextAlign.center,
               ),
               content: Padding(
@@ -462,7 +484,7 @@ class _HomeState extends State<Home> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: List.generate(
                           listCriteria.alternativeNames.length,
-                              (index) {
+                          (index) {
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -481,14 +503,17 @@ class _HomeState extends State<Home> {
                                       return null;
                                     }
                                   },
-                                  key: GlobalKey<FormState>(), // Use uma chave diferente para cada TextFormField
+                                  key: GlobalKey<FormState>(),
+                                  // Use uma chave diferente para cada TextFormField
                                   keyboardType: TextInputType.number,
-                                  controller: noteControllers[index], // Use o controlador correspondente
+                                  controller: noteControllers[index],
+                                  // Use o controlador correspondente
                                   decoration: const InputDecoration(
                                     labelText: 'Nota',
                                   ),
                                 ),
-                                if (index < listCriteria.alternativeNames.length - 1)
+                                if (index <
+                                    listCriteria.alternativeNames.length - 1)
                                   const SizedBox(
                                     height: 20,
                                   ),
@@ -530,8 +555,7 @@ class _HomeState extends State<Home> {
                         //     _keyNota1.currentState!.validate() &
                         //     _keyNota2.currentState!.validate()) {
                         if (_keyPeso.currentState!.validate() &&
-                        _keyNome.currentState!.validate()) {
-
+                            _keyNome.currentState!.validate()) {
                           late List<Alternative> alternatives = [];
 
                           // list.add(
@@ -547,7 +571,9 @@ class _HomeState extends State<Home> {
                           //
                           // Navigator.pop(context);
 
-                          for (int i = 0; i < listCriteria.alternativeNames.length; i++) {
+                          for (int i = 0;
+                              i < listCriteria.alternativeNames.length;
+                              i++) {
                             if (noteControllers[i].text.isNotEmpty) {
                               alternatives.add(
                                 Alternative(
@@ -604,3 +630,29 @@ void _showLoadingDialog(BuildContext context) {
     },
   );
 }
+
+// Widget buildCategoryColumn() {
+//
+//   return Consumer<Criteria>(
+//     builder: (BuildContext context, Criteria list, Widget? widget){
+//       final criterion = list.criteria[index];
+//       return Column(
+//         children: [
+//           Text(
+//               "Alternativa",
+//               style: AppTextStyles.text1
+//           ),
+//
+//           for (Alternative alternative in criterion.alternatives)
+//             Padding(
+//               padding: const EdgeInsets.symmetric(vertical: 5.0),
+//               child: Text(
+//                 "$alternative",
+//                 style: AppTextStyles.text1
+//               ),
+//             ),
+//         ],
+//       );
+//     },
+//   );
+// }
