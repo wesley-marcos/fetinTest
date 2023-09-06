@@ -80,7 +80,7 @@ class AppTextStyles {
 
   static final TextStyle body20 = GoogleFonts.notoSans(
     color: Colors.black,
-    fontSize: 14,
+    fontSize: 18,
     fontWeight: FontWeight.bold,
   );
 

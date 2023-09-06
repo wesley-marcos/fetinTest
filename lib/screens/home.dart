@@ -7,6 +7,7 @@ import 'package:hash_test/components/criteria.dart';
 import 'package:provider/provider.dart';
 import '../basic_templates/appColors.dart';
 import 'output.dart';
+import 'dart:convert';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -141,7 +142,7 @@ class _HomeState extends State<Home> {
                           Row(
                             children: [
                               Text(
-                                "     Peso: ",
+                                "        Peso: ",
                                 style: AppTextStyles.body20,
                               ),
                               Text(
@@ -187,38 +188,6 @@ class _HomeState extends State<Home> {
                               ),
                             ],
                           ),
-
-                          // Text(
-                          //   "Peso: ${criterion.weight}",
-                          //   style: AppTextStyles.text1,
-                          // ),
-                          // for (Alternative alternative in criterion.alternatives)
-                          //   Column(
-                          //     crossAxisAlignment: CrossAxisAlignment.start,
-                          //     children: [
-                          //       // Text(
-                          //       //   "Alternativa: ${alternative.name}",
-                          //       //   style: AppTextStyles.heading15Nbold,
-                          //       // ),
-                          //       // Text(
-                          //       //   "Nota: ${alternative.note}",
-                          //       //   style: AppTextStyles.heading15Nbold,
-                          //       // ),
-                          //       Text(
-                          //           "Alternativa: ${alternative.name}",
-                          //           style: AppTextStyles.text1
-                          //       ),
-                          //
-                          //       for (Alternative alternative in criterion.alternatives)
-                          //         Padding(
-                          //           padding: const EdgeInsets.symmetric(vertical: 5.0),
-                          //           child: Text(
-                          //               "${alternative.note}",
-                          //               style: AppTextStyles.text1
-                          //           ),
-                          //         ),
-                          //     ],
-                          //   ),
                           const SizedBox(
                             height: 10,
                           ),
@@ -288,6 +257,12 @@ class _HomeState extends State<Home> {
                                 ),
                               );
                             } else {
+
+                              // Converter list para JSON
+                              // final jsonData = jsonEncode(Provider
+                              //     .of<Criteria>(context, listen: false).criteria);
+                              // print(jsonData);
+
                               _showLoadingDialog(
                                   context); // Exibir o showDialog do loading
 
