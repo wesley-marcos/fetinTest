@@ -24,6 +24,8 @@ class _HomeState extends State<Home> with ValidationsMixin{
 
   bool _isLoading = false;
 
+  int numberOfCriteria = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -300,17 +302,70 @@ class _HomeState extends State<Home> with ValidationsMixin{
         elevation: 10,
         backgroundColor: Colors.blue,
         onPressed: () {
-          createCriteria(context);
+          if (numberOfCriteria < 5) {
+            createCriteria(context);
+            numberOfCriteria++; // Incrementa o contador de alternativas
+          } else {
+            // Mostra um aviso quando o limite é atingido
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text("Limite atingido", style: AppTextStyles.title3),
+                ),
+                content: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    "Você atingiu o limite de 5 critérios.",
+                    textAlign: TextAlign.justify,
+                    style: AppTextStyles.heading16NBold,
+                  ),
+                ),
+                actions: [
+                  OutlinedButton(
+                    onPressed: () => Navigator.pop(context),
+                    style: ButtonStyle(
+                      side: MaterialStateProperty.all<BorderSide>(
+                        const BorderSide(color: Colors.blue),
+                      ),
+                      backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.blue),
+                    ),
+                    child: const Text(
+                      "OK",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }
         },
         tooltip: 'Add Criterion',
         shape: RoundedRectangleBorder(
-          // Define a forma do botão
-          borderRadius:
-              BorderRadius.circular(35.0), // Define o raio do canto do botão
-          side: const BorderSide(color: Colors.black12), // Define o contorno
+          borderRadius: BorderRadius.circular(35.0),
+          side: const BorderSide(color: Colors.black12),
         ),
         child: const Icon(Icons.add),
       ),
+
+
+      // FloatingActionButton(
+      //   elevation: 10,
+      //   backgroundColor: Colors.blue,
+      //   onPressed: () {
+      //     createCriteria(context);
+      //   },
+      //   tooltip: 'Add Criterion',
+      //   shape: RoundedRectangleBorder(
+      //     // Define a forma do botão
+      //     borderRadius:
+      //         BorderRadius.circular(35.0), // Define o raio do canto do botão
+      //     side: const BorderSide(color: Colors.black12), // Define o contorno
+      //   ),
+      //   child: const Icon(Icons.add),
+      // ),
     );
   }
 
@@ -318,6 +373,11 @@ class _HomeState extends State<Home> with ValidationsMixin{
     // Definindo os controladores dos TextFormFields
     final nomeInput = TextEditingController();
     final pesoInput = TextEditingController();
+    final nota0Input = TextEditingController();
+    final nota1Input = TextEditingController();
+    final nota2Input = TextEditingController();
+    final nota3Input = TextEditingController();
+    final nota4Input = TextEditingController();
     final globalInput = GlobalKey();
 
     int index = 0;
@@ -476,32 +536,62 @@ class _HomeState extends State<Home> with ValidationsMixin{
                       ),
                       onPressed: () async {
 
-                        if (_keyNome.currentState!.validate() &&
-                            _keyPeso.currentState!.validate()) {
+                        String validateNota(String value) {
+                          if (value.isEmpty) {
+                            return 'Campo obrigatório';
+                          }
+                          final nota = int.tryParse(value);
+                          if (nota == null || nota < 1 || nota > 10) {
+                            return 'A nota deve estar entre 1 e 10';
+                          }
+                          return ''; // A entrada é válida
+                        }
 
+                        if (_keyNome.currentState!.validate() && _keyPeso.currentState!.validate()) {
                           late List<Alternative> alternatives = [];
 
-                          for (int i = 0;
-                              i < listCriteria.alternativeNames.length;
-                              i++) {
-                            if (noteControllers[i].text.isNotEmpty) {
-                              alternatives.add(
-                                Alternative(
-                                  name: listCriteria.alternativeNames[i],
-                                  note: int.parse(noteControllers[i].text),
-                                ),
-                              );
+                          bool notasValidas = true;
+
+                          for (int i = 0; i < listCriteria.alternativeNames.length; i++) {
+
+                            final nota = noteControllers[i].text;
+
+                            if (nota.isNotEmpty) {
+
+                              final notaValue = int.tryParse(nota);
+
+                              if (notaValue != null && notaValue >= 1 && notaValue <= 10) {
+
+                                alternatives.add(
+                                  Alternative(
+                                    name: listCriteria.alternativeNames[i],
+                                    note: notaValue,
+                                  ),
+                                );
+
+                              }
+
+                              else {
+                                notasValidas = false;
+                                break;
+                              }
+                            }
+
+                            else{
+                              notasValidas = false;
                             }
                           }
 
-                          list.add(
-                            nomeInput.text,
-                            double.parse(pesoInput.text),
-                            alternatives,
-                          );
+                          if (notasValidas) {
+                            list.add(
+                              nomeInput.text,
+                              double.parse(pesoInput.text),
+                              alternatives,
+                            );
 
-                          Navigator.pop(context);
-                          print("List: $listCriteria");
+                            Navigator.pop(context);
+                            print("List: $listCriteria");
+                          }
                         }
                       },
                     );
@@ -723,6 +813,20 @@ class _HomeState extends State<Home> with ValidationsMixin{
   // }
 
 }
+
+bool _validateNotas(List<TextEditingController> noteControllers) {
+  for (int i = 0; i < noteControllers.length; i++) {
+    final nota = noteControllers[i].text;
+    if (nota.isNotEmpty) {
+      final notaValue = int.tryParse(nota);
+      if (notaValue == null || notaValue < 1 || notaValue > 10) {
+        return false; // Uma nota inválida foi encontrada
+      }
+    }
+  }
+  return true; // Todas as notas são válidas
+}
+
 
 void _showLoadingDialog(BuildContext context) {
   showDialog(

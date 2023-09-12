@@ -18,6 +18,8 @@ class InputAlternatives extends StatefulWidget {
 class _InputAlternativesState extends State<InputAlternatives> {
   final _formKey = GlobalKey<FormFieldState>();
 
+  int numberOfAlternatives = 0;
+
   int i = 0;
 
   void increment() {
@@ -249,19 +251,73 @@ class _InputAlternativesState extends State<InputAlternatives> {
           );
         },
       ),
+      //floatingActionButton:
+      // FloatingActionButton(
+      //   elevation: 10,
+      //   backgroundColor: Colors.blue,
+      //   onPressed: () {
+      //     createInputAlt(context);
+      //     increment();
+      //   },
+      //   tooltip: 'Add Alternative',
+      //   shape: RoundedRectangleBorder(
+      //     // Define a forma do botão
+      //     borderRadius:
+      //         BorderRadius.circular(35.0), // Define o raio do canto do botão
+      //     side: const BorderSide(color: Colors.black12), // Define o contorno
+      //   ),
+      //   child: const Icon(Icons.add),
+      // ),
+
       floatingActionButton: FloatingActionButton(
         elevation: 10,
         backgroundColor: Colors.blue,
         onPressed: () {
-          createInputAlt(context);
-          increment();
+          if (numberOfAlternatives < 5) {
+            createInputAlt(context);
+            increment();
+            numberOfAlternatives++; // Incrementa o contador de alternativas
+          } else {
+            // Mostra um aviso quando o limite é atingido
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text("Limite atingido", style: AppTextStyles.title3),
+                ),
+                content: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    "Você atingiu o limite de 5 alternativas.",
+                    textAlign: TextAlign.justify,
+                    style: AppTextStyles.heading16NBold,
+                  ),
+                ),
+                actions: [
+                  OutlinedButton(
+                    onPressed: () => Navigator.pop(context),
+                    style: ButtonStyle(
+                      side: MaterialStateProperty.all<BorderSide>(
+                        const BorderSide(color: Colors.blue),
+                      ),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.blue),
+                    ),
+                    child: const Text(
+                      "OK",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }
         },
         tooltip: 'Add Alternative',
         shape: RoundedRectangleBorder(
-          // Define a forma do botão
-          borderRadius:
-              BorderRadius.circular(35.0), // Define o raio do canto do botão
-          side: const BorderSide(color: Colors.black12), // Define o contorno
+          borderRadius: BorderRadius.circular(35.0),
+          side: const BorderSide(color: Colors.black12),
         ),
         child: const Icon(Icons.add),
       ),
