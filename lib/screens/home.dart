@@ -26,9 +26,12 @@ class _HomeState extends State<Home> with ValidationsMixin{
 
   int numberOfCriteria = 0;
 
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         actions: [
@@ -263,6 +266,9 @@ class _HomeState extends State<Home> with ValidationsMixin{
                               //     .of<Criteria>(context, listen: false).criteria);
                               // print(jsonData);
 
+                              String jsonCriteria = list.toJson();
+                              print(jsonCriteria);
+
                               _showLoadingDialog(
                                   context); // Exibir o showDialog do loading
 
@@ -349,23 +355,6 @@ class _HomeState extends State<Home> with ValidationsMixin{
         ),
         child: const Icon(Icons.add),
       ),
-
-
-      // FloatingActionButton(
-      //   elevation: 10,
-      //   backgroundColor: Colors.blue,
-      //   onPressed: () {
-      //     createCriteria(context);
-      //   },
-      //   tooltip: 'Add Criterion',
-      //   shape: RoundedRectangleBorder(
-      //     // Define a forma do botão
-      //     borderRadius:
-      //         BorderRadius.circular(35.0), // Define o raio do canto do botão
-      //     side: const BorderSide(color: Colors.black12), // Define o contorno
-      //   ),
-      //   child: const Icon(Icons.add),
-      // ),
     );
   }
 
@@ -373,12 +362,6 @@ class _HomeState extends State<Home> with ValidationsMixin{
     // Definindo os controladores dos TextFormFields
     final nomeInput = TextEditingController();
     final pesoInput = TextEditingController();
-    final nota0Input = TextEditingController();
-    final nota1Input = TextEditingController();
-    final nota2Input = TextEditingController();
-    final nota3Input = TextEditingController();
-    final nota4Input = TextEditingController();
-    final globalInput = GlobalKey();
 
     int index = 0;
     Criteria listCriteria = Provider.of<Criteria>(context, listen: false);
@@ -522,31 +505,12 @@ class _HomeState extends State<Home> with ValidationsMixin{
                   builder:
                       (BuildContext context, Criteria list, Widget? widget) {
                     return OutlinedButton(
-                      style: ButtonStyle(
-                        side: MaterialStateProperty.all<BorderSide>(
-                          const BorderSide(
-                              color: Colors.blue), // Define a cor da borda
-                        ),
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.blue),
-                      ),
                       child: const Text(
                         "Salvar",
                         style: TextStyle(color: Colors.white),
                       ),
                       onPressed: () async {
-
-                        String validateNota(String value) {
-                          if (value.isEmpty) {
-                            return 'Campo obrigatório';
-                          }
-                          final nota = int.tryParse(value);
-                          if (nota == null || nota < 1 || nota > 10) {
-                            return 'A nota deve estar entre 1 e 10';
-                          }
-                          return ''; // A entrada é válida
-                        }
-
+                        // Validação de dados
                         if (_keyNome.currentState!.validate() && _keyPeso.currentState!.validate()) {
                           late List<Alternative> alternatives = [];
 
@@ -594,6 +558,15 @@ class _HomeState extends State<Home> with ValidationsMixin{
                           }
                         }
                       },
+
+                      style: ButtonStyle(
+                        side: MaterialStateProperty.all<BorderSide>(
+                          const BorderSide(
+                              color: Colors.blue), // Define a cor da borda
+                        ),
+                        backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.blue),
+                      ),
                     );
                   },
                 ),
@@ -603,230 +576,7 @@ class _HomeState extends State<Home> with ValidationsMixin{
         });
   }
 
-  // void createCriteria(BuildContext context) {
-  //   // Definindo os controladores dos TextFormFields
-  //   final nomeInput = TextEditingController();
-  //   final pesoInput = TextEditingController();
-  //
-  //   int index = 0;
-  //   Criteria listCriteria = Provider.of<Criteria>(context, listen: false);
-  //   GlobalKey<FormState> _keyNome = GlobalKey<FormState>();
-  //
-  //
-  //   // Crie uma lista de controladores para as notas
-  //   List<TextEditingController> noteControllers = [];
-  //
-  //   // Inicialize os controladores com controladores vazios
-  //   for (int i = 0; i < listCriteria.alternativeNames.length; i++) {
-  //     noteControllers.add(TextEditingController());
-  //   }
-  //
-  //   // Crie uma lista de chaves globais para os campos de notas
-  //   List<GlobalKey<FormState>> noteFormKeys = List.generate(
-  //     listCriteria.alternativeNames.length,
-  //         (index) => GlobalKey<FormState>(),
-  //   );
-  //
-  //   showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return SizedBox(
-  //         //width: double.infinity,
-  //         child: AlertDialog(
-  //           scrollable: true,
-  //           title: Text(
-  //             'Cadastrar um novo Critério',
-  //             style: AppTextStyles.body22,
-  //             textAlign: TextAlign.center,
-  //           ),
-  //           content: Padding(
-  //             padding: const EdgeInsets.all(2.0),
-  //             child: Form(
-  //               child: Column(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: <Widget>[
-  //                   const SizedBox(
-  //                     height: 10,
-  //                   ),
-  //                   Text(
-  //                     "Insira os dados do critério",
-  //                     style: AppTextStyles.heading16,
-  //                   ),
-  //                   const SizedBox(
-  //                     height: 20,
-  //                   ),
-  //                   TextFormField(
-  //                     validator: (String? valor) {
-  //                       if (valor!.isEmpty) {
-  //                         return "Nome Vazio. Favor, preencher!";
-  //                       }
-  //                       return null;
-  //                     },
-  //                     key: _keyNome,
-  //                     keyboardType: TextInputType.name,
-  //                     controller: nomeInput,
-  //                     decoration: const InputDecoration(
-  //                       labelText: 'Nome',
-  //                     ),
-  //                   ),
-  //                   const Padding(padding: EdgeInsets.all(5)),
-  //                   TextFormField(
-  //                     validator: (String? valor) {
-  //                       if (valor!.isEmpty) {
-  //                         return "Peso Vazio. Favor, preencher!";
-  //                       } else {
-  //                         return null;
-  //                       }
-  //                     },
-  //                     key: _keyPeso,
-  //                     keyboardType: TextInputType.number,
-  //                     controller: pesoInput,
-  //                     decoration: const InputDecoration(
-  //                       labelText: 'Peso',
-  //                     ),
-  //                   ),
-  //                   const Padding(padding: EdgeInsets.all(5)),
-  //                   const SizedBox(
-  //                     height: 20,
-  //                   ),
-  //                   Text(
-  //                     "Insira as notas",
-  //                     style: AppTextStyles.heading16,
-  //                   ),
-  //                   const SizedBox(
-  //                     height: 25,
-  //                   ),
-  //                   Column(
-  //                     crossAxisAlignment: CrossAxisAlignment.start,
-  //                     children: List.generate(
-  //                       listCriteria.alternativeNames.length,
-  //                           (index) {
-  //                         return Column(
-  //                           crossAxisAlignment: CrossAxisAlignment.start,
-  //                           children: [
-  //                             Text(
-  //                               "Alternativa: ${listCriteria.alternativeNames[index]}",
-  //                               style: AppTextStyles.heading16NBold,
-  //                             ),
-  //                             const SizedBox(
-  //                               height: 10,
-  //                             ),
-  //                             TextFormField(
-  //                               key: noteFormKeys[index], // Use a chave global
-  //                               keyboardType: TextInputType.number,
-  //                               controller: noteControllers[index],
-  //                               decoration: const InputDecoration(
-  //                                 labelText: 'Nota',
-  //                               ),
-  //                               validator: (String? value) {
-  //                                 if (value == null || value.isEmpty) {
-  //                                   return "Nota vazia. Favor, preencher!";
-  //                                 }
-  //                                 int? intValue = int.tryParse(value);
-  //                                 if (intValue == null ||
-  //                                     intValue < 0 ||
-  //                                     intValue > 10) {
-  //                                   return "Nota inválida. Insira um valor entre 0 e 10.";
-  //                                 }
-  //                                 return null; // A nota é válida
-  //                               },
-  //                             ),
-  //                             if (index < listCriteria.alternativeNames.length - 1)
-  //                               const SizedBox(
-  //                                 height: 20,
-  //                               ),
-  //                           ],
-  //                         );
-  //                       },
-  //                     ),
-  //                   ),
-  //                 ],
-  //               ),
-  //             ),
-  //           ),
-  //           actions: [
-  //             TextButton(
-  //               child: const Text("Cancelar"),
-  //               onPressed: () {
-  //                 Navigator.pop(context);
-  //               },
-  //             ),
-  //             Consumer<Criteria>(
-  //               builder: (BuildContext context, Criteria list, Widget? widget) {
-  //                 return OutlinedButton(
-  //                   style: ButtonStyle(
-  //                     side: MaterialStateProperty.all<BorderSide>(
-  //                       const BorderSide(
-  //                           color: Colors.blue), // Define a cor da borda
-  //                     ),
-  //                     backgroundColor:
-  //                     MaterialStateProperty.all<Color>(Colors.blue),
-  //                   ),
-  //                   child: const Text(
-  //                     "Salvar",
-  //                     style: TextStyle(color: Colors.white),
-  //                   ),
-  //                   onPressed: () async {
-  //                     bool allNotesAreValid = true;
-  //
-  //                     for (final formKey in noteFormKeys) {
-  //                       if (!formKey.currentState!.validate()) {
-  //                         allNotesAreValid = false;
-  //                       }
-  //                     }
-  //
-  //                     if (allNotesAreValid &&
-  //                         _keyPeso.currentState!.validate() &&
-  //                         _keyNome.currentState!.validate()) {
-  //                       late List<Alternative> alternatives = [];
-  //
-  //                       for (int i = 0; i < listCriteria.alternativeNames.length; i++) {
-  //                         if (noteControllers[i].text.isNotEmpty) {
-  //                           alternatives.add(
-  //                             Alternative(
-  //                               name: listCriteria.alternativeNames[i],
-  //                               note: int.parse(noteControllers[i].text),
-  //                             ),
-  //                           );
-  //                         }
-  //                       }
-  //
-  //                       list.add(
-  //                         nomeInput.text,
-  //                         double.parse(pesoInput.text),
-  //                         alternatives,
-  //                       );
-  //
-  //                       Navigator.pop(context);
-  //                       print("List: $listCriteria");
-  //                     }
-  //                   },
-  //                 );
-  //               },
-  //             ),
-  //
-  //           ],
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
-
 }
-
-bool _validateNotas(List<TextEditingController> noteControllers) {
-  for (int i = 0; i < noteControllers.length; i++) {
-    final nota = noteControllers[i].text;
-    if (nota.isNotEmpty) {
-      final notaValue = int.tryParse(nota);
-      if (notaValue == null || notaValue < 1 || notaValue > 10) {
-        return false; // Uma nota inválida foi encontrada
-      }
-    }
-  }
-  return true; // Todas as notas são válidas
-}
-
 
 void _showLoadingDialog(BuildContext context) {
   showDialog(

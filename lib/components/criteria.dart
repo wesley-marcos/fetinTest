@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hash_test/components/alternative.dart';
 import 'package:hash_test/components/criterion.dart';
+import 'dart:convert';
 
 class Criteria extends ChangeNotifier {
   List<Criterion> criteria;
@@ -9,6 +10,28 @@ class Criteria extends ChangeNotifier {
   List<Alternative> alternatives = [];
 
   Criteria({required this.criteria, required this.alternativeNames});
+
+  // Método para converter a lista de critérios em JSON
+  String toJson() {
+    List<Map<String, dynamic>> criteriaList = criteria.map((criterion) {
+      return {
+        'criterionName': criterion.criterionName,
+        'weight': criterion.weight,
+        'alternatives': criterion.alternatives.map((alternative) {
+          return {
+            'name': alternative.name,
+            'note': alternative.note,
+          };
+        }).toList(),
+      };
+    }).toList();
+
+    Map<String, dynamic> criteriaJson = {
+      'criteria': criteriaList,
+    };
+
+    return json.encode(criteriaJson);
+  }
 
   void add(String nome, double peso, List<Alternative> alternativas) {
     criteria.add(Criterion(
