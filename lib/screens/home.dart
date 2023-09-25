@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:hash_test/basic_templates/app_text_styles.dart';
 import 'package:hash_test/components/alternative.dart';
@@ -8,7 +7,6 @@ import 'package:hash_test/utils/validations_mixin.dart';
 import 'package:provider/provider.dart';
 import '../basic_templates/appColors.dart';
 import 'output.dart';
-import 'dart:convert';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -129,7 +127,7 @@ class _HomeState extends State<Home> with ValidationsMixin{
                           ? AppColors.deepSkyBlue.withOpacity(0.5)
                           : Colors.white.withOpacity(0.8);
                       final criterion = list.criteria[index];
-                      //final alternative = list.alternatives[index];
+
                       return ExpansionTile(
                         expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
                         expandedAlignment: Alignment.center,
@@ -261,11 +259,6 @@ class _HomeState extends State<Home> with ValidationsMixin{
                               );
                             } else {
 
-                              // Converter list para JSON
-                              // final jsonData = jsonEncode(Provider
-                              //     .of<Criteria>(context, listen: false).criteria);
-                              // print(jsonData);
-
                               String jsonCriteria = list.toJson();
                               print(jsonCriteria);
 
@@ -273,7 +266,7 @@ class _HomeState extends State<Home> with ValidationsMixin{
                                   context); // Exibir o showDialog do loading
 
                               // Atraso de 1 segundo
-                              Future.delayed(const Duration(seconds: 4), () {
+                              Future.delayed(const Duration(seconds: 3), () {
                                 Navigator.pop(
                                     context); // Fechar o showDialog do loading
 
@@ -489,7 +482,6 @@ class _HomeState extends State<Home> with ValidationsMixin{
                           },
                         ),
                       ),
-
                     ],
                   ),
                 ),
