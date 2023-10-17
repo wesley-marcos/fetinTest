@@ -367,7 +367,7 @@ class _HomeState extends State<Home> with ValidationsMixin{
       noteControllers.add(TextEditingController());
     }
 
-    List<GlobalKey<FormState>> noteFormKeys = List.generate(
+    List<GlobalKey<FormState>> minorNoteFormKeys = List.generate(
       listCriteria.alternativeNames.length,
           (index) => GlobalKey<FormState>(),
     );
@@ -449,7 +449,7 @@ class _HomeState extends State<Home> with ValidationsMixin{
                         children: List.generate(
                           listCriteria.alternativeNames.length,
                               (index) {
-                            final noteController = noteControllers[index];
+                            final minorNoteController = noteControllers[index];
 
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -461,18 +461,20 @@ class _HomeState extends State<Home> with ValidationsMixin{
                                 const SizedBox(
                                   height: 10,
                                 ),
+
                                 TextFormField(
                                   keyboardType: TextInputType.number,
-                                  controller: noteController,
+                                  controller: minorNoteController,
                                   decoration: const InputDecoration(
                                     labelText: 'Nota',
                                   ),
-                                  key: noteFormKeys[index],
+                                  key: minorNoteFormKeys[index],
                                   validator: (val) => combine([
                                         () => EntradaVazia(val),
                                         () => EntradaForaDoRange(val),
                                   ]),
                                 ),
+
                                 if (index < listCriteria.alternativeNames.length - 1)
                                   const SizedBox(
                                     height: 20,
