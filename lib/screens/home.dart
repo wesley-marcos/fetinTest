@@ -80,7 +80,7 @@ class _HomeState extends State<Home> with ValidationsMixin{
         iconTheme: const IconThemeData(color: Colors.white),
         elevation: 0,
         title: Text(
-          'Criterios',
+          'Critérios',
           style: TextStyle(
             fontSize: 32,
             fontWeight: FontWeight.w600,
