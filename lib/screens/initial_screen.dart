@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'alternatives_input.dart';
+import 'alternatives/alternatives_input.dart';
 import '../basic_templates/appColors.dart';
 import '../basic_templates/app_text_styles.dart';
 

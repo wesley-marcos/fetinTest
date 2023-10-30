@@ -13,6 +13,7 @@ AppBar wAppbar(context, labelTittle, text) {
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
+              backgroundColor: Colors.white,
               title: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text("$labelTittle", style: AppTextStyles.title3),

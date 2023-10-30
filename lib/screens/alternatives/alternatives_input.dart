@@ -3,11 +3,12 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:hash_test/basic_templates/app_text_styles.dart';
 import 'package:hash_test/components/appBar.dart';
+import 'package:hash_test/screens/alternatives/containerView.dart';
 import 'package:hash_test/screens/home.dart';
 import 'package:provider/provider.dart';
 
-import '../basic_templates/appColors.dart';
-import '../components/criteria.dart';
+import '../../basic_templates/appColors.dart';
+import '../../components/criteria.dart';
 
 class InputAlternatives extends StatefulWidget {
   const InputAlternatives({Key? key}) : super(key: key);
@@ -51,38 +52,13 @@ class _InputAlternativesState extends State<InputAlternatives> {
                       itemCount: list.alternativeNames.length,
                       itemBuilder: (context, index) {
                         final color = index % 2 == 0
-                            ? AppColors.deepSkyBlue.withOpacity(0.5)
-                            : Colors.white.withOpacity(0.8);
+                            ? AppColors.lightSkyBlue.withOpacity(0.5)
+                            : Colors.white.withOpacity(0.5);
                         final alternativeName = list.alternativeNames[index];
                         return Dismissible(
                           key: UniqueKey(),
                           background: Container(color: Colors.red),
-                          child: Container(
-                            margin: const EdgeInsets.all(10.0),
-                            decoration: BoxDecoration(
-                              color: color,
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(color: Colors.black12),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.15),
-                                  blurRadius: 5.0,
-                                  spreadRadius: 2.0,
-                                  offset: const Offset(0,
-                                      3), // ajuste a posição vertical da sombra conforme necessário
-                                ),
-                              ],
-                            ),
-                            child: ListTile(
-                              title: Text(
-                                "Alternativa ${index + 1}: $alternativeName",
-                                style: const TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20),
-                              ),
-                            ),
-                          ),
+                          child: wContainerView(color, index, alternativeName),
                           onDismissed: (direction) {
                             list.remove(index);
                           },
