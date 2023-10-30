@@ -5,13 +5,13 @@ import 'package:hash_test/basic_templates/appColors.dart';
 import 'package:hash_test/basic_templates/app_text_styles.dart';
 import 'package:hash_test/components/showDialog.dart';
 
-AppBar wAppbar(context, labelTittle, text) {
+AppBar wAppbar(context, labelTitle, text) {
   return AppBar(
     actions: [
       IconButton(
         color: Colors.black,
         onPressed: () {
-          wShowDialog(context, labelTittle, text);
+          wShowDialog(context, labelTitle, text);
         },
         icon: const Icon(Icons.info_outline_rounded),
       ),
@@ -20,7 +20,7 @@ AppBar wAppbar(context, labelTittle, text) {
     iconTheme: const IconThemeData(color: Colors.black),
     elevation: 0,
     title: Text(
-      '$labelTittle',
+      '$labelTitle',
       style: GoogleFonts.poppins(
         fontSize: 32,
         fontWeight: FontWeight.bold,

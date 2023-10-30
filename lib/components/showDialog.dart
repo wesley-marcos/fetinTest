@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:hash_test/basic_templates/appColors.dart';
 import 'package:hash_test/basic_templates/app_text_styles.dart';
 
-Future wShowDialog(context, labelTittle, text) {
+Future wShowDialog(context, labelTitle, text) {
   return showDialog(
     context: context,
     builder: (context) => AlertDialog(
       backgroundColor: Colors.white,
       title: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Text("$labelTittle", style: AppTextStyles.title3),
+        child: Text("$labelTitle", style: AppTextStyles.title3),
       ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(

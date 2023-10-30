@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:hash_test/basic_templates/app_text_styles.dart';
 import 'package:hash_test/components/appBar.dart';
+import 'package:hash_test/components/buttonProximo.dart';
 import 'package:hash_test/components/floatActionButton.dart';
 import 'package:hash_test/components/showDialog.dart';
 import 'package:hash_test/screens/alternatives/containerView.dart';
@@ -71,114 +72,19 @@ class _InputAlternativesState extends State<InputAlternatives> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        bottom: 20.0, left: 20, right: 50),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                        elevation: 10,
-                        fixedSize: const Size(230, 50),
-                        side: const BorderSide(color: Colors.black12),
-                        shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadiusDirectional.all(
-                                Radius.circular(20))),
-                      ),
-                      onPressed: () {
-                        // Validar se há pelo menos 2 alternativas
-                        if (Provider.of<Criteria>(context, listen: false)
-                                .alternativeNames
-                                .length <
-                            2) {
-                          // showDialog(
-                          //   context: context,
-                          //   builder: (context) => AlertDialog(
-                          //     title: Padding(
-                          //       padding: const EdgeInsets.all(16.0),
-                          //       child:
-                          //           Text("Aviso", style: AppTextStyles.title3),
-                          //     ),
-                          //     content: Padding(
-                          //       padding: const EdgeInsets.all(16.0),
-                          //       child: Text(
-                          //           "Adicione pelo menos 2 alternativas antes "
-                          //           "de "
-                          //           "prosseguir.",
-                          //           textAlign: TextAlign.justify,
-                          //           style: AppTextStyles.heading16NBold),
-                          //     ),
-                          //     actions: [
-                          //       OutlinedButton(
-                          //         onPressed: () => Navigator.pop(context),
-                          //         style: ButtonStyle(
-                          //           side: MaterialStateProperty.all<BorderSide>(
-                          //             const BorderSide(color: Colors.blue),
-                          //           ),
-                          //           backgroundColor:
-                          //               MaterialStateProperty.all<Color>(
-                          //                   Colors.blue),
-                          //         ),
-                          //         child: const Text(
-                          //           "OK",
-                          //           style: TextStyle(color: Colors.white),
-                          //         ),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // );
-                          wShowDialog(
-                            context,
-                            "Aviso",
-                            "Adicione pelo menos 2 alternativas antes "
-                                "de "
-                                "prosseguir.",
-                          );
-                        } else {
-                          // Navegar para a próxima tela
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Home()),
-                          );
-                        }
-                      },
-                      child: const Padding(
-                        padding: EdgeInsets.only(left: 15.0),
-                        child: Text(
-                          "Próximo",
-                          style: TextStyle(
-                            fontSize: 22,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  wButtonProximo(
+                      context,
+                      "Aviso",
+                      "Adicione pelo menos 2 alternativas antes "
+                          "de "
+                          "prosseguir.",
+                      const Home())
                 ],
               ),
             ),
           );
         },
       ),
-      //floatingActionButton:
-      // FloatingActionButton(
-      //   elevation: 10,
-      //   backgroundColor: Colors.blue,
-      //   onPressed: () {
-      //     createInputAlt(context);
-      //     increment();
-      //   },
-      //   tooltip: 'Add Alternative',
-      //   shape: RoundedRectangleBorder(
-      //     // Define a forma do botão
-      //     borderRadius:
-      //         BorderRadius.circular(35.0), // Define o raio do canto do botão
-      //     side: const BorderSide(color: Colors.black12), // Define o contorno
-      //   ),
-      //   child: const Icon(Icons.add),
-      // ),
-
       floatingActionButton: wFloatActionButton(
           context,
           "Limite atingido",
@@ -186,27 +92,6 @@ class _InputAlternativesState extends State<InputAlternatives> {
           numberOfAlternatives,
           createInputAlt,
           increment),
-      //  FloatingActionButton(
-      //   elevation: 10,
-      //   backgroundColor: AppColors.deepSkyBlue,
-      //   onPressed: () {
-      //     if (numberOfAlternatives < 5) {
-      //       createInputAlt(context);
-      //       increment();
-      //       numberOfAlternatives++; // Incrementa o contador de alternativas
-      //     } else {
-      //       // Mostra um aviso quando o limite é atingido
-      //       wShowDialog(context, "Limite atingido",
-      //           "Você atingiu o limite de 5 alternativas.");
-      //     }
-      //   },
-      //   tooltip: 'Add Alternative',
-      //   shape: RoundedRectangleBorder(
-      //     borderRadius: BorderRadius.circular(10.0),
-      //     side: const BorderSide(color: AppColors.deepSkyBlue),
-      //   ),
-      //   child: const Icon(Icons.add),
-      // ),
     );
   }
 

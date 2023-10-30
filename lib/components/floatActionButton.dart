@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hash_test/basic_templates/appColors.dart';
 import 'package:hash_test/components/showDialog.dart';
 
-FloatingActionButton wFloatActionButton(context, labelTittle, text,
+FloatingActionButton wFloatActionButton(context, labelTitle, text,
     numberOfAlternatives, createInputAlt, increment) {
   return FloatingActionButton(
     elevation: 10,
@@ -14,10 +14,10 @@ FloatingActionButton wFloatActionButton(context, labelTittle, text,
         numberOfAlternatives++; // Incrementa o contador de alternativas
       } else {
         // Mostra um aviso quando o limite é atingido
-        wShowDialog(context, labelTittle, text);
+        wShowDialog(context, labelTitle, text);
       }
     },
-    tooltip: 'Add Alternative',
+    tooltip: 'Adicionar',
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(10.0),
       side: const BorderSide(color: AppColors.deepSkyBlue),
