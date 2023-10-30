@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hash_test/basic_templates/appColors.dart';
 import 'package:hash_test/basic_templates/app_text_styles.dart';
 
-AppBar wAppbar(context, labelTittle) {
+AppBar wAppbar(context, labelTittle, text) {
   return AppBar(
     actions: [
       IconButton(
@@ -17,15 +17,13 @@ AppBar wAppbar(context, labelTittle) {
                 padding: const EdgeInsets.all(16.0),
                 child: Text("$labelTittle", style: AppTextStyles.title3),
               ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(
+                    5.0), // Ajuste o valor do raio conforme desejado
+              ),
               content: Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: Text(
-                    "Alternativa é toda opção de escolha que você "
-                    "tem.\n\n"
-                    "Exemplo\nAo comprar um computador, você tem "
-                    "as três alternativas seguintes: um da marca Acer, "
-                    "um da marca "
-                    "Dell e outro da marca Apple.",
+                child: Text("$text",
                     textAlign: TextAlign.justify,
                     style: AppTextStyles.heading16NBold),
               ),
@@ -33,14 +31,22 @@ AppBar wAppbar(context, labelTittle) {
                 OutlinedButton(
                   style: ButtonStyle(
                     side: MaterialStateProperty.all<BorderSide>(
-                      const BorderSide(color: Colors.blue),
+                      const BorderSide(
+                        color: AppColors.deepSkyBlue,
+                      ),
                     ),
                     backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.blue),
+                        MaterialStateProperty.all<Color>(AppColors.deepSkyBlue),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                            5.0), // Ajuste o valor do raio conforme desejado
+                      ),
+                    ),
                   ),
                   child: const Text(
                     'Ok',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.black),
                   ),
                   onPressed: () {
                     Navigator.pop(context);

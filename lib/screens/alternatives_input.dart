@@ -31,7 +31,15 @@ class _InputAlternativesState extends State<InputAlternatives> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: wAppbar(context, "Alternativas"),
+      appBar: wAppbar(
+          context,
+          "Alternativas",
+          "Alternativa é toda opção de escolha que você "
+              "tem.\n\n"
+              "Exemplo\nAo comprar um computador, você tem "
+              "as três alternativas seguintes: um da marca Acer, "
+              "um da marca "
+              "Dell e outro da marca Apple."),
       body: Consumer<Criteria>(
         builder: (BuildContext context, Criteria list, Widget? widget) {
           return Scaffold(
