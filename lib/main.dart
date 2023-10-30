@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hash_test/basic_templates/appColors.dart';
 import 'package:hash_test/components/alternatives.dart';
 import 'package:hash_test/components/criteria.dart';
 import 'package:provider/provider.dart';
@@ -26,11 +27,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      //color: AppColors.purple,
-      home: InitialScreen(),
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.deepSkyBlue),
+        useMaterial3: true,
+      ),
+      home: const InitialScreen(),
     );
   }
 }

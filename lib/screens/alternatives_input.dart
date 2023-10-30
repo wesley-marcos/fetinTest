@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:hash_test/basic_templates/app_text_styles.dart';
+import 'package:hash_test/components/appBar.dart';
 import 'package:hash_test/screens/home.dart';
 import 'package:provider/provider.dart';
 
@@ -30,95 +31,11 @@ class _InputAlternativesState extends State<InputAlternatives> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            color: Colors.white,
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text("Alternativas", style: AppTextStyles.title3),
-                  ),
-                  content: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text(
-                        "Alternativa é toda opção de escolha que você "
-                        "tem.\n\n"
-                        "Exemplo\nAo comprar um computador, você tem "
-                        "as três alternativas seguintes: um da marca Acer, "
-                        "um da marca "
-                        "Dell e outro da marca Apple.",
-                        textAlign: TextAlign.justify,
-                        style: AppTextStyles.heading16NBold),
-                  ),
-                  actions: [
-                    OutlinedButton(
-                      style: ButtonStyle(
-                        side: MaterialStateProperty.all<BorderSide>(
-                          const BorderSide(color: Colors.blue),
-                        ),
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.blue),
-                      ),
-                      child: const Text(
-                        'Ok',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ],
-                ),
-              );
-            },
-            icon: const Icon(Icons.info_outline_rounded),
-          ),
-        ],
-        backgroundColor: Colors.transparent,
-        iconTheme: const IconThemeData(color: Colors.white),
-        elevation: 0,
-        title: Text(
-          'Alternativas',
-          style: TextStyle(
-            fontSize: 32,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-            shadows: [
-              Shadow(
-                color: Colors.black.withOpacity(0.5),
-                offset: const Offset(1, 2),
-                blurRadius: 3,
-              )
-            ],
-          ),
-        ),
-        centerTitle: true,
-        flexibleSpace: ClipRect(
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-            child: Container(color: Colors.transparent),
-          ),
-        ),
-      ),
+      appBar: wAppbar(context, "Alternativas"),
       body: Consumer<Criteria>(
         builder: (BuildContext context, Criteria list, Widget? widget) {
           return Scaffold(
             body: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    AppColors.deepSkyBlue,
-                    AppColors.lightSkyBlue,
-                    AppColors.lightBlue,
-                  ],
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                ),
-              ),
               child: Column(
                 children: [
                   Expanded(
