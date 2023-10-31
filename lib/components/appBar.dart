@@ -2,7 +2,6 @@ import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:hash_test/basic_templates/appColors.dart';
-import 'package:hash_test/basic_templates/app_text_styles.dart';
 import 'package:hash_test/components/showDialog.dart';
 
 AppBar wAppbar(context, labelTitle, text) {
