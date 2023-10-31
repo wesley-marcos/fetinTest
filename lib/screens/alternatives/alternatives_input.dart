@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:hash_test/components/appBar.dart';
 import 'package:hash_test/components/buttonProximo.dart';
@@ -8,6 +6,7 @@ import 'package:hash_test/components/showDialog.dart';
 import 'package:hash_test/screens/alternatives/containerView.dart';
 import 'package:hash_test/screens/criterios/home.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../basic_templates/appColors.dart';
 import '../../components/criteria.dart';
@@ -30,6 +29,8 @@ class _InputAlternativesState extends State<InputAlternatives> {
     i++;
   }
 
+  bool showInstruction = true; // Variável para controlar a exibição da mensagem
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,63 +47,81 @@ class _InputAlternativesState extends State<InputAlternatives> {
       body: Consumer<Criteria>(
         builder: (BuildContext context, Criteria list, Widget? widget) {
           return Scaffold(
-            body: Container(
-              child: Column(
-                children: [
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: list.alternativeNames.length,
-                      itemBuilder: (context, index) {
-                        final color = index % 2 == 0
-                            ? AppColors.lightSkyBlue.withOpacity(0.5)
-                            : Colors.white.withOpacity(0.5);
-                        final alternativeName = list.alternativeNames[index];
-                        return Dismissible(
-                          key: UniqueKey(),
-                          background: Container(color: Colors.red),
-                          child: wContainerView(color, index, alternativeName),
-                          onDismissed: (direction) {
-                            list.remove(index);
-                          },
-                        );
-                      },
+            body: Column(
+              children: [
+                if (showInstruction)
+                  Center(
+                    child: Container(
+                      padding: const EdgeInsets.only(
+                        top: 250,
+                        left: 20,
+                        right: 20,
+                      ),
+                      child: Text(
+                        "Alternativa é toda opção de escolha que você "
+                        "tem.\n\n"
+                        "Exemplo\nAo comprar um computador, você tem "
+                        "as três alternativas seguintes: um da marca Acer, "
+                        "um da marca "
+                        "Dell e outro da marca Apple.",
+                        style: GoogleFonts.poppins(
+                            fontSize: 20, fontWeight: FontWeight.w600),
+                      ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  wButtonProximo(
-                    context,
-                    "Aviso",
-                    "Adicione pelo menos 2 alternativas antes "
-                        "de "
-                        "prosseguir.",
-                    const Home(),
-                    false,
-                    () {
-                      // Validar se há pelo menos 2 alternativas
-                      if (Provider.of<Criteria>(context, listen: false)
-                              .alternativeNames
-                              .length <
-                          2) {
-                        wShowDialog(
-                          context,
-                          "Aviso",
-                          "Adicione pelo menos 2 alternativas antes "
-                              "de "
-                              "prosseguir.",
-                        );
-                      } else {
-                        // Navegar para a próxima tela
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const Home()),
-                        );
-                      }
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: list.alternativeNames.length,
+                    itemBuilder: (context, index) {
+                      final color = index % 2 == 0
+                          ? AppColors.lightSkyBlue.withOpacity(0.5)
+                          : Colors.white.withOpacity(0.5);
+                      final alternativeName = list.alternativeNames[index];
+                      return Dismissible(
+                        key: UniqueKey(),
+                        background: Container(color: Colors.red),
+                        child: wContainerView(color, index, alternativeName),
+                        onDismissed: (direction) {
+                          list.remove(index);
+                        },
+                      );
                     },
-                  )
-                ],
-              ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                wButtonProximo(
+                  context,
+                  "Aviso",
+                  "Adicione pelo menos 2 alternativas antes "
+                      "de "
+                      "prosseguir.",
+                  const Home(),
+                  false,
+                  () {
+                    // Validar se há pelo menos 2 alternativas
+                    if (Provider.of<Criteria>(context, listen: false)
+                            .alternativeNames
+                            .length <
+                        2) {
+                      wShowDialog(
+                        context,
+                        "Aviso",
+                        "Adicione pelo menos 2 alternativas antes "
+                            "de "
+                            "prosseguir.",
+                      );
+                    } else {
+                      // Navegar para a próxima tela
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const Home()),
+                      );
+                    }
+                  },
+                )
+              ],
             ),
           );
         },
@@ -142,6 +161,10 @@ class _InputAlternativesState extends State<InputAlternatives> {
                         if (valor!.isEmpty) {
                           return "Não pode adicionar Alternativa vazia";
                         } else {
+                          // Ao adicionar uma alternativa, oculte a mensagem
+                          setState(() {
+                            showInstruction = false;
+                          });
                           return null;
                         }
                       },

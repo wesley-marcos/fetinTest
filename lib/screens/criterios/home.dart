@@ -12,6 +12,7 @@ import 'package:hash_test/utils/validations_mixin.dart';
 import 'package:provider/provider.dart';
 import '../../basic_templates/appColors.dart';
 import '../output.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -30,6 +31,8 @@ class _HomeState extends State<Home> with ValidationsMixin {
   int numberOfCriteria = 0;
 
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+  bool showInstruction = true; // Variável para controlar a exibição da mensagem
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +55,23 @@ class _HomeState extends State<Home> with ValidationsMixin {
               alignment: Alignment.center,
               child: Column(
                 children: [
+                  if (showInstruction)
+                    Center(
+                      child: Container(
+                        padding: const EdgeInsets.only(
+                          top: 250,
+                          left: 20,
+                          right: 20,
+                        ),
+                        child: Text(
+                          "Aqui você entra com os "
+                          "critérios importantes na hora "
+                          "de tomar sua decisão.",
+                          style: GoogleFonts.poppins(
+                              fontSize: 20, fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                    ),
                   Expanded(
                     child: ListView.builder(
                       itemCount: list.criteria.length,
@@ -325,6 +345,10 @@ class _HomeState extends State<Home> with ValidationsMixin {
                               double.parse(pesoInput.text),
                               alternatives,
                             );
+
+                            setState(() {
+                              showInstruction = false;
+                            });
 
                             Navigator.pop(context);
                             print("List: $listCriteria");

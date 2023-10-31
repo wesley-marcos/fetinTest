@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hash_test/basic_templates/appColors.dart';
-import 'package:hash_test/components/criteria.dart';
-import 'package:hash_test/components/showDialog.dart';
-import 'package:provider/provider.dart';
 
 Padding wButtonProximo(context, titleLabel, text, tela, isLoading, condition) {
   return Padding(
