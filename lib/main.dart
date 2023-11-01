@@ -4,10 +4,8 @@ import 'package:hash_test/components/alternatives.dart';
 import 'package:hash_test/components/criteria.dart';
 import 'package:hash_test/screens/alternatives/alternatives_input.dart';
 import 'package:hash_test/screens/criterios/home.dart';
-import 'package:hash_test/screens/output.dart';
+import 'package:hash_test/screens/ranking.dart';
 import 'package:provider/provider.dart';
-
-import 'screens/initial_screen.dart';
 
 void main() {
   runApp(MultiProvider(
@@ -41,7 +39,7 @@ class MyApp extends StatelessWidget {
       routes: {
         'Alternativas': (BuildContext context) => const InputAlternatives(),
         'Critérios': (BuildContext context) => const Home(),
-        'Ranking': (BuildContext context) => const Output(),
+        'Ranking': (BuildContext context) => const Ranking(),
       },
     );
   }

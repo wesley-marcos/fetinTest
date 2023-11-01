@@ -20,13 +20,14 @@ class InputAlternatives extends StatefulWidget {
 
 class _InputAlternativesState extends State<InputAlternatives> {
   final _formKey = GlobalKey<FormFieldState>();
+  final _formKey2 = GlobalKey<FormFieldState>();
 
   int numberOfAlternatives = 0;
 
   int i = 0;
 
   void increment() {
-    i++;
+    numberOfAlternatives++;
   }
 
   bool showInstruction = true; // Variável para controlar a exibição da mensagem
@@ -127,17 +128,20 @@ class _InputAlternativesState extends State<InputAlternatives> {
         },
       ),
       floatingActionButton: wFloatActionButton(
-          context,
-          "Limite atingido",
-          "Você atingiu o limite de 5 alternativas.",
-          numberOfAlternatives,
-          createInputAlt,
-          increment),
+        context,
+        "Limite atingido",
+        "Você atingiu o limite de 6 alternativas.",
+        numberOfAlternatives,
+        createInputAlt,
+        increment,
+        6,
+      ),
     );
   }
 
   void createInputAlt(context) {
     TextEditingController nomeInput = TextEditingController();
+    TextEditingController nomeInput2 = TextEditingController();
 
     showDialog(
       context: context,
@@ -156,25 +160,8 @@ class _InputAlternativesState extends State<InputAlternatives> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    TextFormField(
-                      validator: (String? valor) {
-                        if (valor!.isEmpty) {
-                          return "Não pode adicionar Alternativa vazia";
-                        } else {
-                          // Ao adicionar uma alternativa, oculte a mensagem
-                          setState(() {
-                            showInstruction = false;
-                          });
-                          return null;
-                        }
-                      },
-                      key: _formKey,
-                      keyboardType: TextInputType.name,
-                      controller: nomeInput,
-                      decoration: const InputDecoration(
-                        labelText: 'Nome',
-                      ),
-                    ),
+                    textFormFieldMethod(nomeInput, _formKey),
+                    textFormFieldMethod(nomeInput2, _formKey2),
                   ],
                 ),
               ),
@@ -216,6 +203,7 @@ class _InputAlternativesState extends State<InputAlternatives> {
                         list.addName(nomeInput.text);
                         Navigator.pop(context);
                         print(list.alternativeNames);
+                        increment();
                       }
                     },
                   );
@@ -225,6 +213,28 @@ class _InputAlternativesState extends State<InputAlternatives> {
           ),
         );
       },
+    );
+  }
+
+  TextFormField textFormFieldMethod(TextEditingController nomeInput, key) {
+    return TextFormField(
+      validator: (String? valor) {
+        if (valor!.isEmpty) {
+          return "Não pode adicionar Alternativa vazia";
+        } else {
+          // Ao adicionar uma alternativa, oculte a mensagem
+          setState(() {
+            showInstruction = false;
+          });
+          return null;
+        }
+      },
+      key: key,
+      keyboardType: TextInputType.name,
+      controller: nomeInput,
+      decoration: const InputDecoration(
+        labelText: 'Nome',
+      ),
     );
   }
 }

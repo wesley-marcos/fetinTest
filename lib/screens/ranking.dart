@@ -9,16 +9,16 @@ import '../basic_templates/appColors.dart';
 import '../components/alternative.dart';
 import 'dart:math';
 
-class Output extends StatefulWidget {
-  const Output({Key? key}) : super(key: key);
+class Ranking extends StatefulWidget {
+  const Ranking({Key? key}) : super(key: key);
 
   //final BuildContext CriterionCont;
 
   @override
-  State<Output> createState() => _OutputState();
+  State<Ranking> createState() => _RankingState();
 }
 
-class _OutputState extends State<Output> {
+class _RankingState extends State<Ranking> {
   @override
   final _name_controller = TextEditingController();
   final _note_controller = TextEditingController();

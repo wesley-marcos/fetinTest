@@ -11,7 +11,7 @@ import 'package:hash_test/screens/criterios/criteriosView.dart';
 import 'package:hash_test/utils/validations_mixin.dart';
 import 'package:provider/provider.dart';
 import '../../basic_templates/appColors.dart';
-import '../output.dart';
+import '../ranking.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Home extends StatefulWidget {
@@ -26,7 +26,7 @@ class _HomeState extends State<Home> with ValidationsMixin {
   final _keyNome = GlobalKey<FormFieldState>();
   final _keyPeso = GlobalKey<FormFieldState>();
 
-  bool _isLoading = false;
+  // bool _isLoading = false;
 
   int numberOfCriteria = 0;
 
@@ -37,110 +37,113 @@ class _HomeState extends State<Home> with ValidationsMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: scaffoldKey,
-        extendBodyBehindAppBar: true,
-        appBar: wAppbar(
-            context,
-            "Criterios",
-            "Aqui você entra com os "
-                "critérios importantes na hora "
-                "de tomar sua decisão."),
-        body: Consumer<Criteria>(
-          builder: (BuildContext context, Criteria list, Widget? widget) {
-            return Container(
-              color: Colors.white,
-              padding: const EdgeInsets.only(
-                top: 10,
-              ),
-              alignment: Alignment.center,
-              child: Column(
-                children: [
-                  if (showInstruction)
-                    Center(
-                      child: Container(
-                        padding: const EdgeInsets.only(
-                          top: 250,
-                          left: 20,
-                          right: 20,
-                        ),
-                        child: Text(
-                          "Aqui você entra com os "
-                          "critérios importantes na hora "
-                          "de tomar sua decisão.",
-                          style: GoogleFonts.poppins(
-                              fontSize: 20, fontWeight: FontWeight.w600),
-                        ),
+      key: scaffoldKey,
+      extendBodyBehindAppBar: true,
+      appBar: wAppbar(
+          context,
+          "Criterios",
+          "Aqui você entra com os "
+              "critérios importantes na hora "
+              "de tomar sua decisão."),
+      body: Consumer<Criteria>(
+        builder: (BuildContext context, Criteria list, Widget? widget) {
+          return Container(
+            color: Colors.white,
+            padding: const EdgeInsets.only(
+              top: 10,
+            ),
+            alignment: Alignment.center,
+            child: Column(
+              children: [
+                if (showInstruction)
+                  Center(
+                    child: Container(
+                      padding: const EdgeInsets.only(
+                        top: 250,
+                        left: 20,
+                        right: 20,
+                      ),
+                      child: Text(
+                        "Aqui você entra com os "
+                        "critérios importantes na hora "
+                        "de tomar sua decisão.",
+                        style: GoogleFonts.poppins(
+                            fontSize: 20, fontWeight: FontWeight.w600),
                       ),
                     ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: list.criteria.length,
-                      itemBuilder: (context, index) {
-                        final color = index % 2 == 0
-                            ? AppColors.lightSkyBlue.withOpacity(0.5)
-                            : Colors.white.withOpacity(0.5);
-                        final criterion = list.criteria[index];
-
-                        return wCriteriosView(color, criterion, "Critério",
-                            "Peso", "Alternativa", "Nota");
-                      },
-                    ),
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  wButtonProximo(
-                    context,
-                    "Aviso",
-                    "Adicione pelo menos 2 critérios antes de "
-                        "prosseguir.",
-                    const Output(),
-                    false,
-                    () {
-                      // Validar se há pelo menos 2 alternativas
-                      if (Provider.of<Criteria>(context, listen: false)
-                              .criteria
-                              .length <
-                          2) {
-                        wShowDialog(
-                            context,
-                            "Aviso",
-                            "Adicione pelo menos 2 critérios antes de "
-                                "prosseguir.");
-                      } else {
-                        String jsonCriteria = list.toJson();
-                        print(jsonCriteria);
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: list.criteria.length,
+                    itemBuilder: (context, index) {
+                      final color = index % 2 == 0
+                          ? AppColors.lightSkyBlue.withOpacity(0.5)
+                          : Colors.white.withOpacity(0.5);
+                      final criterion = list.criteria[index];
 
-                        _showLoadingDialog(
-                            context); // Exibir o showDialog do loading
-
-                        // Atraso de 1 segundo
-                        Future.delayed(const Duration(seconds: 3), () {
-                          Navigator.pop(
-                              context); // Fechar o showDialog do loading
-
-                          // Navegar para a próxima tela
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Output()),
-                          );
-                        });
-                      }
+                      return wCriteriosView(color, criterion, "Critério",
+                          "Peso", "Alternativa", "Nota");
                     },
                   ),
-                ],
-              ),
-            );
-          },
-        ),
-        floatingActionButton: wFloatActionButton(
-            context,
-            "Limite atingido",
-            "Você atingiu o limite de 5 critérios.",
-            numberOfCriteria,
-            createCriteria,
-            increment));
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                wButtonProximo(
+                  context,
+                  "Aviso",
+                  "Adicione pelo menos 2 critérios antes de "
+                      "prosseguir.",
+                  const Ranking(),
+                  false,
+                  () {
+                    // Validar se há pelo menos 2 alternativas
+                    if (Provider.of<Criteria>(context, listen: false)
+                            .criteria
+                            .length <
+                        2) {
+                      wShowDialog(
+                          context,
+                          "Aviso",
+                          "Adicione pelo menos 2 critérios antes de "
+                              "prosseguir.");
+                    } else {
+                      String jsonCriteria = list.toJson();
+                      print(jsonCriteria);
+
+                      _showLoadingDialog(
+                          context); // Exibir o showDialog do loading
+
+                      // Atraso de 1 segundo
+                      Future.delayed(const Duration(seconds: 3), () {
+                        Navigator.pop(
+                            context); // Fechar o showDialog do loading
+
+                        // Navegar para a próxima tela
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Ranking()),
+                        );
+                      });
+                    }
+                  },
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+      floatingActionButton: wFloatActionButton(
+        context,
+        "Limite atingido",
+        "Você atingiu o limite de 3 critérios.",
+        numberOfCriteria,
+        createCriteria,
+        increment,
+        3,
+      ),
+    );
   }
 
   void increment() {
@@ -301,10 +304,6 @@ class _HomeState extends State<Home> with ValidationsMixin {
                   builder:
                       (BuildContext context, Criteria list, Widget? widget) {
                     return OutlinedButton(
-                      child: const Text(
-                        "Salvar",
-                        style: TextStyle(color: Colors.black),
-                      ),
                       onPressed: () async {
                         // Validação de dados
                         if (_keyNome.currentState!.validate() &&
@@ -354,6 +353,7 @@ class _HomeState extends State<Home> with ValidationsMixin {
                             print("List: $listCriteria");
                           }
                         }
+                        increment();
                       },
                       style: ButtonStyle(
                         side: MaterialStateProperty.all<BorderSide>(
@@ -370,6 +370,10 @@ class _HomeState extends State<Home> with ValidationsMixin {
                         ),
                         backgroundColor: MaterialStateProperty.all<Color>(
                             AppColors.deepSkyBlue),
+                      ),
+                      child: const Text(
+                        "Salvar",
+                        style: TextStyle(color: Colors.black),
                       ),
                     );
                   },
