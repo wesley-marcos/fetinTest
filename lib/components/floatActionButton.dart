@@ -10,7 +10,7 @@ FloatingActionButton wFloatActionButton(context, labelTitle, text,
     onPressed: () {
       if (numberOfAlternatives < qnt) {
         createInputAlt(context);
-        increment();
+        //increment();
         // numberOfAlternatives++; // Incrementa o contador de alternativas
       } else {
         // Mostra um aviso quando o limite é atingido
