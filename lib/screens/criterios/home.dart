@@ -7,12 +7,18 @@ import 'package:hash_test/components/buttonProximo.dart';
 import 'package:hash_test/components/criteria.dart';
 import 'package:hash_test/components/floatActionButton.dart';
 import 'package:hash_test/components/showDialog.dart';
-import 'package:hash_test/screens/criterios/criteriosView.dart';
+// import 'package:hash_test/screens/criterios/criterion1View.dart';
+// import 'package:hash_test/screens/criterios/criterion2View.dart';
+// import 'package:hash_test/screens/criterios/criterion3View.dart';
 import 'package:hash_test/utils/validations_mixin.dart';
 import 'package:provider/provider.dart';
 import '../../basic_templates/appColors.dart';
 import '../ranking.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'criterion1View.dart';
+import 'criterion2View.dart';
+import 'criterion3View.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -25,6 +31,23 @@ class _HomeState extends State<Home> with ValidationsMixin {
   // Definindo as 'Keys' utilizadas
   final _keyNome = GlobalKey<FormFieldState>();
   final _keyPeso = GlobalKey<FormFieldState>();
+
+  // Nomes dos critérios
+  String nomeCriterio1 = "";
+  String nomeCriterio2 = "";
+  String nomeCriterio3 = "";
+
+  // Pesos dos critérios
+  int pesoCriteerio1 = 0;
+  int pesoCriteerio2 = 0;
+  int pesoCriteerio3 = 0;
+
+  List<List<int>> noteAlt1 = [];
+  List<List<int>> noteAlt2 = [];
+  List<List<int>> noteAlt3 = [];
+  List<List<int>> noteAlt4 = [];
+  List<List<int>> noteAlt5 = [];
+  List<List<int>> noteAlt6 = [];
 
   // Definindo as 'keys' das notas do Critério 1
   final _keyN1A1C1 = GlobalKey<FormFieldState>();
@@ -140,9 +163,48 @@ class _HomeState extends State<Home> with ValidationsMixin {
                           ? AppColors.lightSkyBlue.withOpacity(0.5)
                           : Colors.white.withOpacity(0.5);
                       final criterion = list.criteria[index];
+                      final alternativeNames = list.alternativeNames;
 
-                      return wCriteriosView(color, criterion, "Critério",
-                          "Peso", "Alternativa", "Nota");
+                      if(index == 0){
+                        return wCriterion1View(
+                            color,
+                            criterion,
+                            "Critério",
+                            "Peso",
+                            "Alternativa",
+                            "Nota");
+                      } else if(index == 1) {
+                        return wCriterion2View(
+                            color,
+                            criterion,
+                            "Critério",
+                            "Peso",
+                            "Alternativa",
+                            "Nota");
+                      } else if(index == 2) {
+                        return wCriterion3View(
+                            color,
+                            criterion,
+                            "Critério",
+                            "Peso",
+                            "Alternativa",
+                            "Nota");
+                      }
+
+          // return wCriteriosView(
+                      //     numberOfCriteria,
+                      //     color,
+                      //     criterion,
+                      //     "Critério",
+                      //     "Peso",
+                      //     "Alternativa",
+                      //     "Nota",
+                      //     noteAlt1,
+                      //     noteAlt2,
+                      //     noteAlt3,
+                      //     noteAlt4,
+                      //     noteAlt5,
+                      //     noteAlt6);
                     },
                   ),
                 ),
@@ -216,6 +278,8 @@ class _HomeState extends State<Home> with ValidationsMixin {
     final pesoInput = TextEditingController();
 
     List<String> notas = [];
+    List<Map<String, String>> listMap = [];
+
     Map<String, Map<String, String>> notasMap = {};
 
     // Definindo os controladores de notas do critério 1
@@ -328,47 +392,117 @@ class _HomeState extends State<Home> with ValidationsMixin {
               content: Padding(
                 padding: const EdgeInsets.all(2.0),
                 child: Form(
-                  child: forms(nomeInput, pesoInput, note1Alternativa1Criterio1,
-                      note2Alternativa1Criterio1, note3Alternativa1Criterio1,
-                      note1Alternativa2Criterio1, note2Alternativa2Criterio1,
-                      note3Alternativa2Criterio1, note1Alternativa3Criterio1,
-                      note2Alternativa3Criterio1, note3Alternativa3Criterio1,
-                      note1Alternativa4Criterio1, note2Alternativa4Criterio1,
-                      note3Alternativa4Criterio1, note1Alternativa5Criterio1,
-                      note2Alternativa5Criterio1, note3Alternativa5Criterio1,
-                      note1Alternativa6Criterio1, note2Alternativa6Criterio1,
-                      note3Alternativa6Criterio1, note1Alternativa1Criterio2,
-                      note2Alternativa1Criterio2, note3Alternativa1Criterio2,
-                      note1Alternativa2Criterio2, note2Alternativa2Criterio2,
-                      note3Alternativa2Criterio2, note1Alternativa3Criterio2,
-                      note2Alternativa3Criterio2, note3Alternativa3Criterio2,
-                      note1Alternativa4Criterio2, note2Alternativa4Criterio2,
-                      note3Alternativa4Criterio2, note1Alternativa5Criterio2,
-                      note2Alternativa5Criterio2, note3Alternativa5Criterio2,
-                      note1Alternativa6Criterio2, note2Alternativa6Criterio2,
-                      note3Alternativa6Criterio2, note1Alternativa1Criterio3,
-                      note2Alternativa1Criterio3, note3Alternativa1Criterio3,
-                      note1Alternativa2Criterio3, note2Alternativa2Criterio3,
-                      note3Alternativa2Criterio3, note1Alternativa3Criterio3,
-                      note2Alternativa3Criterio3, note3Alternativa3Criterio3,
-                      note1Alternativa4Criterio3, note2Alternativa4Criterio3,
-                      note3Alternativa4Criterio3, note1Alternativa5Criterio3,
-                      note2Alternativa5Criterio3, note3Alternativa5Criterio3,
-                      note1Alternativa6Criterio3, note2Alternativa6Criterio3,
-                      note3Alternativa6Criterio3, _keyN1A1C1, _keyN2A1C1,
-                      _keyN3A1C1, _keyN1A2C1, _keyN2A2C1, _keyN3A2C1,
-                      _keyN1A3C1, _keyN2A3C1, _keyN3A3C1, _keyN1A4C1,
-                      _keyN2A4C1, _keyN3A4C1, _keyN1A5C1, _keyN2A5C1,
-                      _keyN3A5C1, _keyN1A6C1, _keyN2A6C1, _keyN3A6C1,
-                      _keyN1A1C2, _keyN2A1C2, _keyN3A1C2, _keyN1A2C2,
-                      _keyN2A2C2, _keyN3A2C2, _keyN1A3C2, _keyN2A3C2,
-                      _keyN3A3C2, _keyN1A4C2, _keyN2A4C2, _keyN3A4C2,
-                      _keyN1A5C2, _keyN2A5C2, _keyN3A5C2, _keyN1A6C2,
-                      _keyN2A6C2, _keyN3A6C2, _keyN1A1C3, _keyN2A1C3,
-                      _keyN3A1C3, _keyN1A2C3, _keyN2A2C3, _keyN3A2C3,
-                      _keyN1A3C3, _keyN2A3C3, _keyN3A3C3, _keyN1A4C3,
-                      _keyN2A4C3, _keyN3A4C3, _keyN1A5C3, _keyN2A5C3,
-                      _keyN3A5C3, _keyN1A6C3, _keyN2A6C3, _keyN3A6C3),
+                  child: forms(
+                      nomeInput,
+                      pesoInput,
+                      note1Alternativa1Criterio1,
+                      note2Alternativa1Criterio1,
+                      note3Alternativa1Criterio1,
+                      note1Alternativa2Criterio1,
+                      note2Alternativa2Criterio1,
+                      note3Alternativa2Criterio1,
+                      note1Alternativa3Criterio1,
+                      note2Alternativa3Criterio1,
+                      note3Alternativa3Criterio1,
+                      note1Alternativa4Criterio1,
+                      note2Alternativa4Criterio1,
+                      note3Alternativa4Criterio1,
+                      note1Alternativa5Criterio1,
+                      note2Alternativa5Criterio1,
+                      note3Alternativa5Criterio1,
+                      note1Alternativa6Criterio1,
+                      note2Alternativa6Criterio1,
+                      note3Alternativa6Criterio1,
+                      note1Alternativa1Criterio2,
+                      note2Alternativa1Criterio2,
+                      note3Alternativa1Criterio2,
+                      note1Alternativa2Criterio2,
+                      note2Alternativa2Criterio2,
+                      note3Alternativa2Criterio2,
+                      note1Alternativa3Criterio2,
+                      note2Alternativa3Criterio2,
+                      note3Alternativa3Criterio2,
+                      note1Alternativa4Criterio2,
+                      note2Alternativa4Criterio2,
+                      note3Alternativa4Criterio2,
+                      note1Alternativa5Criterio2,
+                      note2Alternativa5Criterio2,
+                      note3Alternativa5Criterio2,
+                      note1Alternativa6Criterio2,
+                      note2Alternativa6Criterio2,
+                      note3Alternativa6Criterio2,
+                      note1Alternativa1Criterio3,
+                      note2Alternativa1Criterio3,
+                      note3Alternativa1Criterio3,
+                      note1Alternativa2Criterio3,
+                      note2Alternativa2Criterio3,
+                      note3Alternativa2Criterio3,
+                      note1Alternativa3Criterio3,
+                      note2Alternativa3Criterio3,
+                      note3Alternativa3Criterio3,
+                      note1Alternativa4Criterio3,
+                      note2Alternativa4Criterio3,
+                      note3Alternativa4Criterio3,
+                      note1Alternativa5Criterio3,
+                      note2Alternativa5Criterio3,
+                      note3Alternativa5Criterio3,
+                      note1Alternativa6Criterio3,
+                      note2Alternativa6Criterio3,
+                      note3Alternativa6Criterio3,
+                      _keyN1A1C1,
+                      _keyN2A1C1,
+                      _keyN3A1C1,
+                      _keyN1A2C1,
+                      _keyN2A2C1,
+                      _keyN3A2C1,
+                      _keyN1A3C1,
+                      _keyN2A3C1,
+                      _keyN3A3C1,
+                      _keyN1A4C1,
+                      _keyN2A4C1,
+                      _keyN3A4C1,
+                      _keyN1A5C1,
+                      _keyN2A5C1,
+                      _keyN3A5C1,
+                      _keyN1A6C1,
+                      _keyN2A6C1,
+                      _keyN3A6C1,
+                      _keyN1A1C2,
+                      _keyN2A1C2,
+                      _keyN3A1C2,
+                      _keyN1A2C2,
+                      _keyN2A2C2,
+                      _keyN3A2C2,
+                      _keyN1A3C2,
+                      _keyN2A3C2,
+                      _keyN3A3C2,
+                      _keyN1A4C2,
+                      _keyN2A4C2,
+                      _keyN3A4C2,
+                      _keyN1A5C2,
+                      _keyN2A5C2,
+                      _keyN3A5C2,
+                      _keyN1A6C2,
+                      _keyN2A6C2,
+                      _keyN3A6C2,
+                      _keyN1A1C3,
+                      _keyN2A1C3,
+                      _keyN3A1C3,
+                      _keyN1A2C3,
+                      _keyN2A2C3,
+                      _keyN3A2C3,
+                      _keyN1A3C3,
+                      _keyN2A3C3,
+                      _keyN3A3C3,
+                      _keyN1A4C3,
+                      _keyN2A4C3,
+                      _keyN3A4C3,
+                      _keyN1A5C3,
+                      _keyN2A5C3,
+                      _keyN3A5C3,
+                      _keyN1A6C3,
+                      _keyN2A6C3,
+                      _keyN3A6C3),
                 ),
               ),
               actions: [
@@ -389,50 +523,94 @@ class _HomeState extends State<Home> with ValidationsMixin {
                         // Validação de dados
                         if (_keyNome.currentState!.validate() &&
                             _keyPeso.currentState!.validate()) {
-                          late List<Alternative> alternatives = [];
+                          List<Alternative> alternatives = [];
+                          print("Aqui entrouu");
 
                           bool notasValidas = true;
-                          List<Map<String, String>> listMap = [];
 
-                          notas.add(note1Alternativa1Criterio1.text);
-                          notas.add(note2Alternativa1Criterio1.text);
-                          notas.add(note3Alternativa1Criterio1.text);
+                          noteAlt1.add([
+                            int.parse(note1Alternativa1Criterio1.text),
+                            int.parse(note2Alternativa1Criterio1.text),
+                            int.parse(note3Alternativa1Criterio1.text),
+                          ]);
 
-                          notas.add(note1Alternativa2Criterio1.text);
-                          notas.add(note2Alternativa2Criterio1.text);
-                          notas.add(note3Alternativa2Criterio1.text);
+                          noteAlt2.add([
+                            int.parse(note1Alternativa2Criterio1.text),
+                            int.parse(note2Alternativa2Criterio1.text),
+                            int.parse(note3Alternativa2Criterio1.text),
+                          ]);
 
-                          notasMap.putIfAbsent("nota1", () => {
-                            "notaMenor": notas[0],
-                            "notaMédia": notas[1],
-                            "notaMaior": notas[2],
-                          });
+                          noteAlt3.add([
+                            int.parse(note1Alternativa3Criterio1.text),
+                            int.parse(note2Alternativa3Criterio1.text),
+                            int.parse(note3Alternativa3Criterio1.text),
+                          ]);
 
-                          notasMap.putIfAbsent("nota2", () => {
-                            "notaMenor": notas[3],
-                            "notaMédia": notas[4],
-                            "notaMaior": notas[5],
-                          });
-                          notasMap["nota1"];
+                          noteAlt4.add([
+                            int.parse(note1Alternativa4Criterio1.text),
+                            int.parse(note2Alternativa4Criterio1.text),
+                            int.parse(note3Alternativa4Criterio1.text),
+                          ]);
+
+                          noteAlt5.add([
+                            int.parse(note1Alternativa5Criterio1.text),
+                            int.parse(note2Alternativa5Criterio1.text),
+                            int.parse(note3Alternativa5Criterio1.text),
+                          ]);
+
+                          noteAlt6.add([
+                            int.parse(note1Alternativa6Criterio1.text),
+                            int.parse(note2Alternativa6Criterio1.text),
+                            int.parse(note3Alternativa6Criterio1.text),
+                          ]);
+
+                          // notas.add(note1Alternativa1Criterio1.text);
+                          // notas.add(note2Alternativa1Criterio1.text);
+                          // notas.add(note3Alternativa1Criterio1.text);
+                          //
+                          // notas.add(note1Alternativa2Criterio1.text);
+                          // notas.add(note2Alternativa2Criterio1.text);
+                          // notas.add(note3Alternativa2Criterio1.text);
+                          //
+                          // notasMap.putIfAbsent(
+                          //     "nota1",
+                          //     () => {
+                          //           "notaMenor": notas[0],
+                          //           "notaMédia": notas[1],
+                          //           "notaMaior": notas[2],
+                          //         });
+                          //
+                          // notasMap.putIfAbsent(
+                          //     "nota2",
+                          //     () => {
+                          //           "notaMenor": notas[3],
+                          //           "notaMédia": notas[4],
+                          //           "notaMaior": notas[5],
+                          //         });
+
+                          if (numberOfCriteria == 0) {
+                            nomeCriterio1 = nomeInput.text;
+                            pesoCriteerio1 = int.parse(pesoInput.text);
+                          } else if (numberOfCriteria == 1) {
+                            nomeCriterio2 = nomeInput.text;
+                            pesoCriteerio2 = int.parse(pesoInput.text);
+                          } else if (numberOfCriteria == 2) {
+                            nomeCriterio3 = nomeInput.text;
+                            pesoCriteerio3 = int.parse(pesoInput.text);
+                          }
 
                           //listMap.add(notasMap.g);
                           //listMap.add(notasMap["nota2"]);
-
 
                           //listMap.add(notasMap.("nota1"));
                           //notasMap.putIfAbsent("notas", () => notas);
                           //notasMap.putIfAbsent("boletos", () => notas);
 
                           //print("Array 'Notas': $notas");
-                          print("Map 'Notas': $listMap");
-                          // for (int i = 0;
-                          //     i < listCriteria.alternativeNames.length;
-                          //     i++) {
-                          //
-                          //
-                          //
-                          //   if (nota.isNotEmpty) {
-                          //     final notaValue = int.tryParse(nota);
+
+                          // for(int i = 0; i < listCriteria.alternativeNames.length; i++){
+                          //   if (notas.isNotEmpty) {
+                          //     final notaValue = int.tryParse(notas[i]);
                           //
                           //     if (notaValue != null &&
                           //         notaValue >= 1 &&
@@ -443,14 +621,201 @@ class _HomeState extends State<Home> with ValidationsMixin {
                           //           note: notaValue,
                           //         ),
                           //       );
-                          //     } else {
-                          //       notasValidas = false;
-                          //       break;
                           //     }
-                          //   } else {
-                          //     notasValidas = false;
                           //   }
                           // }
+
+                          print("Map 'Notas': $listMap");
+                          print("NomeC1: $nomeCriterio1\n"
+                              "PesoC1: $pesoCriteerio1\n"
+                              "NomeC2: $nomeCriterio2\n"
+                              "PesoC2: $pesoCriteerio2\n"
+                              "NomeC3: $nomeCriterio3\n"
+                              "PesoC3: $pesoCriteerio3\n");
+
+                          print("NotasAlt1: ${noteAlt1}");
+                          print("NotasAlt2: ${noteAlt2}");
+                          print("NotasAlt3: ${noteAlt3}");
+                          print("NotasAlt4: ${noteAlt4}");
+                          print("NotasAlt5: ${noteAlt5}");
+                          print("NotasAlt6: ${noteAlt6}");
+
+                          if (noteAlt1[numberOfCriteria].isNotEmpty) {
+                            final notaValue = noteAlt1[numberOfCriteria];
+
+                            if (notaValue != null) {
+                              alternatives.add(
+                                Alternative(
+                                  name: listCriteria.alternativeNames[0],
+                                  note: noteAlt1,
+                                ),
+                              );
+                            }
+                          }
+
+                          if (noteAlt2[numberOfCriteria].isNotEmpty) {
+                            final notaValue = noteAlt2[numberOfCriteria];
+
+                            if (notaValue != null) {
+                              alternatives.add(
+                                Alternative(
+                                  name: listCriteria.alternativeNames[1],
+                                  note: noteAlt2,
+                                ),
+                              );
+                            }
+                          }
+
+                          if (noteAlt3[numberOfCriteria].isNotEmpty) {
+                            final notaValue = noteAlt3[numberOfCriteria];
+
+                            if (notaValue != null) {
+                              alternatives.add(
+                                Alternative(
+                                  name: listCriteria.alternativeNames[2],
+                                  note: noteAlt3,
+                                ),
+                              );
+                            }
+                          }
+
+                          if (noteAlt4[numberOfCriteria].isNotEmpty) {
+                            final notaValue = noteAlt4[numberOfCriteria];
+
+                            if (notaValue != null) {
+                              alternatives.add(
+                                Alternative(
+                                  name: listCriteria.alternativeNames[3],
+                                  note: noteAlt4,
+                                ),
+                              );
+                            }
+                          }
+
+                          if (noteAlt5[numberOfCriteria].isNotEmpty) {
+                            final notaValue = noteAlt5[numberOfCriteria];
+
+                            if (notaValue != null) {
+                              alternatives.add(
+                                Alternative(
+                                  name: listCriteria.alternativeNames[4],
+                                  note: noteAlt5,
+                                ),
+                              );
+                            }
+                          }
+
+                          if (noteAlt6[numberOfCriteria].isNotEmpty) {
+                            final notaValue = noteAlt6[numberOfCriteria];
+
+                            if (notaValue != null) {
+                              alternatives.add(
+                                Alternative(
+                                  name: listCriteria.alternativeNames[5],
+                                  note: noteAlt6,
+                                ),
+                              );
+                            }
+                          }
+
+                          // for (int i = 0; i < 2; i++) {
+                          //   //final notaValue =
+                          //
+                          //   // if (notas[i].isNotEmpty) {
+                          //   //
+                          //   //   print("Antes final");
+                          //   //   final notaValue = int.tryParse(notas[i]);
+                          //   //   print("Depois final");
+                          //   //   // if (notaValue != null &&
+                          //   //   //     notaValue >= 1 &&
+                          //   //   //     notaValue <= 10) {
+                          //   //     if(notaValue != null){
+                          //   //     alternatives.add(
+                          //   //       Alternative(
+                          //   //         name: listCriteria.alternativeNames[i],
+                          //   //         note: noteAlt1,
+                          //   //       ),
+                          //   //     );
+                          //   //     print("Adicionou");
+                          //   //     alternatives.add(
+                          //   //       Alternative(
+                          //   //         name: listCriteria.alternativeNames[i],
+                          //   //         note: noteAlt2,
+                          //   //       ),
+                          //   //     );
+                          //   //
+                          //   //     alternatives.add(
+                          //   //       Alternative(
+                          //   //         name: listCriteria.alternativeNames[i],
+                          //   //         note: noteAlt3,
+                          //   //       ),
+                          //   //     );
+                          //   //
+                          //   //     alternatives.add(
+                          //   //       Alternative(
+                          //   //         name: listCriteria.alternativeNames[i],
+                          //   //         note: noteAlt4,
+                          //   //       ),
+                          //   //     );
+                          //   //
+                          //   //     alternatives.add(
+                          //   //       Alternative(
+                          //   //         name: listCriteria.alternativeNames[i],
+                          //   //         note: noteAlt5,
+                          //   //       ),
+                          //   //     );
+                          //   //
+                          //   //     alternatives.add(
+                          //   //       Alternative(
+                          //   //         name: listCriteria.alternativeNames[i],
+                          //   //         note: noteAlt6,
+                          //   //       ),
+                          //   //     );
+                          //   //
+                          //   //   } else {
+                          //   //     notasValidas = false;
+                          //   //     break;
+                          //   //   }
+                          //   //
+                          //   // } else {
+                          //   //   notasValidas = false;
+                          //   // }
+                          //
+                          //   if (noteAlt1[numberOfCriteria].isNotEmpty) {
+                          //     final notaValue = noteAlt1[numberOfCriteria];
+                          //
+                          //     if (notaValue != null) {
+                          //       alternatives.add(
+                          //         Alternative(
+                          //           name: listCriteria.alternativeNames[i],
+                          //           note: noteAlt1,
+                          //         ),
+                          //       );
+                          //     }
+                          //   }
+                          //
+                          //   if (noteAlt2[numberOfCriteria].isNotEmpty) {
+                          //     final notaValue = noteAlt2[numberOfCriteria];
+                          //
+                          //     if (notaValue != null) {
+                          //       alternatives.add(
+                          //         Alternative(
+                          //           name: listCriteria.alternativeNames[i],
+                          //           note: noteAlt2,
+                          //         ),
+                          //       );
+                          //     }
+                          //   }
+                          // }
+
+                          print(
+                              'Tamanho da lista alternative: ${alternatives.length}');
+
+                          for (Alternative alt in alternatives){
+                            print('================ Alternatives ================');
+                            print('Name: ${alt.name}');
+                            print('Note: ${alt.note}');
+                          }
 
                           if (notasValidas) {
                             list.add(
@@ -464,8 +829,9 @@ class _HomeState extends State<Home> with ValidationsMixin {
                             });
 
                             Navigator.pop(context);
-                            print("List: $listCriteria");
                           }
+
+                          print("List: ${listCriteria.toJson()}");
                         }
                         increment();
                       },
@@ -537,49 +903,117 @@ class _HomeState extends State<Home> with ValidationsMixin {
     );
   }
 
-  Column forms(nomeInput, pesoInput, note1Alternativa1Criterio1,
-      note2Alternativa1Criterio1, note3Alternativa1Criterio1,
-      note1Alternativa2Criterio1, note2Alternativa2Criterio1,
-      note3Alternativa2Criterio1, note1Alternativa3Criterio1,
-      note2Alternativa3Criterio1, note3Alternativa3Criterio1,
-      note1Alternativa4Criterio1, note2Alternativa4Criterio1,
-      note3Alternativa4Criterio1, note1Alternativa5Criterio1,
-      note2Alternativa5Criterio1, note3Alternativa5Criterio1,
-      note1Alternativa6Criterio1, note2Alternativa6Criterio1,
-      note3Alternativa6Criterio1, note1Alternativa1Criterio2,
-      note2Alternativa1Criterio2, note3Alternativa1Criterio2,
-      note1Alternativa2Criterio2, note2Alternativa2Criterio2,
-      note3Alternativa2Criterio2, note1Alternativa3Criterio2,
-      note2Alternativa3Criterio2, note3Alternativa3Criterio2,
-      note1Alternativa4Criterio2, note2Alternativa4Criterio2,
-      note3Alternativa4Criterio2, note1Alternativa5Criterio2,
-      note2Alternativa5Criterio2, note3Alternativa5Criterio2,
-      note1Alternativa6Criterio2, note2Alternativa6Criterio2,
-      note3Alternativa6Criterio2, note1Alternativa1Criterio3,
-      note2Alternativa1Criterio3, note3Alternativa1Criterio3,
-      note1Alternativa2Criterio3, note2Alternativa2Criterio3,
-      note3Alternativa2Criterio3, note1Alternativa3Criterio3,
-      note2Alternativa3Criterio3, note3Alternativa3Criterio3,
-      note1Alternativa4Criterio3, note2Alternativa4Criterio3,
-      note3Alternativa4Criterio3, note1Alternativa5Criterio3,
-      note2Alternativa5Criterio3, note3Alternativa5Criterio3,
-      note1Alternativa6Criterio3, note2Alternativa6Criterio3,
-      note3Alternativa6Criterio3, _keyN1A1C1, _keyN2A1C1,
-      _keyN3A1C1, _keyN1A2C1, _keyN2A2C1, _keyN3A2C1,
-      _keyN1A3C1, _keyN2A3C1, _keyN3A3C1, _keyN1A4C1,
-      _keyN2A4C1, _keyN3A4C1, _keyN1A5C1, _keyN2A5C1,
-      _keyN3A5C1, _keyN1A6C1, _keyN2A6C1, _keyN3A6C1,
-      _keyN1A1C2, _keyN2A1C2, _keyN3A1C2, _keyN1A2C2,
-      _keyN2A2C2, _keyN3A2C2, _keyN1A3C2, _keyN2A3C2,
-      _keyN3A3C2, _keyN1A4C2, _keyN2A4C2, _keyN3A4C2,
-      _keyN1A5C2, _keyN2A5C2, _keyN3A5C2, _keyN1A6C2,
-      _keyN2A6C2, _keyN3A6C2, _keyN1A1C3, _keyN2A1C3,
-      _keyN3A1C3, _keyN1A2C3, _keyN2A2C3, _keyN3A2C3,
-      _keyN1A3C3, _keyN2A3C3, _keyN3A3C3, _keyN1A4C3,
-      _keyN2A4C3, _keyN3A4C3, _keyN1A5C3, _keyN2A5C3,
-      _keyN3A5C3, _keyN1A6C3, _keyN2A6C3, _keyN3A6C3)
-
-  {
+  Column forms(
+      nomeInput,
+      pesoInput,
+      note1Alternativa1Criterio1,
+      note2Alternativa1Criterio1,
+      note3Alternativa1Criterio1,
+      note1Alternativa2Criterio1,
+      note2Alternativa2Criterio1,
+      note3Alternativa2Criterio1,
+      note1Alternativa3Criterio1,
+      note2Alternativa3Criterio1,
+      note3Alternativa3Criterio1,
+      note1Alternativa4Criterio1,
+      note2Alternativa4Criterio1,
+      note3Alternativa4Criterio1,
+      note1Alternativa5Criterio1,
+      note2Alternativa5Criterio1,
+      note3Alternativa5Criterio1,
+      note1Alternativa6Criterio1,
+      note2Alternativa6Criterio1,
+      note3Alternativa6Criterio1,
+      note1Alternativa1Criterio2,
+      note2Alternativa1Criterio2,
+      note3Alternativa1Criterio2,
+      note1Alternativa2Criterio2,
+      note2Alternativa2Criterio2,
+      note3Alternativa2Criterio2,
+      note1Alternativa3Criterio2,
+      note2Alternativa3Criterio2,
+      note3Alternativa3Criterio2,
+      note1Alternativa4Criterio2,
+      note2Alternativa4Criterio2,
+      note3Alternativa4Criterio2,
+      note1Alternativa5Criterio2,
+      note2Alternativa5Criterio2,
+      note3Alternativa5Criterio2,
+      note1Alternativa6Criterio2,
+      note2Alternativa6Criterio2,
+      note3Alternativa6Criterio2,
+      note1Alternativa1Criterio3,
+      note2Alternativa1Criterio3,
+      note3Alternativa1Criterio3,
+      note1Alternativa2Criterio3,
+      note2Alternativa2Criterio3,
+      note3Alternativa2Criterio3,
+      note1Alternativa3Criterio3,
+      note2Alternativa3Criterio3,
+      note3Alternativa3Criterio3,
+      note1Alternativa4Criterio3,
+      note2Alternativa4Criterio3,
+      note3Alternativa4Criterio3,
+      note1Alternativa5Criterio3,
+      note2Alternativa5Criterio3,
+      note3Alternativa5Criterio3,
+      note1Alternativa6Criterio3,
+      note2Alternativa6Criterio3,
+      note3Alternativa6Criterio3,
+      _keyN1A1C1,
+      _keyN2A1C1,
+      _keyN3A1C1,
+      _keyN1A2C1,
+      _keyN2A2C1,
+      _keyN3A2C1,
+      _keyN1A3C1,
+      _keyN2A3C1,
+      _keyN3A3C1,
+      _keyN1A4C1,
+      _keyN2A4C1,
+      _keyN3A4C1,
+      _keyN1A5C1,
+      _keyN2A5C1,
+      _keyN3A5C1,
+      _keyN1A6C1,
+      _keyN2A6C1,
+      _keyN3A6C1,
+      _keyN1A1C2,
+      _keyN2A1C2,
+      _keyN3A1C2,
+      _keyN1A2C2,
+      _keyN2A2C2,
+      _keyN3A2C2,
+      _keyN1A3C2,
+      _keyN2A3C2,
+      _keyN3A3C2,
+      _keyN1A4C2,
+      _keyN2A4C2,
+      _keyN3A4C2,
+      _keyN1A5C2,
+      _keyN2A5C2,
+      _keyN3A5C2,
+      _keyN1A6C2,
+      _keyN2A6C2,
+      _keyN3A6C2,
+      _keyN1A1C3,
+      _keyN2A1C3,
+      _keyN3A1C3,
+      _keyN1A2C3,
+      _keyN2A2C3,
+      _keyN3A2C3,
+      _keyN1A3C3,
+      _keyN2A3C3,
+      _keyN3A3C3,
+      _keyN1A4C3,
+      _keyN2A4C3,
+      _keyN3A4C3,
+      _keyN1A5C3,
+      _keyN2A5C3,
+      _keyN3A5C3,
+      _keyN1A6C3,
+      _keyN2A6C3,
+      _keyN3A6C3) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -599,7 +1033,11 @@ class _HomeState extends State<Home> with ValidationsMixin {
         ),
 
         //TextFormField de 'Peso'
-        formularioPadrao("Peso", pesoInput, _keyPeso, (val) => combine([
+        formularioPadrao(
+          "Peso",
+          pesoInput,
+          _keyPeso,
+          (val) => combine([
             () => EntradaVazia(val),
             () => EntradaForaDoRange(val),
           ]),
@@ -615,7 +1053,10 @@ class _HomeState extends State<Home> with ValidationsMixin {
         ),
 
         //TextFormField de 'nota1'
-        formularioPadrao("Nota Menor", note1Alternativa1Criterio1, _keyN1A1C1,
+        formularioPadrao(
+          "Nota Menor",
+          note1Alternativa1Criterio1,
+          _keyN1A1C1,
           (val) => combine([
             () => EntradaVazia(val),
             () => EntradaForaDoRange(val),
@@ -627,7 +1068,10 @@ class _HomeState extends State<Home> with ValidationsMixin {
         ),
 
         //TextFormField de 'nota1'
-        formularioPadrao("Nota Média", note2Alternativa1Criterio1, _keyN2A1C1,
+        formularioPadrao(
+          "Nota Média",
+          note2Alternativa1Criterio1,
+          _keyN2A1C1,
           (val) => combine([
             () => EntradaVazia(val),
             () => EntradaForaDoRange(val),
@@ -639,7 +1083,10 @@ class _HomeState extends State<Home> with ValidationsMixin {
         ),
 
         //TextFormField de 'nota1'
-        formularioPadrao("Nota Maior", note3Alternativa1Criterio1, _keyN3A1C1,
+        formularioPadrao(
+          "Nota Maior",
+          note3Alternativa1Criterio1,
+          _keyN3A1C1,
           (val) => combine([
             () => EntradaVazia(val),
             () => EntradaForaDoRange(val),
@@ -656,10 +1103,13 @@ class _HomeState extends State<Home> with ValidationsMixin {
         ),
 
         //TextFormField de 'nota1'
-        formularioPadrao("Nota Menor", note1Alternativa2Criterio1, _keyN1A2C1,
-              (val) => combine([
-                () => EntradaVazia(val),
-                () => EntradaForaDoRange(val),
+        formularioPadrao(
+          "Nota Menor",
+          note1Alternativa2Criterio1,
+          _keyN1A2C1,
+          (val) => combine([
+            () => EntradaVazia(val),
+            () => EntradaForaDoRange(val),
           ]),
         ),
 
@@ -668,10 +1118,13 @@ class _HomeState extends State<Home> with ValidationsMixin {
         ),
 
         //TextFormField de 'nota1'
-        formularioPadrao("Nota Média", note2Alternativa2Criterio1, _keyN2A2C1,
-              (val) => combine([
-                () => EntradaVazia(val),
-                () => EntradaForaDoRange(val),
+        formularioPadrao(
+          "Nota Média",
+          note2Alternativa2Criterio1,
+          _keyN2A2C1,
+          (val) => combine([
+            () => EntradaVazia(val),
+            () => EntradaForaDoRange(val),
           ]),
         ),
 
@@ -680,10 +1133,13 @@ class _HomeState extends State<Home> with ValidationsMixin {
         ),
 
         //TextFormField de 'nota1'
-        formularioPadrao("Nota Maior", note3Alternativa2Criterio1, _keyN3A2C1,
-              (val) => combine([
-                () => EntradaVazia(val),
-                () => EntradaForaDoRange(val),
+        formularioPadrao(
+          "Nota Maior",
+          note3Alternativa2Criterio1,
+          _keyN3A2C1,
+          (val) => combine([
+            () => EntradaVazia(val),
+            () => EntradaForaDoRange(val),
           ]),
         ),
 
@@ -701,10 +1157,13 @@ class _HomeState extends State<Home> with ValidationsMixin {
         ),
 
         //TextFormField de 'nota1'
-        formularioPadrao("Nota Menor", note1Alternativa3Criterio1, _keyN1A3C1,
-              (val) => combine([
-                () => EntradaVazia(val),
-                () => EntradaForaDoRange(val),
+        formularioPadrao(
+          "Nota Menor",
+          note1Alternativa3Criterio1,
+          _keyN1A3C1,
+          (val) => combine([
+            () => EntradaVazia(val),
+            () => EntradaForaDoRange(val),
           ]),
         ),
 
@@ -713,10 +1172,13 @@ class _HomeState extends State<Home> with ValidationsMixin {
         ),
 
         //TextFormField de 'nota1'
-        formularioPadrao("Nota Média", note2Alternativa3Criterio1, _keyN2A3C1,
-              (val) => combine([
-                () => EntradaVazia(val),
-                () => EntradaForaDoRange(val),
+        formularioPadrao(
+          "Nota Média",
+          note2Alternativa3Criterio1,
+          _keyN2A3C1,
+          (val) => combine([
+            () => EntradaVazia(val),
+            () => EntradaForaDoRange(val),
           ]),
         ),
 
@@ -725,10 +1187,13 @@ class _HomeState extends State<Home> with ValidationsMixin {
         ),
 
         //TextFormField de 'nota1'
-        formularioPadrao("Nota Maior", note3Alternativa3Criterio1, _keyN3A3C1,
-              (val) => combine([
-                () => EntradaVazia(val),
-                () => EntradaForaDoRange(val),
+        formularioPadrao(
+          "Nota Maior",
+          note3Alternativa3Criterio1,
+          _keyN3A3C1,
+          (val) => combine([
+            () => EntradaVazia(val),
+            () => EntradaForaDoRange(val),
           ]),
         ),
 
@@ -746,10 +1211,13 @@ class _HomeState extends State<Home> with ValidationsMixin {
         ),
 
         //TextFormField de 'nota1'
-        formularioPadrao("Nota Menor", note1Alternativa4Criterio1, _keyN1A4C1,
-              (val) => combine([
-                () => EntradaVazia(val),
-                () => EntradaForaDoRange(val),
+        formularioPadrao(
+          "Nota Menor",
+          note1Alternativa4Criterio1,
+          _keyN1A4C1,
+          (val) => combine([
+            () => EntradaVazia(val),
+            () => EntradaForaDoRange(val),
           ]),
         ),
 
@@ -758,10 +1226,13 @@ class _HomeState extends State<Home> with ValidationsMixin {
         ),
 
         //TextFormField de 'nota1'
-        formularioPadrao("Nota Média", note2Alternativa4Criterio1, _keyN2A4C1,
-              (val) => combine([
-                () => EntradaVazia(val),
-                () => EntradaForaDoRange(val),
+        formularioPadrao(
+          "Nota Média",
+          note2Alternativa4Criterio1,
+          _keyN2A4C1,
+          (val) => combine([
+            () => EntradaVazia(val),
+            () => EntradaForaDoRange(val),
           ]),
         ),
 
@@ -770,10 +1241,13 @@ class _HomeState extends State<Home> with ValidationsMixin {
         ),
 
         //TextFormField de 'nota1'
-        formularioPadrao("Nota Maior", note3Alternativa4Criterio1, _keyN3A4C1,
-              (val) => combine([
-                () => EntradaVazia(val),
-                () => EntradaForaDoRange(val),
+        formularioPadrao(
+          "Nota Maior",
+          note3Alternativa4Criterio1,
+          _keyN3A4C1,
+          (val) => combine([
+            () => EntradaVazia(val),
+            () => EntradaForaDoRange(val),
           ]),
         ),
 
@@ -791,10 +1265,13 @@ class _HomeState extends State<Home> with ValidationsMixin {
         ),
 
         //TextFormField de 'nota1'
-        formularioPadrao("Nota Menor", note1Alternativa5Criterio1, _keyN1A5C1,
-              (val) => combine([
-                () => EntradaVazia(val),
-                () => EntradaForaDoRange(val),
+        formularioPadrao(
+          "Nota Menor",
+          note1Alternativa5Criterio1,
+          _keyN1A5C1,
+          (val) => combine([
+            () => EntradaVazia(val),
+            () => EntradaForaDoRange(val),
           ]),
         ),
 
@@ -803,10 +1280,13 @@ class _HomeState extends State<Home> with ValidationsMixin {
         ),
 
         //TextFormField de 'nota1'
-        formularioPadrao("Nota Média", note2Alternativa5Criterio1, _keyN2A5C1,
-              (val) => combine([
-                () => EntradaVazia(val),
-                () => EntradaForaDoRange(val),
+        formularioPadrao(
+          "Nota Média",
+          note2Alternativa5Criterio1,
+          _keyN2A5C1,
+          (val) => combine([
+            () => EntradaVazia(val),
+            () => EntradaForaDoRange(val),
           ]),
         ),
 
@@ -815,10 +1295,13 @@ class _HomeState extends State<Home> with ValidationsMixin {
         ),
 
         //TextFormField de 'nota1'
-        formularioPadrao("Nota Maior", note3Alternativa5Criterio1, _keyN3A5C1,
-              (val) => combine([
-                () => EntradaVazia(val),
-                () => EntradaForaDoRange(val),
+        formularioPadrao(
+          "Nota Maior",
+          note3Alternativa5Criterio1,
+          _keyN3A5C1,
+          (val) => combine([
+            () => EntradaVazia(val),
+            () => EntradaForaDoRange(val),
           ]),
         ),
 
@@ -836,10 +1319,13 @@ class _HomeState extends State<Home> with ValidationsMixin {
         ),
 
         //TextFormField de 'nota1'
-        formularioPadrao("Nota Menor", note1Alternativa6Criterio1, _keyN1A6C1,
-              (val) => combine([
-                () => EntradaVazia(val),
-                () => EntradaForaDoRange(val),
+        formularioPadrao(
+          "Nota Menor",
+          note1Alternativa6Criterio1,
+          _keyN1A6C1,
+          (val) => combine([
+            () => EntradaVazia(val),
+            () => EntradaForaDoRange(val),
           ]),
         ),
 
@@ -848,10 +1334,13 @@ class _HomeState extends State<Home> with ValidationsMixin {
         ),
 
         //TextFormField de 'nota1'
-        formularioPadrao("Nota Média", note2Alternativa6Criterio1, _keyN2A6C1,
-              (val) => combine([
-                () => EntradaVazia(val),
-                () => EntradaForaDoRange(val),
+        formularioPadrao(
+          "Nota Média",
+          note2Alternativa6Criterio1,
+          _keyN2A6C1,
+          (val) => combine([
+            () => EntradaVazia(val),
+            () => EntradaForaDoRange(val),
           ]),
         ),
 
@@ -860,10 +1349,13 @@ class _HomeState extends State<Home> with ValidationsMixin {
         ),
 
         //TextFormField de 'nota1'
-        formularioPadrao("Nota Maior", note3Alternativa6Criterio1, _keyN3A6C1,
-              (val) => combine([
-                () => EntradaVazia(val),
-                () => EntradaForaDoRange(val),
+        formularioPadrao(
+          "Nota Maior",
+          note3Alternativa6Criterio1,
+          _keyN3A6C1,
+          (val) => combine([
+            () => EntradaVazia(val),
+            () => EntradaForaDoRange(val),
           ]),
         ),
 

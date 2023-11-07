@@ -1,6 +1,6 @@
 class Alternative {
   String name;
-  int note;
+  List<List<int>> note;
 
   Alternative({
     required this.name,

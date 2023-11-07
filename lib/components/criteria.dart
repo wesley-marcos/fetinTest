@@ -49,15 +49,15 @@ class Criteria extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateAlternativeNote(String alternativeName, int note) {
-    for (var alternative in alternatives) {
-      if (alternative.name == alternativeName) {
-        alternative.note = note;
-        break;
-      }
-    }
-    notifyListeners();
-  }
+  // void updateAlternativeNote(String alternativeName, int note) {
+  //   for (var alternative in alternatives) {
+  //     if (alternative.name == alternativeName) {
+  //       alternative.note = note[alternative];
+  //       break;
+  //     }
+  //   }
+  //   notifyListeners();
+  // }
 
   void reset() {
     for(var i in criteria){

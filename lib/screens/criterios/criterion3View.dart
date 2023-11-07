@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hash_test/basic_templates/app_text_styles.dart';
 import 'package:hash_test/components/alternative.dart';
 
-Container wCriteriosView(
+Container wCriterion3View(
     color, criterion, labelTitle, weight, alternative, note) {
   return Container(
     margin: const EdgeInsets.all(10.0),
