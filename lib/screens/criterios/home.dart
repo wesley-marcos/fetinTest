@@ -7,6 +7,7 @@ import 'package:hash_test/components/buttonProximo.dart';
 import 'package:hash_test/components/criteria.dart';
 import 'package:hash_test/components/floatActionButton.dart';
 import 'package:hash_test/components/showDialog.dart';
+
 // import 'package:hash_test/screens/criterios/criterion1View.dart';
 // import 'package:hash_test/screens/criterios/criterion2View.dart';
 // import 'package:hash_test/screens/criterios/criterion3View.dart';
@@ -42,12 +43,26 @@ class _HomeState extends State<Home> with ValidationsMixin {
   int pesoCriteerio2 = 0;
   int pesoCriteerio3 = 0;
 
-  List<List<int>> noteAlt1 = [];
-  List<List<int>> noteAlt2 = [];
-  List<List<int>> noteAlt3 = [];
-  List<List<int>> noteAlt4 = [];
-  List<List<int>> noteAlt5 = [];
-  List<List<int>> noteAlt6 = [];
+  List<int> noteAlt1C1 = [];
+  List<int> noteAlt2C1 = [];
+  List<int> noteAlt3C1 = [];
+  List<int> noteAlt4C1 = [];
+  List<int> noteAlt5C1 = [];
+  List<int> noteAlt6C1 = [];
+
+  List<int> noteAlt1C2 = [];
+  List<int> noteAlt2C2 = [];
+  List<int> noteAlt3C2 = [];
+  List<int> noteAlt4C2 = [];
+  List<int> noteAlt5C2 = [];
+  List<int> noteAlt6C2 = [];
+
+  List<int> noteAlt1C3 = [];
+  List<int> noteAlt2C3 = [];
+  List<int> noteAlt3C3 = [];
+  List<int> noteAlt4C3 = [];
+  List<int> noteAlt5C3 = [];
+  List<int> noteAlt6C3 = [];
 
   // Definindo as 'keys' das notas do Critério 1
   final _keyN1A1C1 = GlobalKey<FormFieldState>();
@@ -165,33 +180,20 @@ class _HomeState extends State<Home> with ValidationsMixin {
                       final criterion = list.criteria[index];
                       final alternativeNames = list.alternativeNames;
 
-                      if(index == 0){
-                        return wCriterion1View(
-                            color,
-                            criterion,
-                            "Critério",
-                            "Peso",
-                            "Alternativa",
-                            "Nota");
-                      } else if(index == 1) {
-                        return wCriterion2View(
-                            color,
-                            criterion,
-                            "Critério",
-                            "Peso",
-                            "Alternativa",
-                            "Nota");
-                      } else if(index == 2) {
-                        return wCriterion3View(
-                            color,
-                            criterion,
-                            "Critério",
-                            "Peso",
-                            "Alternativa",
-                            "Nota");
+                      return wCriterion1View(color, criterion, "Critério",
+                          "Peso", "Alternativa", "Nota");
+                      if (numberOfCriteria == 0) {
+                        return wCriterion1View(color, criterion, "Critério",
+                            "Peso", "Alternativa", "Nota");
+                      } else if (numberOfCriteria == 1) {
+                        return wCriterion2View(color, criterion, "Critério",
+                            "Peso", "Alternativa", "Nota");
+                      } else if (numberOfCriteria == 2) {
+                        return wCriterion3View(color, criterion, "Critério",
+                            "Peso", "Alternativa", "Nota");
                       }
 
-          // return wCriteriosView(
+                      // return wCriteriosView(
                       //     numberOfCriteria,
                       //     color,
                       //     criterion,
@@ -392,7 +394,7 @@ class _HomeState extends State<Home> with ValidationsMixin {
               content: Padding(
                 padding: const EdgeInsets.all(2.0),
                 child: Form(
-                  child: forms(
+                  child: forms1(
                       nomeInput,
                       pesoInput,
                       note1Alternativa1Criterio1,
@@ -525,80 +527,414 @@ class _HomeState extends State<Home> with ValidationsMixin {
                             _keyPeso.currentState!.validate()) {
                           List<Alternative> alternatives = [];
                           print("Aqui entrouu");
+                          print("$numberOfCriteria");
+                          int var1 = 0;
+                          int var2 = 1;
+                          int var3 = 2;
 
                           bool notasValidas = true;
 
-                          noteAlt1.add([
-                            int.parse(note1Alternativa1Criterio1.text),
-                            int.parse(note2Alternativa1Criterio1.text),
-                            int.parse(note3Alternativa1Criterio1.text),
-                          ]);
+                          // noteAlt1C1.add(
+                          //   int.parse(note1Alternativa1Criterio1.text),
+                          // );
+                          // noteAlt1C1.add(
+                          //   int.parse(note2Alternativa1Criterio1.text),
+                          // );
+                          // noteAlt1C1.add(
+                          //   int.parse(note3Alternativa1Criterio1.text),
+                          // );
 
-                          noteAlt2.add([
-                            int.parse(note1Alternativa2Criterio1.text),
-                            int.parse(note2Alternativa2Criterio1.text),
-                            int.parse(note3Alternativa2Criterio1.text),
-                          ]);
-
-                          noteAlt3.add([
-                            int.parse(note1Alternativa3Criterio1.text),
-                            int.parse(note2Alternativa3Criterio1.text),
-                            int.parse(note3Alternativa3Criterio1.text),
-                          ]);
-
-                          noteAlt4.add([
-                            int.parse(note1Alternativa4Criterio1.text),
-                            int.parse(note2Alternativa4Criterio1.text),
-                            int.parse(note3Alternativa4Criterio1.text),
-                          ]);
-
-                          noteAlt5.add([
-                            int.parse(note1Alternativa5Criterio1.text),
-                            int.parse(note2Alternativa5Criterio1.text),
-                            int.parse(note3Alternativa5Criterio1.text),
-                          ]);
-
-                          noteAlt6.add([
-                            int.parse(note1Alternativa6Criterio1.text),
-                            int.parse(note2Alternativa6Criterio1.text),
-                            int.parse(note3Alternativa6Criterio1.text),
-                          ]);
-
-                          // notas.add(note1Alternativa1Criterio1.text);
-                          // notas.add(note2Alternativa1Criterio1.text);
-                          // notas.add(note3Alternativa1Criterio1.text);
-                          //
-                          // notas.add(note1Alternativa2Criterio1.text);
-                          // notas.add(note2Alternativa2Criterio1.text);
-                          // notas.add(note3Alternativa2Criterio1.text);
-                          //
-                          // notasMap.putIfAbsent(
-                          //     "nota1",
-                          //     () => {
-                          //           "notaMenor": notas[0],
-                          //           "notaMédia": notas[1],
-                          //           "notaMaior": notas[2],
-                          //         });
-                          //
-                          // notasMap.putIfAbsent(
-                          //     "nota2",
-                          //     () => {
-                          //           "notaMenor": notas[3],
-                          //           "notaMédia": notas[4],
-                          //           "notaMaior": notas[5],
-                          //         });
-
-                          if (numberOfCriteria == 0) {
+                          if (numberOfCriteria == var1) {
                             nomeCriterio1 = nomeInput.text;
                             pesoCriteerio1 = int.parse(pesoInput.text);
-                          } else if (numberOfCriteria == 1) {
-                            nomeCriterio2 = nomeInput.text;
-                            pesoCriteerio2 = int.parse(pesoInput.text);
-                          } else if (numberOfCriteria == 2) {
-                            nomeCriterio3 = nomeInput.text;
-                            pesoCriteerio3 = int.parse(pesoInput.text);
+
+                            noteAlt1C1.add(
+                              int.parse(note1Alternativa1Criterio1.text),
+                            );
+                            noteAlt1C1.add(
+                              int.parse(note2Alternativa1Criterio1.text),
+                            );
+                            noteAlt1C1.add(
+                              int.parse(note3Alternativa1Criterio1.text),
+                            );
+
+                            noteAlt2C1.add(
+                              int.parse(note1Alternativa2Criterio1.text),
+                            );
+                            noteAlt2C1.add(
+                              int.parse(note2Alternativa2Criterio1.text),
+                            );
+                            noteAlt2C1.add(
+                              int.parse(note3Alternativa2Criterio1.text),
+                            );
+
+                            noteAlt3C1.add(
+                              int.parse(note1Alternativa3Criterio1.text),
+                            );
+                            noteAlt3C1.add(
+                              int.parse(note2Alternativa3Criterio1.text),
+                            );
+                            noteAlt3C1.add(
+                              int.parse(note3Alternativa3Criterio1.text),
+                            );
+
+                            noteAlt4C1.add(
+                              int.parse(note1Alternativa4Criterio1.text),
+                            );
+                            noteAlt4C1.add(
+                              int.parse(note2Alternativa4Criterio1.text),
+                            );
+                            noteAlt4C1.add(
+                              int.parse(note3Alternativa4Criterio1.text),
+                            );
+
+                            noteAlt5C1.add(
+                              int.parse(note1Alternativa5Criterio1.text),
+                            );
+                            noteAlt5C1.add(
+                              int.parse(note2Alternativa5Criterio1.text),
+                            );
+                            noteAlt5C1.add(
+                              int.parse(note3Alternativa5Criterio1.text),
+                            );
+
+                            noteAlt6C1.add(
+                              int.parse(note1Alternativa6Criterio1.text),
+                            );
+                            noteAlt6C1.add(
+                              int.parse(note2Alternativa6Criterio1.text),
+                            );
+                            noteAlt6C1.add(
+                              int.parse(note3Alternativa6Criterio1.text),
+                            );
+
+                            //===========================================
+
+                            if (noteAlt1C1.isNotEmpty) {
+                              alternatives.add(
+                                Alternative(
+                                  name: listCriteria.alternativeNames[0],
+                                  note: noteAlt1C1,
+                                ),
+                              );
+                            }
+
+                            if (noteAlt2C1.isNotEmpty) {
+                              alternatives.add(
+                                Alternative(
+                                  name: listCriteria.alternativeNames[1],
+                                  note: noteAlt2C1,
+                                ),
+                              );
+                            }
+
+                            if (noteAlt3C1.isNotEmpty) {
+                              alternatives.add(
+                                Alternative(
+                                  name: listCriteria.alternativeNames[2],
+                                  note: noteAlt3C1,
+                                ),
+                              );
+                            }
+
+                            if (noteAlt4C1.isNotEmpty) {
+                              alternatives.add(
+                                Alternative(
+                                  name: listCriteria.alternativeNames[3],
+                                  note: noteAlt4C1,
+                                ),
+                              );
+                            }
+
+                            if (noteAlt5C1.isNotEmpty) {
+                              alternatives.add(
+                                Alternative(
+                                  name: listCriteria.alternativeNames[4],
+                                  note: noteAlt5C1,
+                                ),
+                              );
+                            }
+
+                            if (noteAlt5C1.isNotEmpty) {
+                              alternatives.add(
+                                Alternative(
+                                  name: listCriteria.alternativeNames[5],
+                                  note: noteAlt6C1,
+                                ),
+                              );
+                            }
                           }
 
+                          if (numberOfCriteria == var2) {
+                            nomeCriterio2 = nomeInput.text;
+                            pesoCriteerio2 = int.parse(pesoInput.text);
+
+                            noteAlt1C1.add(
+                              int.parse(note1Alternativa1Criterio1.text),
+                            );
+                            noteAlt1C1.add(
+                              int.parse(note2Alternativa1Criterio1.text),
+                            );
+                            noteAlt1C1.add(
+                              int.parse(note3Alternativa1Criterio1.text),
+                            );
+
+                            noteAlt2C1.add(
+                              int.parse(note1Alternativa2Criterio1.text),
+                            );
+                            noteAlt2C1.add(
+                              int.parse(note2Alternativa2Criterio1.text),
+                            );
+                            noteAlt2C1.add(
+                              int.parse(note3Alternativa2Criterio1.text),
+                            );
+
+                            noteAlt3C1.add(
+                              int.parse(note1Alternativa3Criterio1.text),
+                            );
+                            noteAlt3C1.add(
+                              int.parse(note2Alternativa3Criterio1.text),
+                            );
+                            noteAlt3C1.add(
+                              int.parse(note3Alternativa3Criterio1.text),
+                            );
+
+                            noteAlt4C1.add(
+                              int.parse(note1Alternativa4Criterio1.text),
+                            );
+                            noteAlt4C1.add(
+                              int.parse(note2Alternativa4Criterio1.text),
+                            );
+                            noteAlt4C1.add(
+                              int.parse(note3Alternativa4Criterio1.text),
+                            );
+
+                            noteAlt5C1.add(
+                              int.parse(note1Alternativa5Criterio1.text),
+                            );
+                            noteAlt5C1.add(
+                              int.parse(note2Alternativa5Criterio1.text),
+                            );
+                            noteAlt5C1.add(
+                              int.parse(note3Alternativa5Criterio1.text),
+                            );
+
+                            noteAlt6C1.add(
+                              int.parse(note1Alternativa6Criterio1.text),
+                            );
+                            noteAlt6C1.add(
+                              int.parse(note2Alternativa6Criterio1.text),
+                            );
+                            noteAlt6C1.add(
+                              int.parse(note3Alternativa6Criterio1.text),
+                            );
+
+                            //===========================================
+
+                            if (noteAlt1C2.isNotEmpty) {
+                              List<int> teste = [];
+                              teste.add(noteAlt1C2[3]);
+                              teste.add(noteAlt1C2[4]);
+                              teste.add(noteAlt1C2[5]);
+                              alternatives.add(
+                                Alternative(
+                                  name: listCriteria.alternativeNames[0],
+                                  note: teste,
+                                ),
+                              );
+                            }
+
+                            if (noteAlt2C2.isNotEmpty) {
+                              List<int> teste = [];
+                              teste.add(noteAlt1C2[3]);
+                              teste.add(noteAlt1C2[4]);
+                              teste.add(noteAlt1C2[5]);
+                              alternatives.add(
+                                Alternative(
+                                  name: listCriteria.alternativeNames[1],
+                                  note: teste,
+                                ),
+                              );
+                            }
+
+                            if (noteAlt3C2.isNotEmpty) {
+                              List<int> teste = [];
+                              teste.add(noteAlt1C2[3]);
+                              teste.add(noteAlt1C2[4]);
+                              teste.add(noteAlt1C2[5]);
+                              alternatives.add(
+                                Alternative(
+                                  name: listCriteria.alternativeNames[2],
+                                  note: teste,
+                                ),
+                              );
+                            }
+
+                            if (noteAlt4C2.isNotEmpty) {
+                              List<int> teste = [];
+                              teste.add(noteAlt1C2[3]);
+                              teste.add(noteAlt1C2[4]);
+                              teste.add(noteAlt1C2[5]);
+                              alternatives.add(
+                                Alternative(
+                                  name: listCriteria.alternativeNames[3],
+                                  note: teste,
+                                ),
+                              );
+                            }
+
+                            if (noteAlt5C2.isNotEmpty) {
+                              List<int> teste = [];
+                              teste.add(noteAlt1C2[3]);
+                              teste.add(noteAlt1C2[4]);
+                              teste.add(noteAlt1C2[5]);
+                              alternatives.add(
+                                Alternative(
+                                  name: listCriteria.alternativeNames[4],
+                                  note: teste,
+                                ),
+                              );
+                            }
+
+                            if (noteAlt5C2.isNotEmpty) {
+                              List<int> teste = [];
+                              teste.add(noteAlt1C2[3]);
+                              teste.add(noteAlt1C2[4]);
+                              teste.add(noteAlt1C2[5]);
+                              alternatives.add(
+                                Alternative(
+                                  name: listCriteria.alternativeNames[5],
+                                  note: teste,
+                                ),
+                              );
+                            }
+                          }
+
+                          if (numberOfCriteria == var3) {
+                            nomeCriterio3 = nomeInput.text;
+                            pesoCriteerio3 = int.parse(pesoInput.text);
+
+                            noteAlt1C3.add(
+                              int.parse(note1Alternativa1Criterio3.text),
+                            );
+                            noteAlt1C3.add(
+                              int.parse(note2Alternativa1Criterio3.text),
+                            );
+                            noteAlt1C3.add(
+                              int.parse(note3Alternativa1Criterio3.text),
+                            );
+
+                            noteAlt2C3.add(
+                              int.parse(note1Alternativa2Criterio3.text),
+                            );
+                            noteAlt2C3.add(
+                              int.parse(note2Alternativa2Criterio3.text),
+                            );
+                            noteAlt2C3.add(
+                              int.parse(note3Alternativa2Criterio3.text),
+                            );
+
+                            noteAlt3C3.add(
+                              int.parse(note1Alternativa3Criterio3.text),
+                            );
+                            noteAlt3C3.add(
+                              int.parse(note2Alternativa3Criterio3.text),
+                            );
+                            noteAlt3C3.add(
+                              int.parse(note3Alternativa3Criterio3.text),
+                            );
+
+                            noteAlt4C3.add(
+                              int.parse(note1Alternativa4Criterio3.text),
+                            );
+                            noteAlt4C3.add(
+                              int.parse(note2Alternativa4Criterio3.text),
+                            );
+                            noteAlt4C3.add(
+                              int.parse(note3Alternativa4Criterio3.text),
+                            );
+
+                            noteAlt5C3.add(
+                              int.parse(note1Alternativa5Criterio3.text),
+                            );
+                            noteAlt5C3.add(
+                              int.parse(note2Alternativa5Criterio3.text),
+                            );
+                            noteAlt5C3.add(
+                              int.parse(note3Alternativa5Criterio3.text),
+                            );
+
+                            noteAlt6C3.add(
+                              int.parse(note1Alternativa6Criterio3.text),
+                            );
+                            noteAlt6C3.add(
+                              int.parse(note2Alternativa6Criterio3.text),
+                            );
+                            noteAlt6C3.add(
+                              int.parse(note3Alternativa6Criterio3.text),
+                            );
+
+                            //===========================================
+
+                            if (noteAlt1C3.isNotEmpty) {
+                              alternatives.add(
+                                Alternative(
+                                  name: listCriteria.alternativeNames[0],
+                                  note: noteAlt1C3,
+                                ),
+                              );
+                            }
+
+                            if (noteAlt2C3.isNotEmpty) {
+                              alternatives.add(
+                                Alternative(
+                                  name: listCriteria.alternativeNames[1],
+                                  note: noteAlt2C3,
+                                ),
+                              );
+                            }
+
+                            if (noteAlt3C3.isNotEmpty) {
+                              alternatives.add(
+                                Alternative(
+                                  name: listCriteria.alternativeNames[2],
+                                  note: noteAlt3C3,
+                                ),
+                              );
+                            }
+
+                            if (noteAlt4C3.isNotEmpty) {
+                              alternatives.add(
+                                Alternative(
+                                  name: listCriteria.alternativeNames[3],
+                                  note: noteAlt4C3,
+                                ),
+                              );
+                            }
+
+                            if (noteAlt5C3.isNotEmpty) {
+                              alternatives.add(
+                                Alternative(
+                                  name: listCriteria.alternativeNames[4],
+                                  note: noteAlt5C3,
+                                ),
+                              );
+                            }
+
+                            if (noteAlt5C3.isNotEmpty) {
+                              alternatives.add(
+                                Alternative(
+                                  name: listCriteria.alternativeNames[5],
+                                  note: noteAlt6C3,
+                                ),
+                              );
+                            }
+                          }
+
+                          // for(Alternative alt in alternatives){
+                          //   print('Nome: ${alt.name}');
+                          //   print('Nota: ${alt.note}');
+                          // }
                           //listMap.add(notasMap.g);
                           //listMap.add(notasMap["nota2"]);
 
@@ -625,98 +961,98 @@ class _HomeState extends State<Home> with ValidationsMixin {
                           //   }
                           // }
 
-                          print("Map 'Notas': $listMap");
-                          print("NomeC1: $nomeCriterio1\n"
-                              "PesoC1: $pesoCriteerio1\n"
-                              "NomeC2: $nomeCriterio2\n"
-                              "PesoC2: $pesoCriteerio2\n"
-                              "NomeC3: $nomeCriterio3\n"
-                              "PesoC3: $pesoCriteerio3\n");
+                          // print("Map 'Notas': $listMap");
+                          // print("NomeC1: $nomeCriterio1\n"
+                          //     "PesoC1: $pesoCriteerio1\n"
+                          //     "NomeC2: $nomeCriterio2\n"
+                          //     "PesoC2: $pesoCriteerio2\n"
+                          //     "NomeC3: $nomeCriterio3\n"
+                          //     "PesoC3: $pesoCriteerio3\n");
+                          //
+                          // print("NotasAlt1: ${noteAlt1C1}");
+                          // print("NotasAlt2: ${noteAlt2C1}");
+                          // print("NotasAlt3: ${noteAlt3C1}");
+                          // print("NotasAlt4: ${noteAlt4C1}");
+                          // print("NotasAlt5: ${noteAlt5C1}");
+                          // print("NotasAlt6: ${noteAlt6C1}");
 
-                          print("NotasAlt1: ${noteAlt1}");
-                          print("NotasAlt2: ${noteAlt2}");
-                          print("NotasAlt3: ${noteAlt3}");
-                          print("NotasAlt4: ${noteAlt4}");
-                          print("NotasAlt5: ${noteAlt5}");
-                          print("NotasAlt6: ${noteAlt6}");
-
-                          if (noteAlt1[numberOfCriteria].isNotEmpty) {
-                            final notaValue = noteAlt1[numberOfCriteria];
-
-                            if (notaValue != null) {
-                              alternatives.add(
-                                Alternative(
-                                  name: listCriteria.alternativeNames[0],
-                                  note: noteAlt1,
-                                ),
-                              );
-                            }
-                          }
-
-                          if (noteAlt2[numberOfCriteria].isNotEmpty) {
-                            final notaValue = noteAlt2[numberOfCriteria];
-
-                            if (notaValue != null) {
-                              alternatives.add(
-                                Alternative(
-                                  name: listCriteria.alternativeNames[1],
-                                  note: noteAlt2,
-                                ),
-                              );
-                            }
-                          }
-
-                          if (noteAlt3[numberOfCriteria].isNotEmpty) {
-                            final notaValue = noteAlt3[numberOfCriteria];
-
-                            if (notaValue != null) {
-                              alternatives.add(
-                                Alternative(
-                                  name: listCriteria.alternativeNames[2],
-                                  note: noteAlt3,
-                                ),
-                              );
-                            }
-                          }
-
-                          if (noteAlt4[numberOfCriteria].isNotEmpty) {
-                            final notaValue = noteAlt4[numberOfCriteria];
-
-                            if (notaValue != null) {
-                              alternatives.add(
-                                Alternative(
-                                  name: listCriteria.alternativeNames[3],
-                                  note: noteAlt4,
-                                ),
-                              );
-                            }
-                          }
-
-                          if (noteAlt5[numberOfCriteria].isNotEmpty) {
-                            final notaValue = noteAlt5[numberOfCriteria];
-
-                            if (notaValue != null) {
-                              alternatives.add(
-                                Alternative(
-                                  name: listCriteria.alternativeNames[4],
-                                  note: noteAlt5,
-                                ),
-                              );
-                            }
-                          }
-
-                          if (noteAlt6[numberOfCriteria].isNotEmpty) {
-                            final notaValue = noteAlt6[numberOfCriteria];
-
-                            if (notaValue != null) {
-                              alternatives.add(
-                                Alternative(
-                                  name: listCriteria.alternativeNames[5],
-                                  note: noteAlt6,
-                                ),
-                              );
-                            }
-                          }
+                          // if (noteAlt1C1[numberOfCriteria].isNotEmpty) {
+                          //   final notaValue = noteAlt1C1[numberOfCriteria];
+                          //
+                          //   if (notaValue != null) {
+                          //     alternatives.add(
+                          //       Alternative(
+                          //         name: listCriteria.alternativeNames[0],
+                          //         note: noteAlt1C1,
+                          //       ),
+                          //     );
+                          //   }
+                          // }
+                          //
+                          // if (noteAlt2C1[numberOfCriteria].isNotEmpty) {
+                          //   final notaValue = noteAlt2C1[numberOfCriteria];
+                          //
+                          //   if (notaValue != null) {
+                          //     alternatives.add(
+                          //       Alternative(
+                          //         name: listCriteria.alternativeNames[1],
+                          //         note: noteAlt2C1,
+                          //       ),
+                          //     );
+                          //   }
+                          // }
+                          //
+                          // if (noteAlt3C1[numberOfCriteria].isNotEmpty) {
+                          //   final notaValue = noteAlt3C1[numberOfCriteria];
+                          //
+                          //   if (notaValue != null) {
+                          //     alternatives.add(
+                          //       Alternative(
+                          //         name: listCriteria.alternativeNames[2],
+                          //         note: noteAlt3C1,
+                          //       ),
+                          //     );
+                          //   }
+                          // }
+                          //
+                          // if (noteAlt4C1[numberOfCriteria].isNotEmpty) {
+                          //   final notaValue = noteAlt4C1[numberOfCriteria];
+                          //
+                          //   if (notaValue != null) {
+                          //     alternatives.add(
+                          //       Alternative(
+                          //         name: listCriteria.alternativeNames[3],
+                          //         note: noteAlt4C1,
+                          //       ),
+                          //     );
+                          //   }
+                          // }
+                          //
+                          // if (noteAlt5C1[numberOfCriteria].isNotEmpty) {
+                          //   final notaValue = noteAlt5C1[numberOfCriteria];
+                          //
+                          //   if (notaValue != null) {
+                          //     alternatives.add(
+                          //       Alternative(
+                          //         name: listCriteria.alternativeNames[4],
+                          //         note: noteAlt5C1,
+                          //       ),
+                          //     );
+                          //   }
+                          // }
+                          //
+                          // if (noteAlt6C1[numberOfCriteria].isNotEmpty) {
+                          //   final notaValue = noteAlt6C1[numberOfCriteria];
+                          //
+                          //   if (notaValue != null) {
+                          //     alternatives.add(
+                          //       Alternative(
+                          //         name: listCriteria.alternativeNames[5],
+                          //         note: noteAlt6C1,
+                          //       ),
+                          //     );
+                          //   }
+                          // }
 
                           // for (int i = 0; i < 2; i++) {
                           //   //final notaValue =
@@ -811,8 +1147,9 @@ class _HomeState extends State<Home> with ValidationsMixin {
                           print(
                               'Tamanho da lista alternative: ${alternatives.length}');
 
-                          for (Alternative alt in alternatives){
-                            print('================ Alternatives ================');
+                          for (Alternative alt in alternatives) {
+                            print(
+                                '================ Alternatives ================');
                             print('Name: ${alt.name}');
                             print('Note: ${alt.note}');
                           }
@@ -864,11 +1201,11 @@ class _HomeState extends State<Home> with ValidationsMixin {
         });
   }
 
-  TextFormField formularioPadrao(label, controlador, chave, func) {
+  TextFormField formularioPadrao(label, controlador, chave, func, tipoTeclado) {
     return TextFormField(
       validator: func,
       key: chave,
-      keyboardType: TextInputType.name,
+      keyboardType: tipoTeclado,
       controller: controlador,
       decoration: InputDecoration(
         labelText: '${label}',
@@ -903,7 +1240,27 @@ class _HomeState extends State<Home> with ValidationsMixin {
     );
   }
 
-  Column forms(
+  // Form wForms(n) {
+  //   if (n == 0) {
+  //     return Form(
+  //       child: forms1(n),
+  //     );
+  //   }
+  //
+  //   else if (n == 1) {
+  //     return Form(
+  //       child: forms1(n),
+  //     );
+  //   }
+  //
+  //   else{
+  //     return Form(
+  //       child: forms1(n),
+  //     );
+  //   }
+  // }
+
+  Column forms1(
       nomeInput,
       pesoInput,
       note1Alternativa1Criterio1,
@@ -1026,7 +1383,8 @@ class _HomeState extends State<Home> with ValidationsMixin {
         ),
 
         //TextFormField de 'Nome'
-        formularioPadrao("Nome", nomeInput, _keyNome, EntradaVazia),
+        formularioPadrao(
+            "Nome", nomeInput, _keyNome, EntradaVazia, TextInputType.name),
 
         const SizedBox(
           height: 20,
@@ -1041,6 +1399,7 @@ class _HomeState extends State<Home> with ValidationsMixin {
             () => EntradaVazia(val),
             () => EntradaForaDoRange(val),
           ]),
+          TextInputType.number,
         ),
 
         const SizedBox(
@@ -1061,6 +1420,7 @@ class _HomeState extends State<Home> with ValidationsMixin {
             () => EntradaVazia(val),
             () => EntradaForaDoRange(val),
           ]),
+          TextInputType.number,
         ),
 
         const SizedBox(
@@ -1076,6 +1436,7 @@ class _HomeState extends State<Home> with ValidationsMixin {
             () => EntradaVazia(val),
             () => EntradaForaDoRange(val),
           ]),
+          TextInputType.number,
         ),
 
         const SizedBox(
@@ -1091,6 +1452,7 @@ class _HomeState extends State<Home> with ValidationsMixin {
             () => EntradaVazia(val),
             () => EntradaForaDoRange(val),
           ]),
+          TextInputType.number,
         ),
 
         const SizedBox(
@@ -1111,6 +1473,7 @@ class _HomeState extends State<Home> with ValidationsMixin {
             () => EntradaVazia(val),
             () => EntradaForaDoRange(val),
           ]),
+          TextInputType.number,
         ),
 
         const SizedBox(
@@ -1126,6 +1489,7 @@ class _HomeState extends State<Home> with ValidationsMixin {
             () => EntradaVazia(val),
             () => EntradaForaDoRange(val),
           ]),
+          TextInputType.number,
         ),
 
         const SizedBox(
@@ -1141,6 +1505,7 @@ class _HomeState extends State<Home> with ValidationsMixin {
             () => EntradaVazia(val),
             () => EntradaForaDoRange(val),
           ]),
+          TextInputType.number,
         ),
 
         const SizedBox(
@@ -1165,6 +1530,7 @@ class _HomeState extends State<Home> with ValidationsMixin {
             () => EntradaVazia(val),
             () => EntradaForaDoRange(val),
           ]),
+          TextInputType.number,
         ),
 
         const SizedBox(
@@ -1180,6 +1546,7 @@ class _HomeState extends State<Home> with ValidationsMixin {
             () => EntradaVazia(val),
             () => EntradaForaDoRange(val),
           ]),
+          TextInputType.number,
         ),
 
         const SizedBox(
@@ -1195,6 +1562,7 @@ class _HomeState extends State<Home> with ValidationsMixin {
             () => EntradaVazia(val),
             () => EntradaForaDoRange(val),
           ]),
+          TextInputType.number,
         ),
 
         const SizedBox(
@@ -1219,6 +1587,7 @@ class _HomeState extends State<Home> with ValidationsMixin {
             () => EntradaVazia(val),
             () => EntradaForaDoRange(val),
           ]),
+          TextInputType.number,
         ),
 
         const SizedBox(
@@ -1234,6 +1603,7 @@ class _HomeState extends State<Home> with ValidationsMixin {
             () => EntradaVazia(val),
             () => EntradaForaDoRange(val),
           ]),
+          TextInputType.number,
         ),
 
         const SizedBox(
@@ -1249,6 +1619,7 @@ class _HomeState extends State<Home> with ValidationsMixin {
             () => EntradaVazia(val),
             () => EntradaForaDoRange(val),
           ]),
+          TextInputType.number,
         ),
 
         const SizedBox(
@@ -1273,6 +1644,7 @@ class _HomeState extends State<Home> with ValidationsMixin {
             () => EntradaVazia(val),
             () => EntradaForaDoRange(val),
           ]),
+          TextInputType.number,
         ),
 
         const SizedBox(
@@ -1288,6 +1660,7 @@ class _HomeState extends State<Home> with ValidationsMixin {
             () => EntradaVazia(val),
             () => EntradaForaDoRange(val),
           ]),
+          TextInputType.number,
         ),
 
         const SizedBox(
@@ -1303,6 +1676,7 @@ class _HomeState extends State<Home> with ValidationsMixin {
             () => EntradaVazia(val),
             () => EntradaForaDoRange(val),
           ]),
+          TextInputType.number,
         ),
 
         const SizedBox(
@@ -1327,6 +1701,7 @@ class _HomeState extends State<Home> with ValidationsMixin {
             () => EntradaVazia(val),
             () => EntradaForaDoRange(val),
           ]),
+          TextInputType.number,
         ),
 
         const SizedBox(
@@ -1335,14 +1710,14 @@ class _HomeState extends State<Home> with ValidationsMixin {
 
         //TextFormField de 'nota1'
         formularioPadrao(
-          "Nota Média",
-          note2Alternativa6Criterio1,
-          _keyN2A6C1,
-          (val) => combine([
-            () => EntradaVazia(val),
-            () => EntradaForaDoRange(val),
-          ]),
-        ),
+            "Nota Média",
+            note2Alternativa6Criterio1,
+            _keyN2A6C1,
+            (val) => combine([
+                  () => EntradaVazia(val),
+                  () => EntradaForaDoRange(val),
+                ]),
+            TextInputType.number),
 
         const SizedBox(
           height: 20,
@@ -1350,14 +1725,14 @@ class _HomeState extends State<Home> with ValidationsMixin {
 
         //TextFormField de 'nota1'
         formularioPadrao(
-          "Nota Maior",
-          note3Alternativa6Criterio1,
-          _keyN3A6C1,
-          (val) => combine([
-            () => EntradaVazia(val),
-            () => EntradaForaDoRange(val),
-          ]),
-        ),
+            "Nota Maior",
+            note3Alternativa6Criterio1,
+            _keyN3A6C1,
+            (val) => combine([
+                  () => EntradaVazia(val),
+                  () => EntradaForaDoRange(val),
+                ]),
+            TextInputType.number),
 
         const SizedBox(
           height: 25,
