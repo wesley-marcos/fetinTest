@@ -394,7 +394,8 @@ class _HomeState extends State<Home> with ValidationsMixin {
               content: Padding(
                 padding: const EdgeInsets.all(2.0),
                 child: Form(
-                  child: forms1(
+                  child: wForms(
+                      listCriteria,
                       nomeInput,
                       pesoInput,
                       note1Alternativa1Criterio1,
@@ -528,9 +529,6 @@ class _HomeState extends State<Home> with ValidationsMixin {
                           List<Alternative> alternatives = [];
                           print("Aqui entrouu");
                           print("$numberOfCriteria");
-                          int var1 = 0;
-                          int var2 = 1;
-                          int var3 = 2;
 
                           bool notasValidas = true;
 
@@ -544,7 +542,7 @@ class _HomeState extends State<Home> with ValidationsMixin {
                           //   int.parse(note3Alternativa1Criterio1.text),
                           // );
 
-                          if (numberOfCriteria == var1) {
+                          if (numberOfCriteria == 0) {
                             nomeCriterio1 = nomeInput.text;
                             pesoCriteerio1 = int.parse(pesoInput.text);
 
@@ -655,7 +653,7 @@ class _HomeState extends State<Home> with ValidationsMixin {
                               );
                             }
 
-                            if (noteAlt5C1.isNotEmpty) {
+                            if (noteAlt6C1.isNotEmpty) {
                               alternatives.add(
                                 Alternative(
                                   name: listCriteria.alternativeNames[5],
@@ -665,152 +663,128 @@ class _HomeState extends State<Home> with ValidationsMixin {
                             }
                           }
 
-                          if (numberOfCriteria == var2) {
+                          if (numberOfCriteria == 1) {
                             nomeCriterio2 = nomeInput.text;
                             pesoCriteerio2 = int.parse(pesoInput.text);
 
-                            noteAlt1C1.add(
-                              int.parse(note1Alternativa1Criterio1.text),
+                            noteAlt1C2.add(
+                              int.parse(note1Alternativa1Criterio2.text),
                             );
-                            noteAlt1C1.add(
-                              int.parse(note2Alternativa1Criterio1.text),
+                            noteAlt1C2.add(
+                              int.parse(note2Alternativa1Criterio2.text),
                             );
-                            noteAlt1C1.add(
-                              int.parse(note3Alternativa1Criterio1.text),
-                            );
-
-                            noteAlt2C1.add(
-                              int.parse(note1Alternativa2Criterio1.text),
-                            );
-                            noteAlt2C1.add(
-                              int.parse(note2Alternativa2Criterio1.text),
-                            );
-                            noteAlt2C1.add(
-                              int.parse(note3Alternativa2Criterio1.text),
+                            noteAlt1C2.add(
+                              int.parse(note3Alternativa1Criterio2.text),
                             );
 
-                            noteAlt3C1.add(
-                              int.parse(note1Alternativa3Criterio1.text),
+                            noteAlt2C2.add(
+                              int.parse(note1Alternativa2Criterio2.text),
                             );
-                            noteAlt3C1.add(
-                              int.parse(note2Alternativa3Criterio1.text),
+                            noteAlt2C2.add(
+                              int.parse(note2Alternativa2Criterio2.text),
                             );
-                            noteAlt3C1.add(
-                              int.parse(note3Alternativa3Criterio1.text),
-                            );
-
-                            noteAlt4C1.add(
-                              int.parse(note1Alternativa4Criterio1.text),
-                            );
-                            noteAlt4C1.add(
-                              int.parse(note2Alternativa4Criterio1.text),
-                            );
-                            noteAlt4C1.add(
-                              int.parse(note3Alternativa4Criterio1.text),
+                            noteAlt2C2.add(
+                              int.parse(note3Alternativa2Criterio2.text),
                             );
 
-                            noteAlt5C1.add(
-                              int.parse(note1Alternativa5Criterio1.text),
+                            noteAlt3C2.add(
+                              int.parse(note1Alternativa3Criterio2.text),
                             );
-                            noteAlt5C1.add(
-                              int.parse(note2Alternativa5Criterio1.text),
+                            noteAlt3C2.add(
+                              int.parse(note2Alternativa3Criterio2.text),
                             );
-                            noteAlt5C1.add(
-                              int.parse(note3Alternativa5Criterio1.text),
+                            noteAlt3C2.add(
+                              int.parse(note3Alternativa3Criterio2.text),
                             );
 
-                            noteAlt6C1.add(
-                              int.parse(note1Alternativa6Criterio1.text),
+                            noteAlt4C2.add(
+                              int.parse(note1Alternativa4Criterio2.text),
                             );
-                            noteAlt6C1.add(
-                              int.parse(note2Alternativa6Criterio1.text),
+                            noteAlt4C2.add(
+                              int.parse(note2Alternativa4Criterio2.text),
                             );
-                            noteAlt6C1.add(
-                              int.parse(note3Alternativa6Criterio1.text),
+                            noteAlt4C2.add(
+                              int.parse(note3Alternativa4Criterio2.text),
+                            );
+
+                            noteAlt5C2.add(
+                              int.parse(note1Alternativa5Criterio2.text),
+                            );
+                            noteAlt5C2.add(
+                              int.parse(note2Alternativa5Criterio2.text),
+                            );
+                            noteAlt5C2.add(
+                              int.parse(note3Alternativa5Criterio2.text),
+                            );
+
+                            noteAlt6C2.add(
+                              int.parse(note1Alternativa6Criterio2.text),
+                            );
+                            noteAlt6C2.add(
+                              int.parse(note2Alternativa6Criterio2.text),
+                            );
+                            noteAlt6C2.add(
+                              int.parse(note3Alternativa6Criterio2.text),
                             );
 
                             //===========================================
 
                             if (noteAlt1C2.isNotEmpty) {
-                              List<int> teste = [];
-                              teste.add(noteAlt1C2[3]);
-                              teste.add(noteAlt1C2[4]);
-                              teste.add(noteAlt1C2[5]);
                               alternatives.add(
                                 Alternative(
                                   name: listCriteria.alternativeNames[0],
-                                  note: teste,
+                                  note: noteAlt1C2,
                                 ),
                               );
                             }
 
                             if (noteAlt2C2.isNotEmpty) {
-                              List<int> teste = [];
-                              teste.add(noteAlt1C2[3]);
-                              teste.add(noteAlt1C2[4]);
-                              teste.add(noteAlt1C2[5]);
                               alternatives.add(
                                 Alternative(
                                   name: listCriteria.alternativeNames[1],
-                                  note: teste,
+                                  note: noteAlt2C2,
                                 ),
                               );
                             }
 
                             if (noteAlt3C2.isNotEmpty) {
-                              List<int> teste = [];
-                              teste.add(noteAlt1C2[3]);
-                              teste.add(noteAlt1C2[4]);
-                              teste.add(noteAlt1C2[5]);
                               alternatives.add(
                                 Alternative(
                                   name: listCriteria.alternativeNames[2],
-                                  note: teste,
+                                  note: noteAlt3C2,
                                 ),
                               );
                             }
 
                             if (noteAlt4C2.isNotEmpty) {
-                              List<int> teste = [];
-                              teste.add(noteAlt1C2[3]);
-                              teste.add(noteAlt1C2[4]);
-                              teste.add(noteAlt1C2[5]);
                               alternatives.add(
                                 Alternative(
                                   name: listCriteria.alternativeNames[3],
-                                  note: teste,
+                                  note: noteAlt4C2,
                                 ),
                               );
                             }
 
                             if (noteAlt5C2.isNotEmpty) {
-                              List<int> teste = [];
-                              teste.add(noteAlt1C2[3]);
-                              teste.add(noteAlt1C2[4]);
-                              teste.add(noteAlt1C2[5]);
                               alternatives.add(
                                 Alternative(
                                   name: listCriteria.alternativeNames[4],
-                                  note: teste,
+                                  note: noteAlt5C2,
                                 ),
                               );
                             }
 
                             if (noteAlt5C2.isNotEmpty) {
-                              List<int> teste = [];
-                              teste.add(noteAlt1C2[3]);
-                              teste.add(noteAlt1C2[4]);
-                              teste.add(noteAlt1C2[5]);
                               alternatives.add(
                                 Alternative(
                                   name: listCriteria.alternativeNames[5],
-                                  note: teste,
+                                  note: noteAlt5C2,
                                 ),
                               );
                             }
                           }
 
-                          if (numberOfCriteria == var3) {
+                          if (numberOfCriteria == 2) {
                             nomeCriterio3 = nomeInput.text;
                             pesoCriteerio3 = int.parse(pesoInput.text);
 
@@ -921,7 +895,7 @@ class _HomeState extends State<Home> with ValidationsMixin {
                               );
                             }
 
-                            if (noteAlt5C3.isNotEmpty) {
+                            if (noteAlt6C3.isNotEmpty) {
                               alternatives.add(
                                 Alternative(
                                   name: listCriteria.alternativeNames[5],
@@ -1240,27 +1214,8 @@ class _HomeState extends State<Home> with ValidationsMixin {
     );
   }
 
-  // Form wForms(n) {
-  //   if (n == 0) {
-  //     return Form(
-  //       child: forms1(n),
-  //     );
-  //   }
-  //
-  //   else if (n == 1) {
-  //     return Form(
-  //       child: forms1(n),
-  //     );
-  //   }
-  //
-  //   else{
-  //     return Form(
-  //       child: forms1(n),
-  //     );
-  //   }
-  // }
-
-  Column forms1(
+  Form wForms(
+      listCriteria,
       nomeInput,
       pesoInput,
       note1Alternativa1Criterio1,
@@ -1371,6 +1326,185 @@ class _HomeState extends State<Home> with ValidationsMixin {
       _keyN1A6C3,
       _keyN2A6C3,
       _keyN3A6C3) {
+
+    if (numberOfCriteria == 0) {
+      return Form(
+        child: formsCriterio1(
+            listCriteria,
+            nomeInput,
+            pesoInput,
+            note1Alternativa1Criterio1,
+            note2Alternativa1Criterio1,
+            note3Alternativa1Criterio1,
+            note1Alternativa2Criterio1,
+            note2Alternativa2Criterio1,
+            note3Alternativa2Criterio1,
+            note1Alternativa3Criterio1,
+            note2Alternativa3Criterio1,
+            note3Alternativa3Criterio1,
+            note1Alternativa4Criterio1,
+            note2Alternativa4Criterio1,
+            note3Alternativa4Criterio1,
+            note1Alternativa5Criterio1,
+            note2Alternativa5Criterio1,
+            note3Alternativa5Criterio1,
+            note1Alternativa6Criterio1,
+            note2Alternativa6Criterio1,
+            note3Alternativa6Criterio1,
+            _keyN1A1C1,
+            _keyN2A1C1,
+            _keyN3A1C1,
+            _keyN1A2C1,
+            _keyN2A2C1,
+            _keyN3A2C1,
+            _keyN1A3C1,
+            _keyN2A3C1,
+            _keyN3A3C1,
+            _keyN1A4C1,
+            _keyN2A4C1,
+            _keyN3A4C1,
+            _keyN1A5C1,
+            _keyN2A5C1,
+            _keyN3A5C1,
+            _keyN1A6C1,
+            _keyN2A6C1,
+            _keyN3A6C1,
+        ),
+      );
+    }
+
+    else if (numberOfCriteria == 1) {
+      return Form(
+        child: formsCriterio2(
+            listCriteria,
+            nomeInput,
+            pesoInput,
+            note1Alternativa1Criterio2,
+            note2Alternativa1Criterio2,
+            note3Alternativa1Criterio2,
+            note1Alternativa2Criterio2,
+            note2Alternativa2Criterio2,
+            note3Alternativa2Criterio2,
+            note1Alternativa3Criterio2,
+            note2Alternativa3Criterio2,
+            note3Alternativa3Criterio2,
+            note1Alternativa4Criterio2,
+            note2Alternativa4Criterio2,
+            note3Alternativa4Criterio2,
+            note1Alternativa5Criterio2,
+            note2Alternativa5Criterio2,
+            note3Alternativa5Criterio2,
+            note1Alternativa6Criterio2,
+            note2Alternativa6Criterio2,
+            note3Alternativa6Criterio2,
+            _keyN1A1C2,
+            _keyN2A1C2,
+            _keyN3A1C2,
+            _keyN1A2C2,
+            _keyN2A2C2,
+            _keyN3A2C2,
+            _keyN1A3C2,
+            _keyN2A3C2,
+            _keyN3A3C2,
+            _keyN1A4C2,
+            _keyN2A4C2,
+            _keyN3A4C2,
+            _keyN1A5C2,
+            _keyN2A5C2,
+            _keyN3A5C2,
+            _keyN1A6C2,
+            _keyN2A6C2,
+            _keyN3A6C2,
+        ),
+      );
+    }
+
+    else{
+      return Form(
+        child: formsCriterio3(listCriteria,
+            nomeInput,
+            pesoInput,
+            note1Alternativa1Criterio3,
+            note2Alternativa1Criterio3,
+            note3Alternativa1Criterio3,
+            note1Alternativa2Criterio3,
+            note2Alternativa2Criterio3,
+            note3Alternativa2Criterio3,
+            note1Alternativa3Criterio3,
+            note2Alternativa3Criterio3,
+            note3Alternativa3Criterio3,
+            note1Alternativa4Criterio3,
+            note2Alternativa4Criterio3,
+            note3Alternativa4Criterio3,
+            note1Alternativa5Criterio3,
+            note2Alternativa5Criterio3,
+            note3Alternativa5Criterio3,
+            note1Alternativa6Criterio3,
+            note2Alternativa6Criterio3,
+            note3Alternativa6Criterio3,
+            _keyN1A1C3,
+            _keyN2A1C3,
+            _keyN3A1C3,
+            _keyN1A2C3,
+            _keyN2A2C3,
+            _keyN3A2C3,
+            _keyN1A3C3,
+            _keyN2A3C3,
+            _keyN3A3C3,
+            _keyN1A4C3,
+            _keyN2A4C3,
+            _keyN3A4C3,
+            _keyN1A5C3,
+            _keyN2A5C3,
+            _keyN3A5C3,
+            _keyN1A6C3,
+            _keyN2A6C3,
+            _keyN3A6C3
+        ),
+      );
+    }
+  }
+
+  Column formsCriterio1(
+      Criteria list,
+      nomeInput,
+      pesoInput,
+      note1Alternativa1Criterio1,
+      note2Alternativa1Criterio1,
+      note3Alternativa1Criterio1,
+      note1Alternativa2Criterio1,
+      note2Alternativa2Criterio1,
+      note3Alternativa2Criterio1,
+      note1Alternativa3Criterio1,
+      note2Alternativa3Criterio1,
+      note3Alternativa3Criterio1,
+      note1Alternativa4Criterio1,
+      note2Alternativa4Criterio1,
+      note3Alternativa4Criterio1,
+      note1Alternativa5Criterio1,
+      note2Alternativa5Criterio1,
+      note3Alternativa5Criterio1,
+      note1Alternativa6Criterio1,
+      note2Alternativa6Criterio1,
+      note3Alternativa6Criterio1,
+      _keyN1A1C1,
+      _keyN2A1C1,
+      _keyN3A1C1,
+      _keyN1A2C1,
+      _keyN2A2C1,
+      _keyN3A2C1,
+      _keyN1A3C1,
+      _keyN2A3C1,
+      _keyN3A3C1,
+      _keyN1A4C1,
+      _keyN2A4C1,
+      _keyN3A4C1,
+      _keyN1A5C1,
+      _keyN2A5C1,
+      _keyN3A5C1,
+      _keyN1A6C1,
+      _keyN2A6C1,
+      _keyN3A6C1) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -1407,7 +1541,7 @@ class _HomeState extends State<Home> with ValidationsMixin {
         ),
 
         Text(
-          "Insira as notas da alternativa 1",
+          "Insira as notas da alternativa ${list.alternativeNames[0]}",
           style: AppTextStyles.heading16,
         ),
 
@@ -1460,7 +1594,7 @@ class _HomeState extends State<Home> with ValidationsMixin {
         ),
 
         Text(
-          "Insira as notas da alternativa 2",
+          "Insira as notas da alternativa ${list.alternativeNames[1]}",
           style: AppTextStyles.heading16,
         ),
 
@@ -1517,7 +1651,7 @@ class _HomeState extends State<Home> with ValidationsMixin {
         ),
 
         Text(
-          "Insira as notas da alternativa 3",
+          "Insira as notas da alternativa ${list.alternativeNames[2]}",
           style: AppTextStyles.heading16,
         ),
 
@@ -1574,7 +1708,7 @@ class _HomeState extends State<Home> with ValidationsMixin {
         ),
 
         Text(
-          "Insira as notas da alternativa 4",
+          "Insira as notas da alternativa ${list.alternativeNames[3]}",
           style: AppTextStyles.heading16,
         ),
 
@@ -1631,7 +1765,7 @@ class _HomeState extends State<Home> with ValidationsMixin {
         ),
 
         Text(
-          "Insira as notas da alternativa 5",
+          "Insira as notas da alternativa ${list.alternativeNames[4]}",
           style: AppTextStyles.heading16,
         ),
 
@@ -1688,7 +1822,7 @@ class _HomeState extends State<Home> with ValidationsMixin {
         ),
 
         Text(
-          "Insira as notas da alternativa 6",
+          "Insira as notas da alternativa ${list.alternativeNames[5]}",
           style: AppTextStyles.heading16,
         ),
 
@@ -1732,6 +1866,828 @@ class _HomeState extends State<Home> with ValidationsMixin {
                   () => EntradaVazia(val),
                   () => EntradaForaDoRange(val),
                 ]),
+            TextInputType.number),
+
+        const SizedBox(
+          height: 25,
+        ),
+      ],
+    );
+  }
+
+
+  Column formsCriterio2(
+      Criteria list,
+      nomeInput,
+      pesoInput,
+      note1Alternativa1Criterio2,
+      note2Alternativa1Criterio2,
+      note3Alternativa1Criterio2,
+      note1Alternativa2Criterio2,
+      note2Alternativa2Criterio2,
+      note3Alternativa2Criterio2,
+      note1Alternativa3Criterio2,
+      note2Alternativa3Criterio2,
+      note3Alternativa3Criterio2,
+      note1Alternativa4Criterio2,
+      note2Alternativa4Criterio2,
+      note3Alternativa4Criterio2,
+      note1Alternativa5Criterio2,
+      note2Alternativa5Criterio2,
+      note3Alternativa5Criterio2,
+      note1Alternativa6Criterio2,
+      note2Alternativa6Criterio2,
+      note3Alternativa6Criterio2,
+      _keyN1A1C2,
+      _keyN2A1C2,
+      _keyN3A1C2,
+      _keyN1A2C2,
+      _keyN2A2C2,
+      _keyN3A2C2,
+      _keyN1A3C2,
+      _keyN2A3C2,
+      _keyN3A3C2,
+      _keyN1A4C2,
+      _keyN2A4C2,
+      _keyN3A4C2,
+      _keyN1A5C2,
+      _keyN2A5C2,
+      _keyN3A5C2,
+      _keyN1A6C2,
+      _keyN2A6C2,
+      _keyN3A6C2,
+      ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        const SizedBox(
+          height: 10,
+        ),
+        Text(
+          "Insira os dados do critério",
+          style: AppTextStyles.heading16,
+        ),
+
+        //TextFormField de 'Nome'
+        formularioPadrao(
+            "Nome", nomeInput, _keyNome, EntradaVazia, TextInputType.name),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        //TextFormField de 'Peso'
+        formularioPadrao(
+          "Peso",
+          pesoInput,
+          _keyPeso,
+              (val) => combine([
+                () => EntradaVazia(val),
+                () => EntradaForaDoRange(val),
+          ]),
+          TextInputType.number,
+        ),
+
+        const SizedBox(
+          height: 45,
+        ),
+
+        Text(
+          "Insira as notas da alternativa ${list.alternativeNames[0]}",
+          style: AppTextStyles.heading16,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+          "Nota Menor",
+          note1Alternativa1Criterio2,
+          _keyN1A1C2,
+              (val) => combine([
+                () => EntradaVazia(val),
+                () => EntradaForaDoRange(val),
+          ]),
+          TextInputType.number,
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+          "Nota Média",
+          note2Alternativa1Criterio2,
+          _keyN2A1C2,
+              (val) => combine([
+                () => EntradaVazia(val),
+                () => EntradaForaDoRange(val),
+          ]),
+          TextInputType.number,
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+          "Nota Maior",
+          note3Alternativa1Criterio2,
+          _keyN3A1C2,
+              (val) => combine([
+                () => EntradaVazia(val),
+                () => EntradaForaDoRange(val),
+          ]),
+          TextInputType.number,
+        ),
+
+        const SizedBox(
+          height: 45,
+        ),
+
+        Text(
+          "Insira as notas da alternativa ${list.alternativeNames[1]}",
+          style: AppTextStyles.heading16,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+          "Nota Menor",
+          note1Alternativa2Criterio2,
+          _keyN1A2C2,
+              (val) => combine([
+                () => EntradaVazia(val),
+                () => EntradaForaDoRange(val),
+          ]),
+          TextInputType.number,
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+          "Nota Média",
+          note2Alternativa2Criterio2,
+          _keyN2A2C2,
+              (val) => combine([
+                () => EntradaVazia(val),
+                () => EntradaForaDoRange(val),
+          ]),
+          TextInputType.number,
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+          "Nota Maior",
+          note3Alternativa2Criterio2,
+          _keyN3A2C2,
+              (val) => combine([
+                () => EntradaVazia(val),
+                () => EntradaForaDoRange(val),
+          ]),
+          TextInputType.number,
+        ),
+
+        const SizedBox(
+          height: 25,
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        Text(
+          "Insira as notas da alternativa ${list.alternativeNames[2]}",
+          style: AppTextStyles.heading16,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+          "Nota Menor",
+          note1Alternativa3Criterio2,
+          _keyN1A3C2,
+              (val) => combine([
+                () => EntradaVazia(val),
+                () => EntradaForaDoRange(val),
+          ]),
+          TextInputType.number,
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+          "Nota Média",
+          note2Alternativa3Criterio2,
+          _keyN2A3C2,
+              (val) => combine([
+                () => EntradaVazia(val),
+                () => EntradaForaDoRange(val),
+          ]),
+          TextInputType.number,
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+          "Nota Maior",
+          note3Alternativa3Criterio2,
+          _keyN3A3C2,
+              (val) => combine([
+                () => EntradaVazia(val),
+                () => EntradaForaDoRange(val),
+          ]),
+          TextInputType.number,
+        ),
+
+        const SizedBox(
+          height: 25,
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        Text(
+          "Insira as notas da alternativa ${list.alternativeNames[3]}",
+          style: AppTextStyles.heading16,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+          "Nota Menor",
+          note1Alternativa4Criterio2,
+          _keyN1A4C2,
+              (val) => combine([
+                () => EntradaVazia(val),
+                () => EntradaForaDoRange(val),
+          ]),
+          TextInputType.number,
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+          "Nota Média",
+          note2Alternativa4Criterio2,
+          _keyN2A4C2,
+              (val) => combine([
+                () => EntradaVazia(val),
+                () => EntradaForaDoRange(val),
+          ]),
+          TextInputType.number,
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+          "Nota Maior",
+          note3Alternativa4Criterio2,
+          _keyN3A4C2,
+              (val) => combine([
+                () => EntradaVazia(val),
+                () => EntradaForaDoRange(val),
+          ]),
+          TextInputType.number,
+        ),
+
+        const SizedBox(
+          height: 25,
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        Text(
+          "Insira as notas da alternativa ${list.alternativeNames[4]}",
+          style: AppTextStyles.heading16,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+          "Nota Menor",
+          note1Alternativa5Criterio2,
+          _keyN1A5C2,
+              (val) => combine([
+                () => EntradaVazia(val),
+                () => EntradaForaDoRange(val),
+          ]),
+          TextInputType.number,
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+          "Nota Média",
+          note2Alternativa5Criterio2,
+          _keyN2A5C2,
+              (val) => combine([
+                () => EntradaVazia(val),
+                () => EntradaForaDoRange(val),
+          ]),
+          TextInputType.number,
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+          "Nota Maior",
+          note3Alternativa5Criterio2,
+          _keyN3A5C2,
+              (val) => combine([
+                () => EntradaVazia(val),
+                () => EntradaForaDoRange(val),
+          ]),
+          TextInputType.number,
+        ),
+
+        const SizedBox(
+          height: 25,
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        Text(
+          "Insira as notas da alternativa ${list.alternativeNames[5]}",
+          style: AppTextStyles.heading16,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+          "Nota Menor",
+          note1Alternativa6Criterio2,
+          _keyN1A6C2,
+              (val) => combine([
+                () => EntradaVazia(val),
+                () => EntradaForaDoRange(val),
+          ]),
+          TextInputType.number,
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+            "Nota Média",
+            note2Alternativa6Criterio2,
+            _keyN2A6C2,
+                (val) => combine([
+                  () => EntradaVazia(val),
+                  () => EntradaForaDoRange(val),
+            ]),
+            TextInputType.number),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+            "Nota Maior",
+            note3Alternativa6Criterio2,
+            _keyN3A6C2,
+                (val) => combine([
+                  () => EntradaVazia(val),
+                  () => EntradaForaDoRange(val),
+            ]),
+            TextInputType.number),
+
+        const SizedBox(
+          height: 25,
+        ),
+      ],
+    );
+  }
+
+  Column formsCriterio3(
+      Criteria list,
+      nomeInput,
+      pesoInput,
+      note1Alternativa1Criterio3,
+      note2Alternativa1Criterio3,
+      note3Alternativa1Criterio3,
+      note1Alternativa2Criterio3,
+      note2Alternativa2Criterio3,
+      note3Alternativa2Criterio3,
+      note1Alternativa3Criterio3,
+      note2Alternativa3Criterio3,
+      note3Alternativa3Criterio3,
+      note1Alternativa4Criterio3,
+      note2Alternativa4Criterio3,
+      note3Alternativa4Criterio3,
+      note1Alternativa5Criterio3,
+      note2Alternativa5Criterio3,
+      note3Alternativa5Criterio3,
+      note1Alternativa6Criterio3,
+      note2Alternativa6Criterio3,
+      note3Alternativa6Criterio3,
+      _keyN1A1C3,
+      _keyN2A1C3,
+      _keyN3A1C3,
+      _keyN1A2C3,
+      _keyN2A2C3,
+      _keyN3A2C3,
+      _keyN1A3C3,
+      _keyN2A3C3,
+      _keyN3A3C3,
+      _keyN1A4C3,
+      _keyN2A4C3,
+      _keyN3A4C3,
+      _keyN1A5C3,
+      _keyN2A5C3,
+      _keyN3A5C3,
+      _keyN1A6C3,
+      _keyN2A6C3,
+      _keyN3A6C3) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        const SizedBox(
+          height: 10,
+        ),
+        Text(
+          "Insira os dados do critério",
+          style: AppTextStyles.heading16,
+        ),
+
+        //TextFormField de 'Nome'
+        formularioPadrao(
+            "Nome", nomeInput, _keyNome, EntradaVazia, TextInputType.name),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        //TextFormField de 'Peso'
+        formularioPadrao(
+          "Peso",
+          pesoInput,
+          _keyPeso,
+              (val) => combine([
+                () => EntradaVazia(val),
+                () => EntradaForaDoRange(val),
+          ]),
+          TextInputType.number,
+        ),
+
+        const SizedBox(
+          height: 45,
+        ),
+
+        Text(
+          "Insira as notas da alternativa ${list.alternativeNames[0]}",
+          style: AppTextStyles.heading16,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+          "Nota Menor",
+          note1Alternativa1Criterio3,
+          _keyN1A1C3,
+              (val) => combine([
+                () => EntradaVazia(val),
+                () => EntradaForaDoRange(val),
+          ]),
+          TextInputType.number,
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+          "Nota Média",
+          note2Alternativa1Criterio3,
+          _keyN2A1C3,
+              (val) => combine([
+                () => EntradaVazia(val),
+                () => EntradaForaDoRange(val),
+          ]),
+          TextInputType.number,
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+          "Nota Maior",
+          note3Alternativa1Criterio3,
+          _keyN3A1C3,
+              (val) => combine([
+                () => EntradaVazia(val),
+                () => EntradaForaDoRange(val),
+          ]),
+          TextInputType.number,
+        ),
+
+        const SizedBox(
+          height: 45,
+        ),
+
+        Text(
+          "Insira as notas da alternativa ${list.alternativeNames[1]}",
+          style: AppTextStyles.heading16,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+          "Nota Menor",
+          note1Alternativa2Criterio3,
+          _keyN1A2C3,
+              (val) => combine([
+                () => EntradaVazia(val),
+                () => EntradaForaDoRange(val),
+          ]),
+          TextInputType.number,
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+          "Nota Média",
+          note2Alternativa2Criterio3,
+          _keyN2A2C3,
+              (val) => combine([
+                () => EntradaVazia(val),
+                () => EntradaForaDoRange(val),
+          ]),
+          TextInputType.number,
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+          "Nota Maior",
+          note3Alternativa2Criterio3,
+          _keyN3A2C3,
+              (val) => combine([
+                () => EntradaVazia(val),
+                () => EntradaForaDoRange(val),
+          ]),
+          TextInputType.number,
+        ),
+
+        const SizedBox(
+          height: 25,
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        Text(
+          "Insira as notas da alternativa ${list.alternativeNames[2]}",
+          style: AppTextStyles.heading16,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+          "Nota Menor",
+          note1Alternativa3Criterio3,
+          _keyN1A3C3,
+              (val) => combine([
+                () => EntradaVazia(val),
+                () => EntradaForaDoRange(val),
+          ]),
+          TextInputType.number,
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+          "Nota Média",
+          note2Alternativa3Criterio3,
+          _keyN2A3C3,
+              (val) => combine([
+                () => EntradaVazia(val),
+                () => EntradaForaDoRange(val),
+          ]),
+          TextInputType.number,
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+          "Nota Maior",
+          note3Alternativa3Criterio3,
+          _keyN3A3C3,
+              (val) => combine([
+                () => EntradaVazia(val),
+                () => EntradaForaDoRange(val),
+          ]),
+          TextInputType.number,
+        ),
+
+        const SizedBox(
+          height: 25,
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        Text(
+          "Insira as notas da alternativa ${list.alternativeNames[3]}",
+          style: AppTextStyles.heading16,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+          "Nota Menor",
+          note1Alternativa4Criterio3,
+          _keyN1A4C3,
+              (val) => combine([
+                () => EntradaVazia(val),
+                () => EntradaForaDoRange(val),
+          ]),
+          TextInputType.number,
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+          "Nota Média",
+          note2Alternativa4Criterio3,
+          _keyN2A4C3,
+              (val) => combine([
+                () => EntradaVazia(val),
+                () => EntradaForaDoRange(val),
+          ]),
+          TextInputType.number,
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+          "Nota Maior",
+          note3Alternativa4Criterio3,
+          _keyN3A4C3,
+              (val) => combine([
+                () => EntradaVazia(val),
+                () => EntradaForaDoRange(val),
+          ]),
+          TextInputType.number,
+        ),
+
+        const SizedBox(
+          height: 25,
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        Text(
+          "Insira as notas da alternativa ${list.alternativeNames[4]}",
+          style: AppTextStyles.heading16,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+          "Nota Menor",
+          note1Alternativa5Criterio3,
+          _keyN1A5C3,
+              (val) => combine([
+                () => EntradaVazia(val),
+                () => EntradaForaDoRange(val),
+          ]),
+          TextInputType.number,
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+          "Nota Média",
+          note2Alternativa5Criterio3,
+          _keyN2A5C3,
+              (val) => combine([
+                () => EntradaVazia(val),
+                () => EntradaForaDoRange(val),
+          ]),
+          TextInputType.number,
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+          "Nota Maior",
+          note3Alternativa5Criterio3,
+          _keyN3A5C3,
+              (val) => combine([
+                () => EntradaVazia(val),
+                () => EntradaForaDoRange(val),
+          ]),
+          TextInputType.number,
+        ),
+
+        const SizedBox(
+          height: 25,
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        Text(
+          "Insira as notas da alternativa ${list.alternativeNames[5]}",
+          style: AppTextStyles.heading16,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+          "Nota Menor",
+          note1Alternativa6Criterio3,
+          _keyN1A6C3,
+              (val) => combine([
+                () => EntradaVazia(val),
+                () => EntradaForaDoRange(val),
+          ]),
+          TextInputType.number,
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+            "Nota Média",
+            note2Alternativa6Criterio3,
+            _keyN2A6C3,
+                (val) => combine([
+                  () => EntradaVazia(val),
+                  () => EntradaForaDoRange(val),
+            ]),
+            TextInputType.number),
+
+        const SizedBox(
+          height: 20,
+        ),
+
+        //TextFormField de 'nota1'
+        formularioPadrao(
+            "Nota Maior",
+            note3Alternativa6Criterio3,
+            _keyN3A6C3,
+                (val) => combine([
+                  () => EntradaVazia(val),
+                  () => EntradaForaDoRange(val),
+            ]),
             TextInputType.number),
 
         const SizedBox(
