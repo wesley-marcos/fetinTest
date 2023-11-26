@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hash_test/basic_templates/appColors.dart';
 import 'package:hash_test/components/alternatives.dart';
 import 'package:hash_test/components/criteria.dart';
+import 'package:hash_test/http/input.dart';
 import 'package:hash_test/screens/alternatives/alternatives_input.dart';
 import 'package:hash_test/screens/criterios/home.dart';
 import 'package:hash_test/screens/ranking.dart';
@@ -35,11 +36,12 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: AppColors.deepSkyBlue),
         useMaterial3: true,
       ),
+      //home: //InputAlternatives(),
       initialRoute: 'Alternativas',
       routes: {
         'Alternativas': (BuildContext context) => const InputAlternatives(),
         'Critérios': (BuildContext context) => const Home(),
-        'Ranking': (BuildContext context) => const Ranking(),
+        'Ranking': (BuildContext context) => Ranking(ranking: {},),
       },
     );
   }

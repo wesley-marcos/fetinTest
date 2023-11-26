@@ -7,13 +7,11 @@ import 'package:hash_test/components/buttonProximo.dart';
 import 'package:hash_test/components/criteria.dart';
 import 'package:hash_test/components/floatActionButton.dart';
 import 'package:hash_test/components/showDialog.dart';
-
-// import 'package:hash_test/screens/criterios/criterion1View.dart';
-// import 'package:hash_test/screens/criterios/criterion2View.dart';
-// import 'package:hash_test/screens/criterios/criterion3View.dart';
+import 'package:hash_test/http/input.dart';
 import 'package:hash_test/utils/validations_mixin.dart';
 import 'package:provider/provider.dart';
 import '../../basic_templates/appColors.dart';
+import '../../components/criterion.dart';
 import '../ranking.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -128,6 +126,9 @@ class _HomeState extends State<Home> with ValidationsMixin {
 
   int numberOfCriteria = 0;
 
+  late Map<String, dynamic> ranking;
+  var response;
+
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   bool showInstruction = true; // Variável para controlar a exibição da mensagem
@@ -216,24 +217,32 @@ class _HomeState extends State<Home> with ValidationsMixin {
                 wButtonProximo(
                   context,
                   "Aviso",
-                  "Adicione pelo menos 2 critérios antes de "
+                  "Adicione pelo menos 3 critérios antes de "
                       "prosseguir.",
-                  const Ranking(),
+                  Ranking(ranking: {},),
                   false,
-                  () {
+                  () async {
                     // Validar se há pelo menos 2 alternativas
                     if (Provider.of<Criteria>(context, listen: false)
                             .criteria
                             .length <
-                        2) {
+                        3) {
                       wShowDialog(
                           context,
                           "Aviso",
-                          "Adicione pelo menos 2 critérios antes de "
+                          "Adicione pelo menos 3 critérios antes de "
                               "prosseguir.");
                     } else {
-                      String jsonCriteria = list.toJson();
-                      print(jsonCriteria);
+                      var jsonCriteria = list.toJson();
+                      print('\n\nJsonCriteria = ${jsonCriteria}\n\n');
+                      print("{list.criteria.toString()}");
+                      for(Criterion v in list.criteria){
+                        print('${v}');
+                      }
+                      print('\n\nJsonCriteria = $list\n\n');
+                      response = await input(jsonCriteria);
+                      ranking = response as Map<String, dynamic>;
+                      print("Resposta input HTTP: ${ranking}");
 
                       _showLoadingDialog(
                           context); // Exibir o showDialog do loading
@@ -243,12 +252,24 @@ class _HomeState extends State<Home> with ValidationsMixin {
                         Navigator.pop(
                             context); // Fechar o showDialog do loading
 
-                        // Navegar para a próxima tela
+                        //Navegar para a próxima tela
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //       builder: (context) => Ranking(ranking: ranking)),
+                        // );
+
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const Ranking()),
+                              builder: (context) => Ranking(ranking: ranking,)),
                         );
+
+                        // Navigator.pushNamed(
+                        //   context,
+                        //   'Ranking',
+                        //   arguments: {'ranking': ranking},
+                        //);
                       });
                     }
                   },
@@ -361,6 +382,9 @@ class _HomeState extends State<Home> with ValidationsMixin {
 
     int index = 0;
     Criteria listCriteria = Provider.of<Criteria>(context, listen: false);
+
+
+    var response2;
 
     // Crie uma lista de controladores para as notas
     List<TextEditingController> noteControllers = [];
@@ -527,7 +551,6 @@ class _HomeState extends State<Home> with ValidationsMixin {
                         if (_keyNome.currentState!.validate() &&
                             _keyPeso.currentState!.validate()) {
                           List<Alternative> alternatives = [];
-                          print("Aqui entrouu");
                           print("$numberOfCriteria");
 
                           bool notasValidas = true;
@@ -774,11 +797,11 @@ class _HomeState extends State<Home> with ValidationsMixin {
                               );
                             }
 
-                            if (noteAlt5C2.isNotEmpty) {
+                            if (noteAlt6C2.isNotEmpty) {
                               alternatives.add(
                                 Alternative(
                                   name: listCriteria.alternativeNames[5],
-                                  note: noteAlt5C2,
+                                  note: noteAlt6C2,
                                 ),
                               );
                             }
@@ -905,228 +928,9 @@ class _HomeState extends State<Home> with ValidationsMixin {
                             }
                           }
 
-                          // for(Alternative alt in alternatives){
-                          //   print('Nome: ${alt.name}');
-                          //   print('Nota: ${alt.note}');
-                          // }
-                          //listMap.add(notasMap.g);
-                          //listMap.add(notasMap["nota2"]);
-
-                          //listMap.add(notasMap.("nota1"));
-                          //notasMap.putIfAbsent("notas", () => notas);
-                          //notasMap.putIfAbsent("boletos", () => notas);
-
-                          //print("Array 'Notas': $notas");
-
-                          // for(int i = 0; i < listCriteria.alternativeNames.length; i++){
-                          //   if (notas.isNotEmpty) {
-                          //     final notaValue = int.tryParse(notas[i]);
-                          //
-                          //     if (notaValue != null &&
-                          //         notaValue >= 1 &&
-                          //         notaValue <= 10) {
-                          //       alternatives.add(
-                          //         Alternative(
-                          //           name: listCriteria.alternativeNames[i],
-                          //           note: notaValue,
-                          //         ),
-                          //       );
-                          //     }
-                          //   }
-                          // }
-
-                          // print("Map 'Notas': $listMap");
-                          // print("NomeC1: $nomeCriterio1\n"
-                          //     "PesoC1: $pesoCriteerio1\n"
-                          //     "NomeC2: $nomeCriterio2\n"
-                          //     "PesoC2: $pesoCriteerio2\n"
-                          //     "NomeC3: $nomeCriterio3\n"
-                          //     "PesoC3: $pesoCriteerio3\n");
-                          //
-                          // print("NotasAlt1: ${noteAlt1C1}");
-                          // print("NotasAlt2: ${noteAlt2C1}");
-                          // print("NotasAlt3: ${noteAlt3C1}");
-                          // print("NotasAlt4: ${noteAlt4C1}");
-                          // print("NotasAlt5: ${noteAlt5C1}");
-                          // print("NotasAlt6: ${noteAlt6C1}");
-
-                          // if (noteAlt1C1[numberOfCriteria].isNotEmpty) {
-                          //   final notaValue = noteAlt1C1[numberOfCriteria];
-                          //
-                          //   if (notaValue != null) {
-                          //     alternatives.add(
-                          //       Alternative(
-                          //         name: listCriteria.alternativeNames[0],
-                          //         note: noteAlt1C1,
-                          //       ),
-                          //     );
-                          //   }
-                          // }
-                          //
-                          // if (noteAlt2C1[numberOfCriteria].isNotEmpty) {
-                          //   final notaValue = noteAlt2C1[numberOfCriteria];
-                          //
-                          //   if (notaValue != null) {
-                          //     alternatives.add(
-                          //       Alternative(
-                          //         name: listCriteria.alternativeNames[1],
-                          //         note: noteAlt2C1,
-                          //       ),
-                          //     );
-                          //   }
-                          // }
-                          //
-                          // if (noteAlt3C1[numberOfCriteria].isNotEmpty) {
-                          //   final notaValue = noteAlt3C1[numberOfCriteria];
-                          //
-                          //   if (notaValue != null) {
-                          //     alternatives.add(
-                          //       Alternative(
-                          //         name: listCriteria.alternativeNames[2],
-                          //         note: noteAlt3C1,
-                          //       ),
-                          //     );
-                          //   }
-                          // }
-                          //
-                          // if (noteAlt4C1[numberOfCriteria].isNotEmpty) {
-                          //   final notaValue = noteAlt4C1[numberOfCriteria];
-                          //
-                          //   if (notaValue != null) {
-                          //     alternatives.add(
-                          //       Alternative(
-                          //         name: listCriteria.alternativeNames[3],
-                          //         note: noteAlt4C1,
-                          //       ),
-                          //     );
-                          //   }
-                          // }
-                          //
-                          // if (noteAlt5C1[numberOfCriteria].isNotEmpty) {
-                          //   final notaValue = noteAlt5C1[numberOfCriteria];
-                          //
-                          //   if (notaValue != null) {
-                          //     alternatives.add(
-                          //       Alternative(
-                          //         name: listCriteria.alternativeNames[4],
-                          //         note: noteAlt5C1,
-                          //       ),
-                          //     );
-                          //   }
-                          // }
-                          //
-                          // if (noteAlt6C1[numberOfCriteria].isNotEmpty) {
-                          //   final notaValue = noteAlt6C1[numberOfCriteria];
-                          //
-                          //   if (notaValue != null) {
-                          //     alternatives.add(
-                          //       Alternative(
-                          //         name: listCriteria.alternativeNames[5],
-                          //         note: noteAlt6C1,
-                          //       ),
-                          //     );
-                          //   }
-                          // }
-
-                          // for (int i = 0; i < 2; i++) {
-                          //   //final notaValue =
-                          //
-                          //   // if (notas[i].isNotEmpty) {
-                          //   //
-                          //   //   print("Antes final");
-                          //   //   final notaValue = int.tryParse(notas[i]);
-                          //   //   print("Depois final");
-                          //   //   // if (notaValue != null &&
-                          //   //   //     notaValue >= 1 &&
-                          //   //   //     notaValue <= 10) {
-                          //   //     if(notaValue != null){
-                          //   //     alternatives.add(
-                          //   //       Alternative(
-                          //   //         name: listCriteria.alternativeNames[i],
-                          //   //         note: noteAlt1,
-                          //   //       ),
-                          //   //     );
-                          //   //     print("Adicionou");
-                          //   //     alternatives.add(
-                          //   //       Alternative(
-                          //   //         name: listCriteria.alternativeNames[i],
-                          //   //         note: noteAlt2,
-                          //   //       ),
-                          //   //     );
-                          //   //
-                          //   //     alternatives.add(
-                          //   //       Alternative(
-                          //   //         name: listCriteria.alternativeNames[i],
-                          //   //         note: noteAlt3,
-                          //   //       ),
-                          //   //     );
-                          //   //
-                          //   //     alternatives.add(
-                          //   //       Alternative(
-                          //   //         name: listCriteria.alternativeNames[i],
-                          //   //         note: noteAlt4,
-                          //   //       ),
-                          //   //     );
-                          //   //
-                          //   //     alternatives.add(
-                          //   //       Alternative(
-                          //   //         name: listCriteria.alternativeNames[i],
-                          //   //         note: noteAlt5,
-                          //   //       ),
-                          //   //     );
-                          //   //
-                          //   //     alternatives.add(
-                          //   //       Alternative(
-                          //   //         name: listCriteria.alternativeNames[i],
-                          //   //         note: noteAlt6,
-                          //   //       ),
-                          //   //     );
-                          //   //
-                          //   //   } else {
-                          //   //     notasValidas = false;
-                          //   //     break;
-                          //   //   }
-                          //   //
-                          //   // } else {
-                          //   //   notasValidas = false;
-                          //   // }
-                          //
-                          //   if (noteAlt1[numberOfCriteria].isNotEmpty) {
-                          //     final notaValue = noteAlt1[numberOfCriteria];
-                          //
-                          //     if (notaValue != null) {
-                          //       alternatives.add(
-                          //         Alternative(
-                          //           name: listCriteria.alternativeNames[i],
-                          //           note: noteAlt1,
-                          //         ),
-                          //       );
-                          //     }
-                          //   }
-                          //
-                          //   if (noteAlt2[numberOfCriteria].isNotEmpty) {
-                          //     final notaValue = noteAlt2[numberOfCriteria];
-                          //
-                          //     if (notaValue != null) {
-                          //       alternatives.add(
-                          //         Alternative(
-                          //           name: listCriteria.alternativeNames[i],
-                          //           note: noteAlt2,
-                          //         ),
-                          //       );
-                          //     }
-                          //   }
-                          // }
-
                           print(
                               'Tamanho da lista alternative: ${alternatives.length}');
 
-                          for (Alternative alt in alternatives) {
-                            print(
-                                '================ Alternatives ================');
-                            print('Name: ${alt.name}');
-                            print('Note: ${alt.note}');
-                          }
 
                           if (notasValidas) {
                             list.add(
@@ -1135,6 +939,9 @@ class _HomeState extends State<Home> with ValidationsMixin {
                               alternatives,
                             );
 
+
+                            //print("Resposta HTTP do curso: ${response2}");
+
                             setState(() {
                               showInstruction = false;
                             });
@@ -1142,7 +949,6 @@ class _HomeState extends State<Home> with ValidationsMixin {
                             Navigator.pop(context);
                           }
 
-                          print("List: ${listCriteria.toJson()}");
                         }
                         increment();
                       },
